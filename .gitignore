@@ -19,6 +19,12 @@
 .DS_Store
 .env*
 
+# NVM config file
+.nvmrc
+
+# server app
+/server
+
 # debug
 npm-debug.log*
 yarn-debug.log*
