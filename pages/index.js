@@ -1,21 +1,12 @@
-import Head from 'next/head'
+import React from "react";
+import Title01 from "../components/Title01";
+
+import './style.scss';
+
 
 const Home = () => (
   <div className="container">
-    <Head>
-      <title>Template of Next App</title>
-      <link rel="icon" href="/favicon.ico" />
-    </Head>
-
-    <main>
-      <h1 className="title">
-        Welcome to site!
-      </h1>
-
-      <p className="description">
-        A little later here will be a cool site
-      </p>
-    </main>
+    <Title01 />
   </div>
 );
 
