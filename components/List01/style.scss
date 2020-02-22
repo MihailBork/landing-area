@@ -1,0 +1,74 @@
+@import 'public/styles/colors';
+
+.List01 {
+  padding: 3rem 0;
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  background-color: #FEDDFF;
+  box-sizing: border-box;
+  font-family: Arial, serif;
+  // background: url('/bg-list01.png') center repeat;
+
+  &__title {
+    padding-bottom: 2rem;
+
+    h1 {
+      text-align: center;
+      padding: 1rem;
+      font-size: 2rem;
+      text-transform: uppercase;
+    }
+  }
+
+  &__items {
+    max-width: 80%;
+
+    @media (max-width: 400px) {
+      max-width: 90%;
+    }
+    &-row {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: flex-start;
+      padding-bottom: 2rem;
+      &-mark {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        min-width: 3rem;
+        width: 3rem;
+        height: 3rem;
+        border-radius: 1.5rem;
+        box-sizing: border-box;
+        border-style: solid;
+        border-color: #000;
+        border-width: 1.5rem;
+        overflow: hidden;
+        transition: all 1s ease;
+
+        &.showed {
+          border-width: 0.2rem;
+        }
+
+
+        &-checked {
+          width: 70%;
+          height: 70%;
+          background: url('/correct.png') center no-repeat;
+          background-size: cover;
+        }
+      }
+      &-text {
+        max-width: calc(100% - 3rem);
+        margin-left: 1rem;
+        font-size: 1.5rem;
+      }
+    }
+  }
+}

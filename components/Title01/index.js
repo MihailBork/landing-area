@@ -73,7 +73,7 @@ const Title01 = () => {
         translateProps[axis] = isWaitAnimation ? translateValue : 0;
         return translateProps;
     };
-    console.log(isPortrait);
+
     return (
         <div className={b()}>
             <div className={b(`title`)}>
