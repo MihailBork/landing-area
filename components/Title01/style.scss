@@ -1,5 +1,8 @@
+@import 'public/styles/colors';
+
 .Title01 {
   width: 100%;
+  min-height: 500px;
   height: 100vh;
   padding: 10% 0;
   display: flex;
@@ -93,7 +96,7 @@
         }
 
         &-row {
-          background-color: #ff00ff;
+          background-color: $purpleColor;
           background-size: cover;
         }
       }
