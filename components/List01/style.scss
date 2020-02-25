@@ -1,26 +1,17 @@
 @import 'public/styles/colors';
 
 .List01 {
-  padding: 3rem 0;
-  width: 100%;
   height: auto;
-  display: flex;
-  flex-direction: column;
   align-items: center;
   justify-content: flex-start;
   background-color: $minorPrimaryColor;
   color: $secondaryFontColor;
-  box-sizing: border-box;
-  font-family: Arial, serif;
-  // background: url('/bg-list01.png') center repeat;
 
   &__title {
+    text-align: center;
     padding-bottom: 2rem;
 
     h1 {
-      text-align: center;
-      padding: 1rem;
-      font-size: 2rem;
       text-transform: uppercase;
     }
   }

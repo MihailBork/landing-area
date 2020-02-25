@@ -4,6 +4,7 @@ import _ from 'lodash';
 import {motion} from 'framer-motion';
 
 import './style.scss';
+import cn from "classnames";
 
 const titles = {
     left: [`18 февраля`, `Айта Лузгина`, `Курс`],
@@ -75,7 +76,7 @@ const Title01 = () => {
     };
 
     return (
-        <div className={b()}>
+        <div className={cn(b(), `ComponentWrapper`)}>
             <div className={b(`title`)}>
                 <h1>Курс по стратегиям продвижения</h1>
                 <h2>Стратегии, работа с негативом и еще куча всего</h2>

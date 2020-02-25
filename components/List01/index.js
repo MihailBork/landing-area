@@ -70,7 +70,7 @@ const Mark = ({ position }) => {
 
 const List01 = () => {
     return (
-        <div className={b()}>
+        <div className={cn(b(), `ComponentWrapper`)}>
             <div className={b(`title`)}>
                 <h1>Что вы получите после курсов?</h1>
             </div>
