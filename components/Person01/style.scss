@@ -1,0 +1,150 @@
+@import 'public/styles/colors';
+
+.Person01 {
+  position: relative;
+  height: auto;
+  align-items: center;
+  background: linear-gradient(to right, $primaryColor, $minorPrimaryColor);
+  background-size: 200% 100%;
+  color: $blackColor;
+  transition: all 2s ease;
+  background-position: 0% 50%;
+  overflow: hidden;
+  padding-bottom: 0 !important;
+
+  &.visible {
+    background-position: 100% 50%;
+  }
+
+  &__title {
+    text-align: center;
+    padding-bottom: 2rem;
+
+    h1 {
+      color: $primaryFontColor;
+      text-transform: uppercase;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    justify-content: center;
+    width: 100%;
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+    &-image {
+      display: block;
+      position: relative;
+      left: 0;
+      width: 40%;
+      transition: all 2s ease;
+      overflow: hidden;
+
+      @media (max-width: 600px) {
+        transition: all 1s ease;
+        width: 300px;
+        left: -90%;
+        align-self: center;
+      }
+      &.visible {
+        left: 30%;
+        @media (max-width: 600px) {
+          left: 0;
+        }
+      }
+
+
+    }
+
+    &-info {
+      position: absolute;
+      width: 60%;
+      height: 100%;
+      padding: 0 2rem;
+      box-sizing: border-box;
+      left: 0;
+      display: flex;
+      flex-direction: column;
+      align-items: flex-start;
+      justify-content: center;
+      transition: all 2s ease;
+
+      @for $i from 1 through 3 {
+        & .row:nth-child(#{$i}) {
+          transition-delay: #{2 + (0.1 * $i)}s;
+        }
+      }
+
+      @media (max-width: 600px) {
+        position: unset;
+        width: 100%;
+        padding: 0;
+
+        @for $i from 1 through 3 {
+          & .row:nth-child(#{$i}) {
+            transition-delay: #{1 + (0.1 * $i)}s;
+          }
+        }
+      }
+
+
+
+      & .row {
+        width: auto;
+        opacity: 0;
+        transform: translateY(-1rem);
+        transition-duration: 0.2s;
+        transition-timing-function: ease-in-out;
+        box-sizing: border-box;
+        @media (max-width: 600px) {
+          width: 100%;
+          text-align: center;
+        }
+      }
+
+
+      .visible & {
+        &-name {
+          opacity: 1;
+          transform: translateY(0rem);
+        }
+        &-company {
+          opacity: 1;
+          transform: translateY(0rem);
+        }
+        &-description {
+          opacity: 1;
+          transform: translateY(0rem);
+        }
+      }
+
+      &-name {
+        font-size: 2.4rem;
+        padding: 0 1rem;
+        text-transform: uppercase;
+        background-color: $secondaryColor;
+      }
+
+      &-company {
+        margin-top: 1rem;
+        font-size: 2rem;
+        padding: 0 1rem;
+        text-transform: uppercase;
+        background-color: $secondaryColor;
+      }
+
+      &-description {
+        margin-top: 1rem;
+        font-size: 1rem;
+
+        @media (max-width: 600px) {
+          padding: 0 1rem 4rem 1rem;
+        }
+      }
+
+    }
+  }
+}
