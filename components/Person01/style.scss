@@ -28,7 +28,7 @@
 
   &__content {
     display: flex;
-    flex-direction: row;
+    flex-direction: row-reverse;
     align-items: flex-start;
     justify-content: center;
     width: 100%;
@@ -36,9 +36,7 @@
       flex-direction: column;
     }
     &-image {
-      display: block;
-      position: relative;
-      left: 0;
+      left: -30%;
       width: 40%;
       transition: all 2s ease;
       overflow: hidden;
@@ -50,17 +48,11 @@
         align-self: center;
       }
       &.visible {
-        left: 30%;
-        @media (max-width: 600px) {
-          left: 0;
-        }
+        left: 0;
       }
-
-
     }
 
     &-info {
-      position: absolute;
       width: 60%;
       height: 100%;
       padding: 0 2rem;
@@ -68,8 +60,9 @@
       left: 0;
       display: flex;
       flex-direction: column;
+
+      padding-top: 6rem;
       align-items: flex-start;
-      justify-content: center;
       transition: all 2s ease;
 
       @for $i from 1 through 3 {
