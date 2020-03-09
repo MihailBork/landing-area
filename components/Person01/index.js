@@ -3,13 +3,14 @@ import b_ from 'b_';
 import cn from 'classnames';
 
 import VisibilitySensor from 'react-visibility-sensor';
+import HtmlParser from 'react-html-parser';
 
 import './style.scss';
 
 const info = {
     name: `Айта Лузгина`,
-    company: `Интериум`,
-    description: `Разнообразный и богатый опыт постоянное информационно-пропагандистское обеспечение нашей деятельности в значительной степени обуславливает создание систем массового участия.`,
+    company: `Проектный директор digital-агентства «Интериум»`,
+    description: `<strong>Опыт</strong> с 2010 года руководила более чем 50 проектами в области коммуникаций и связей с общественностью.<br/><br/><strong>Клиенты</strong> ОАО «Савушкин продукт», Аэрофлот, ГК Автодор, Москомархитектура, Splat, Росатом, Росэнергоатом, Государственная дума, Агрохолдинг Московский, РАНХиГС, Ростех, ЗАО «Аквалайн», Зимняя универсиада-2019, Сентисс и др.<br/><br/>Автор серии мастер-классов о коммуникациях в социальных сетях. Спикер лекций и обучающих вебинаров, автор экспертных статей о digital.`,
 };
 
 export const b = b_.lock(`Person01`);
@@ -26,16 +27,16 @@ const Person01 = () => {
             <div className={b(`title`)}>
                 <h1>Кто проводит курс?</h1>
             </div>
-            <div className={b(`content`)}>
-                <VisibilitySensor onChange={onVisibilityChange} partialVisibility={true} minTopValue={250}>
+            <VisibilitySensor onChange={onVisibilityChange} partialVisibility={true}>
+                <div className={b(`content`)}>
                     <img className={cn(b(`content-image`), {visible: isShowed})} src={`images/Person01/photo.png`}/>
-                </VisibilitySensor>
-                <div className={cn(b(`content-info`), {visible: isShowed})}>
-                    <div className={cn(b(`content-info-name`), `row`)}>{info.name}</div>
-                    <div className={cn(b(`content-info-company`), `row`)}>{info.company}</div>
-                    <div className={cn(b(`content-info-description`), `row`)}>{info.description}</div>
+                    <div className={cn(b(`content-info`), {visible: isShowed})}>
+                        <div className={cn(b(`content-info-name`), `row`)}>{info.name}</div>
+                        <div className={cn(b(`content-info-company`), `row`)}>{info.company}</div>
+                        <div className={cn(b(`content-info-description`), `row`)}>{HtmlParser(info.description)}</div>
+                    </div>
                 </div>
-            </div>
+            </VisibilitySensor>
         </div>
     )
 };

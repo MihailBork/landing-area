@@ -1,6 +1,7 @@
 import React, {useState, useEffect} from "react";
 import b_ from 'b_';
 import _ from 'lodash';
+import {Link} from 'react-scroll';
 import {motion} from 'framer-motion';
 
 import './style.scss';
@@ -30,7 +31,7 @@ const MOVE_VALUE = 20;
 
 export const b = b_.lock(`Title01`);
 
-const Title01 = () => {
+const Title01 = ({isScrolled}) => {
     const [count, setCount] = useState(0);
     const [isWaitAnimation, setIsWaitAnimation] = useState(false);
     const isPortrait = process.browser ? window.matchMedia("(orientation: portrait)").matches : false;
@@ -78,9 +79,15 @@ const Title01 = () => {
     return (
         <div className={cn(b(), `ComponentWrapper`)}>
             <div className={b(`title`)}>
-                <h1>Курс по стратегиям продвижения</h1>
-                <h2>Стратегии, работа с негативом и еще куча всего</h2>
+                <h1>Курсы по Digital</h1>
+                <h2>С дипломом государственного образца</h2>
             </div>
+            <Link to="about" spy={true} smooth={true} duration={1000}>
+                <div className={cn(b('about'), {scrolled: isScrolled})}>Подробнее</div>
+            </Link>
+            <Link to="register" spy={true} smooth={true} duration={1000}>
+                <div className={cn(b('register'), {scrolled: isScrolled})}>Регистрация</div>
+            </Link>
             <div className={b(`text-slider`)}>
                 <div className={b(`text-slider-left`)}>
                     <div className={b(`text-slider-left-container`)}>

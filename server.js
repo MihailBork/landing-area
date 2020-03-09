@@ -1,5 +1,7 @@
 const express = require("express");
 const next = require("next");
+const { createProxyMiddleware } = require('http-proxy-middleware');
+
 require('dotenv').config();
 
 const port = parseInt(process.env.PORT, 10) || 3000;
@@ -9,6 +11,7 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
     const server = express();
+    server.use('/api', createProxyMiddleware({ target: 'http://localhost:3001', changeOrigin: true }));
 
     server.get("*", (req, res) => {
         return handle(req, res);

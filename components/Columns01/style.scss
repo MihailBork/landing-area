@@ -1,0 +1,82 @@
+@import 'public/styles/colors';
+
+.Columns01 {
+  height: auto;
+  background-color: $primaryFontColor;
+  color: $blackColor;
+
+  &__title {
+    text-align: center;
+    padding-bottom: 2rem;
+
+    h1 {
+      text-transform: uppercase;
+    }
+  }
+
+  &__items {
+    display: flex;
+    flex-direction: row;
+    align-items: stretch;
+    justify-content: center;
+    flex-wrap: nowrap;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+      align-items: center;
+    }
+
+    &-row {
+      box-sizing: border-box;
+      background-color: $secondaryColor;
+      width: 50%;
+      margin: 2rem;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      border-radius: 0.5rem;
+      border: 0.1rem solid $blackColor;
+
+      @media (max-width: 600px) {
+        width: 90%;
+        margin: 1rem;
+      }
+
+
+      &-id, &-title, &-subtitle, &-description {
+        box-sizing: border-box;
+        padding: 0 1rem;
+      }
+
+      &-id, &-subtitle {
+        margin-bottom: 1rem;
+      }
+
+      &-title, &-subtitle {
+        width: 100%;
+        text-align: center;
+        background-color: $primaryColor;
+      }
+
+      &-id {
+        text-transform: uppercase;
+        padding: 0.2rem 1rem;
+        border-radius: 0 0 0.5rem 0.5rem;
+        background-color: $blackColor;
+        color: $primaryFontColor;
+      }
+
+      &-title {
+        font-weight: 700;
+        padding-top: 0.7rem;
+      }
+
+      &-subtitle {
+        padding-bottom: 0.5rem;
+      }
+      &-description {
+        padding-bottom: 1rem;
+      }
+    }
+  }
+}

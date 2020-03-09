@@ -11,8 +11,8 @@ const features = [
     {
         description: [
             {
-                number: 5,
-                text: `недель обучения`,
+                number: 1,
+                text: `месяц обучения`,
             }
         ],
         icon: `calendar`
@@ -20,12 +20,8 @@ const features = [
     {
         description: [
             {
-                number: 13600,
-                text: `по предоплате`,
-            },
-            {
-                number: 17000,
-                text: `в день старта`,
+                number: 30000,
+                text: `рублей`,
             }
         ],
         icon: `ruble`
@@ -33,11 +29,7 @@ const features = [
     {
         description: [
             {
-                number: 45,
-                text: `часов теории`,
-            },
-            {
-                number: 10,
+                number: 50,
                 text: `часов практики`,
             }
         ],
