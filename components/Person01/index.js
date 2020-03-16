@@ -1,6 +1,7 @@
 import React, {useState} from "react";
 import b_ from 'b_';
 import cn from 'classnames';
+import {Element} from 'react-scroll';
 
 import VisibilitySensor from 'react-visibility-sensor';
 import HtmlParser from 'react-html-parser';
@@ -22,22 +23,24 @@ const Person01 = () => {
         setShowedState(true);
     };
     return (
-
-        <div className={cn(b(), `ComponentWrapper`, {visible: isShowed})}>
-            <div className={b(`title`)}>
-                <h1>Кто проводит курс?</h1>
-            </div>
-            <VisibilitySensor onChange={onVisibilityChange} partialVisibility={true}>
-                <div className={b(`content`)}>
-                    <img className={cn(b(`content-image`), {visible: isShowed})} src={`images/Person01/photo.png`}/>
-                    <div className={cn(b(`content-info`), {visible: isShowed})}>
-                        <div className={cn(b(`content-info-name`), `row`)}>{info.name}</div>
-                        <div className={cn(b(`content-info-company`), `row`)}>{info.company}</div>
-                        <div className={cn(b(`content-info-description`), `row`)}>{HtmlParser(info.description)}</div>
-                    </div>
+        <Element name="speaker">
+            <div className={cn(b(), `ComponentWrapper`, {visible: isShowed})}>
+                <div className={b(`title`)}>
+                    <h1>Кто проводит курс?</h1>
                 </div>
-            </VisibilitySensor>
-        </div>
+                <VisibilitySensor onChange={onVisibilityChange} partialVisibility={true}>
+                    <div className={b(`content`)}>
+                        <img className={cn(b(`content-image`), {visible: isShowed})} src={`images/Person01/photo.png`}/>
+                        <div className={cn(b(`content-info`), {visible: isShowed})}>
+                            <div className={cn(b(`content-info-name`), `row`)}>{info.name}</div>
+                            <div className={cn(b(`content-info-company`), `row`)}>{info.company}</div>
+                            <div
+                                className={cn(b(`content-info-description`), `row`)}>{HtmlParser(info.description)}</div>
+                        </div>
+                    </div>
+                </VisibilitySensor>
+            </div>
+        </Element>
     )
 };
 

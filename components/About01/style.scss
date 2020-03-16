@@ -25,6 +25,14 @@
       flex-direction: column;
     }
 
+    &-image {
+      max-width: 25%;
+
+      @media (max-width: 600px) {
+        max-width: 50%;
+      }
+    }
+
     &-description {
       padding: 1rem;
       box-sizing: border-box;

@@ -18,7 +18,7 @@ const About01 = () => {
                 <h1>{info.title}</h1>
             </div>
             <div className={b(`content`)}>
-                <img className={b(`content-image`)} src={`/images/About01/logo.jpg`}/>
+                <img className={b(`content-image`)} src={`/images/About01/logo.png`}/>
                 <div className={b(`content-description`)}>
                     {info.description}
                 </div>

@@ -4,6 +4,7 @@
   height: auto;
   background-color: $primaryFontColor;
   color: $blackColor;
+  padding-top: 0 !important;
 
   &__title {
     text-align: center;
@@ -76,6 +77,40 @@
       }
       &-description {
         padding-bottom: 1rem;
+      }
+      &-steps {
+        text-align: center;
+        ul {
+          display: flex;
+          flex-direction: column;
+          flex-wrap: wrap;
+          align-items: center;
+        }
+        li {
+          position: relative;
+          background-color: $whiteColor;
+          margin-bottom: 1rem;
+          padding: 0.5rem;
+          border-radius: 0.5rem;
+          box-sizing: border-box;
+          &:after {
+            content: '';
+            display: block;
+            height: 1rem;
+            margin-top: -1px;
+            position: absolute;
+            top: 100%;
+            width: 100%;
+            left: 0;
+            background: url('/images/Columns01/down-arrow.svg') top no-repeat;
+            background-size: contain;
+          }
+        }
+        li:last-child {
+          &:after {
+            display: none;
+          }
+        }
       }
     }
   }

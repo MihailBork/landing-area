@@ -11,6 +11,13 @@ html {
   font-family: Arial, serif;
 }
 
+ul, li {
+  margin: 0;
+  padding: 0;
+  text-indent: 0;
+  list-style-type: none;
+}
+
 .ComponentWrapper {
   padding: 4rem 0;
   width: 100%;
