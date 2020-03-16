@@ -3,15 +3,18 @@
 .Title01 {
   min-height: 350px;
   height: 100vh;
-  padding: 15% 0 !important;
   box-sizing: border-box;
-  align-items: center;
-  justify-content: space-around;
   background-color: $blackColor;
   background: url('/images/Title01/bg-main.jpg') no-repeat;
   background-size: cover;
 
   &__title {
+    position: absolute;
+    box-sizing: border-box;
+    width: 100%;
+    left: 0;
+    bottom: 50%;
+    margin-bottom: 1rem;
     text-transform: uppercase;
     padding: 0 20px;
     height: auto;
@@ -58,11 +61,16 @@
 
 
   &__text-slider {
+    position: absolute;
+    width: 100%;
+    left: 0;
+    top: 50%;
+    margin-top: 1rem;
     display: flex;
     flex-direction: row;
     justify-content: center;
 
-    @media (orientation: portrait) {
+    &.portrait {
       flex-direction: column;
     }
 
