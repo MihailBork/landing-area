@@ -34,7 +34,7 @@ export const b = b_.lock(`Title01`);
 const Title01 = ({isScrolled}) => {
     const [count, setCount] = useState(0);
     const [isWaitAnimation, setIsWaitAnimation] = useState(false);
-    const isPortrait = process.browser ? window.matchMedia("(orientation: portrait)").matches : false;
+    const isPortrait = process.browser ? window.innerWidth < window.innerHeight : false;
     useEffect(() => {
         const timer = setTimeout(() => {
             setIsWaitAnimation(true);
@@ -88,7 +88,7 @@ const Title01 = ({isScrolled}) => {
             <Link to="register" spy={true} smooth={true} duration={1000}>
                 <div className={cn(b('register'), {scrolled: isScrolled})}>Регистрация</div>
             </Link>
-            <div className={b(`text-slider`)}>
+            <div className={cn(b(`text-slider`), {portrait: isPortrait})}>
                 <div className={b(`text-slider-left`)}>
                     <div className={b(`text-slider-left-container`)}>
                         <motion.div

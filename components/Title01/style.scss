@@ -97,7 +97,7 @@
         }
       }
 
-      @media (orientation: portrait) {
+      .portrait & {
         width: 100%;
         height: auto;
       }
