@@ -1,4 +1,5 @@
 import React, {useState, useEffect} from "react";
+import Head from 'next/head';
 import Title01 from "../components/Title01";
 import List01 from "../components/List01";
 import Features01 from "../components/Features01";
@@ -38,6 +39,10 @@ const Home = () => {
 
     return (
         <div className="container">
+            <Head>
+                <title>Курсы по Digital от Айты Лузгиной (Интериум)</title>
+                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+            </Head>
             <Menu01 isScrolled={isScrolled}/>
             <Title01 isScrolled={isScrolled}/>
             <Features02/>
