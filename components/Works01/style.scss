@@ -1,0 +1,24 @@
+@import 'public/styles/colors';
+
+.Works01 {
+  height: auto;
+  background: url('/images/Works01/paper.jpg');
+
+  &__title {
+    line-height: 60px;
+    font-size: 50px;
+    font-weight: 700;
+    text-align: center;
+    padding: 30px 0;
+  }
+
+  &__works {
+    &-row {
+      line-height: 20px;
+      margin-bottom: 20px;
+      padding-left: 10px;
+      font-style: italic;
+      text-decoration: underline;
+    }
+  }
+}
