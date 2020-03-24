@@ -51,6 +51,11 @@ $dualBorderWidth: 4px;
       }
 
       &-row {
+        position: absolute;
+        display: inline-block;
+        box-sizing: border-box;
+        width: 50%;
+        height: 50%;
         font-size: 20px !important;
         font-weight: 700;
         text-transform: uppercase;
@@ -60,16 +65,6 @@ $dualBorderWidth: 4px;
         @media (max-width: 800px) {
           font-size: 10px;
         }
-      }
-
-      &-row {
-        position: absolute;
-        display: inline-block;
-        box-sizing: border-box;
-        width: 50%;
-        height: 50%;
-        //border-style: solid;
-        //border-color: #000;
 
         &:hover {
           background-color: #fff !important;
@@ -102,8 +97,6 @@ $dualBorderWidth: 4px;
             width: 100%;
             text-align: center;
             border-radius: 20px;
-            margin: 20px 0;
-            line-height: 30px;
             font-size: 20px;
             left: unset !important;
             right: unset !important;
@@ -116,7 +109,6 @@ $dualBorderWidth: 4px;
           left: 0;
           top: 0;
           background-color: #b1b1b1;
-          //border-width: $dualBorderWidth $borderWidth $borderWidth $dualBorderWidth;
 
           span {
             left: 50px;
@@ -133,7 +125,6 @@ $dualBorderWidth: 4px;
           left: 50%;
           top: 0;
           background-color: #d8d8d8;
-          //border-width: $dualBorderWidth $dualBorderWidth $borderWidth $borderWidth;
 
           span {
             right: 50px;
@@ -150,7 +141,6 @@ $dualBorderWidth: 4px;
           left: 0;
           top: 50%;
           background-color: #d8d8d8;
-          //border-width: $borderWidth $borderWidth $dualBorderWidth $dualBorderWidth;
 
           span {
             left: 50px;
@@ -167,7 +157,6 @@ $dualBorderWidth: 4px;
           left: 50%;
           top: 50%;
           background-color: #b1b1b1;
-          //border-width: $borderWidth $dualBorderWidth $dualBorderWidth $borderWidth;
 
           span {
             right: 50px;
@@ -198,7 +187,6 @@ $dualBorderWidth: 4px;
       cursor: pointer;
       visibility: hidden;
       opacity: 0;
-      transition: none;
       transition: all $animationDuration ease;
       z-index: 3;
 

@@ -10,15 +10,15 @@ const imagePrefix = `/images/Gallery01/`;
 
 const albums = [
     {
-        name: `Школьная линейка 2017 год`,
+        name: `Фотогалерея №1`,
         photos: [`001.jpg`, `002.jpg`, `003.jpg`, `004.jpg`, `005.jpg`, `006.jpg`, `007.jpg`, `008.jpg`, `009.jpg`],
     },
     {
-        name: `Последний звонок 2018 год`,
+        name: `Фотогалерея №2`,
         photos: [`003.jpg`, `004.jpg`, `005.jpg`, `006.jpg`, `007.jpg`, `008.jpg`, `009.jpg`],
     },
     {
-        name: `Выпускной 2019 год`,
+        name: `Фотогалерея №3`,
         photos: [`005.jpg`, `006.jpg`, `007.jpg`, `008.jpg`, `009.jpg`],
     }
 ];
