@@ -1,6 +1,6 @@
 import React, {useState, useEffect} from "react";
 import Head from 'next/head';
-import Title02 from "../../components/Title02";
+import Title03 from "../../components/Title03";
 import Gallery01 from "../../components/Gallery01";
 import Works01 from "../../components/Works01";
 
@@ -35,7 +35,7 @@ const Home = () => {
                 <title>Котельниково - земля героев</title>
                 <meta name="viewport" content="initial-scale=1.0, width=device-width" />
             </Head>
-            <Title02/>
+            <Title03/>
             <Gallery01/>
             <Works01/>
         </div>
