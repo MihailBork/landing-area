@@ -1,0 +1,106 @@
+@import 'public/styles/colors';
+
+.Video01 {
+  width: 100%;
+  height: auto;
+  overflow: hidden;
+  margin: 50px auto;
+
+  &__list {
+    position: relative;
+    transition: all 0.5s ease;
+    width: 100%;
+    &-controls {
+      &.hidden {
+        display: none;
+      }
+      &-scrollLeft, &-scrollRight {
+        position: absolute;
+        width: 50px;
+        height: 135px;
+        bottom: 0;
+        background-color: #ffffff50;
+        z-index: 3;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        cursor: pointer;
+        &:hover {
+          background-color: #ffffff80;
+        }
+        &-icon {
+          width: 20px;
+          height: 20px;
+        }
+      }
+      &-scrollLeft {
+        left: 0;
+        &-icon {
+          background: url('/icons/back.svg') center no-repeat;
+          background-size: contain;
+        }
+      }
+      &-scrollRight {
+        right: 0;
+        &-icon {
+          background: url('/icons/next.svg') center no-repeat;
+          background-size: contain;
+        }
+      }
+    }
+    &-item {
+      width: 240px;
+      height: 135px;
+      position: absolute;
+      transition-property: left, top, width, height;
+      transition-duration: 0.5s;
+      transition-timing-function: ease;
+      background-color: #000;
+      z-index: 1;
+      cursor: pointer;
+
+      &:after {
+        content: '';
+        position: absolute;
+        width: 40px;
+        height: 40px;
+        left: calc(50% - 25px);
+        top: calc(50% - 25px);
+        background: url('/images/Video01/play.svg') center no-repeat;
+        background-size: contain;
+        &.active {
+          width: 100px;
+          height: 100px;
+        }
+      }
+      &.active {
+        z-index: 2;
+
+        &:after {
+            width: 100px;
+            height: 100px;
+        }
+      }
+
+      &.played {
+        z-index: 2;
+
+        &:after {
+          visibility: hidden;
+        }
+      }
+
+      &-preview {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        &.hidden {
+          visibility: hidden;
+        }
+      }
+    }
+  }
+}

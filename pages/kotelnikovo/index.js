@@ -3,6 +3,8 @@ import Head from 'next/head';
 import Title03 from "../../components/Title03";
 import Gallery01 from "../../components/Gallery01";
 import Works01 from "../../components/Works01";
+import Footer01 from "../../components/Footer01";
+import Video01 from "../../components/Video01";
 
 import '../style.scss';
 
@@ -37,7 +39,9 @@ const Home = () => {
             </Head>
             <Title03/>
             <Gallery01/>
+            <Video01/>
             <Works01/>
+            <Footer01/>
         </div>
     )
 };

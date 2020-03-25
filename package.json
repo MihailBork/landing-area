@@ -29,6 +29,7 @@
     "react-pdf": "^4.1.0",
     "react-scroll": "^1.7.16",
     "react-transition-group": "^4.3.0",
-    "react-visibility-sensor": "^5.1.1"
+    "react-visibility-sensor": "^5.1.1",
+    "react-youtube": "^7.9.0"
   }
 }

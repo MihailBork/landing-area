@@ -10,16 +10,19 @@ export const b = b_.lock(`Works01`);
 const works = [
     {
         photo: `photo.jpg`,
+        about: `Имя участника 1`,
         description: `Краткое описание работы 1`,
         file: `123.pdf`,
     },
     {
         photo: `photo.jpg`,
+        about: `Имя участника 2`,
         description: `Краткое описание работы 2`,
         file: `123.pdf`,
     },
     {
         photo: `photo.jpg`,
+        about: `Имя участника 3`,
         description: `Краткое описание работы 3`,
         file: `123.pdf`,
     }
@@ -35,12 +38,18 @@ const Works01 = () => {
     const previousPage = () => {
         const newIndex = pageNumber > 1 ? pageNumber - 1 : pageNumber;
         setPageNumber(newIndex);
-    }
+    };
 
     const nextPage = () => {
         const newIndex = pageNumber < numPages ? pageNumber + 1 : pageNumber;
         setPageNumber(newIndex);
-    }
+    };
+
+    const closeWork = () => {
+        setSelectedWork(null);
+        setNumPages(null);
+        setPageNumber(1);
+    };
 
     const onDocumentLoadSuccess = ({numPages}) => {
         setNumPages(numPages);
@@ -52,7 +61,7 @@ const Works01 = () => {
             <div className={b(`works`)}>
                 {
                     works.map((item, index) => (
-                        <div className={b(`works-row`)}>
+                        <div key={index} className={b(`works-row`)}>
                             <div
                                 className={b(`works-row-photo`)}
                             >
@@ -60,6 +69,11 @@ const Works01 = () => {
                                     className={b(`works-row-photo-image`)}
                                     style={{'backgroundImage': `url('/images/Works01/${item.photo}')`}}
                                 />
+                            </div>
+                            <div className={b(`works-row-about`)}>
+                                <span>
+                                    {item.about}
+                                </span>
                             </div>
                             <div className={b(`works-row-description`)}>
                                 <span>
@@ -96,7 +110,7 @@ const Works01 = () => {
                             >
                                 {`>`}
                             </div>
-                            <div className={b(`workPopup-content-controls-close`)} onClick={() => setSelectedWork(null)}>закрыть</div>
+                            <div className={b(`workPopup-content-controls-close`)} onClick={closeWork}>закрыть</div>
                         </div>
                         <div className={b(`workPopup-content-pdf`)}>
                             <Document

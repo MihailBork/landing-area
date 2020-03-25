@@ -25,7 +25,7 @@ const items = [
     }
 ];
 
-const Title02 = () => {
+const Title03 = () => {
     const [selectedItem, setSelectedItem] = useState(null);
     const isItemSelected = typeof selectedItem === `number`;
     return (
@@ -36,6 +36,7 @@ const Title02 = () => {
                         {
                             items.map((item, index) => (
                                 <div
+                                    key={index}
                                     className={cn(b(`content-menu-row`), {active: selectedItem === index})}
                                     onClick={() => setSelectedItem(index)}
                                 >
@@ -63,4 +64,4 @@ const Title02 = () => {
     )
 };
 
-export default Title02;
+export default Title03;

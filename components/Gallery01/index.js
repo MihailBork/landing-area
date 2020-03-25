@@ -88,7 +88,7 @@ const Gallery01 = () => {
             </div>
             {
                 albums.map((item, index) => (
-                    <Album item={item} albumId={index} isReverse={index % 2 !== 0}/>
+                    <Album key={index} item={item} albumId={index} isReverse={index % 2 !== 0}/>
                 ))
             }
         </div>
