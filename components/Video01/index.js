@@ -46,8 +46,8 @@ const Video01 = () => {
     const [isWaitAnimation, setWaitAnimationState] = useState(false);
     const [player, setPlayer] = useState(null);
     const isSelectedItem = typeof selectedItem === `number`;
-    const isListWide = listWidth > screenWidth;
     const listWidth = (PREVIEW_WIDTH + (X_MARGIN - 1)) * (isSelectedItem ? (videos.length - 1) : videos.length);
+    const isListWide = listWidth > screenWidth;
     const listOffset = isListWide ? 0 : ((screenWidth - listWidth) / 2);
     const activeItemOffset = (screenWidth - ACTIVE_WIDTH) / 2;
     const itemStyle = (index) => {
