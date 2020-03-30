@@ -1,0 +1,21 @@
+@import 'public/styles/kotelnikovo/colors';
+
+.Features03 {
+  height: auto;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: $primaryColor;
+  background: url('/images/Features03/goldback.jpg') fixed no-repeat;
+  background-size: cover;
+  color: $blackColor;
+
+  &__title {
+    width: 100%;
+    font-size: 3rem;
+    text-align: center;
+    text-transform: uppercase;
+    font-family: Monitorca-Bold;
+    margin: 50px 0 20px 0;
+  }
+}

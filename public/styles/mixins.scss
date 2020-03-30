@@ -1,0 +1,8 @@
+@function v($target, $width: 1920, $height: 1080) {
+  $vw-context: ($width*.01);
+  $vh-context: ($height*.01);
+  $partvw: ($target * 0.5 / $vw-context);
+  $partvh: ($target * 0.5 / $vh-context);
+
+  @return calc(#{$partvw}vw + #{$partvh}vh);
+}

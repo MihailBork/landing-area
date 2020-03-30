@@ -6,6 +6,15 @@
   overflow: hidden;
   margin: 50px auto;
 
+  &__title {
+    width: 100%;
+    font-size: 3rem;
+    font-family: Monitorca-Bold;
+    text-transform: uppercase;
+    text-align: center;
+    margin: 50px 0 20px 0;
+  }
+
   &__list {
     position: relative;
     transition: all 0.5s ease;

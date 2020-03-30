@@ -2,6 +2,7 @@ import React, {useState, useEffect} from "react";
 import b_ from 'b_';
 import cn from 'classnames';
 import YouTube from 'react-youtube';
+import {Element} from 'react-scroll';
 
 import './style.scss';
 
@@ -115,53 +116,56 @@ const Video01 = () => {
     }, [isWaitAnimation]);
 
     return (
-        <div className={b()}>
-            <div
-                className={b(`list`)}
-                style={{height: ACTIVE_HEIGHT + Y_MARGIN + PREVIEW_HEIGHT}}
-            >
-                <div className={cn(b(`list-controls`), {hidden: !isListWide})}>
-                    <div className={b(`list-controls-scrollLeft`)}>
-                        <div className={b(`list-controls-scrollLeft-icon`)}/>
-                    </div>
-                    <div className={b(`list-controls-scrollRight`)}>
-                        <div className={b(`list-controls-scrollRight-icon`)}/>
-                    </div>
-                </div>
-                {
-                    videos.map((item, index) => (
-                        <div
-                            key={index}
-                            className={cn(b(`list-item`), {
-                                active: selectedItem === index,
-                                played: selectedItem === index && isVideoPlayed
-                            })}
-                            style={itemStyle(index)}
-                            onClick={() => {
-                                selectItem(index)
-                            }}
-                        >
-                            <img
-                                className={
-                                    cn(
-                                        b(`list-item-preview`),
-                                        {hidden: selectedItem === index && !isWaitAnimation && player && isVideoPlayed}
-                                    )}
-                                src={`https://img.youtube.com/vi/${item.link}/mqdefault.jpg`}/>
-                            {
-                                selectedItem === index &&
-                                <YouTube
-                                    videoId={item.link}
-                                    opts={playerOptions}
-                                    onReady={onPlayerReady}
-                                />
-                            }
+        <Element name={`video`}>
+            <div className={b()}>
+                <div className={b(`title`)}>Видеогалерея</div>
+                <div
+                    className={b(`list`)}
+                    style={{height: ACTIVE_HEIGHT + Y_MARGIN + PREVIEW_HEIGHT}}
+                >
+                    <div className={cn(b(`list-controls`), {hidden: !isListWide})}>
+                        <div className={b(`list-controls-scrollLeft`)}>
+                            <div className={b(`list-controls-scrollLeft-icon`)}/>
                         </div>
-                    ))
-                }
+                        <div className={b(`list-controls-scrollRight`)}>
+                            <div className={b(`list-controls-scrollRight-icon`)}/>
+                        </div>
+                    </div>
+                    {
+                        videos.map((item, index) => (
+                            <div
+                                key={index}
+                                className={cn(b(`list-item`), {
+                                    active: selectedItem === index,
+                                    played: selectedItem === index && isVideoPlayed
+                                })}
+                                style={itemStyle(index)}
+                                onClick={() => {
+                                    selectItem(index)
+                                }}
+                            >
+                                <img
+                                    className={
+                                        cn(
+                                            b(`list-item-preview`),
+                                            {hidden: selectedItem === index && !isWaitAnimation && player && isVideoPlayed}
+                                        )}
+                                    src={`https://img.youtube.com/vi/${item.link}/mqdefault.jpg`}/>
+                                {
+                                    selectedItem === index &&
+                                    <YouTube
+                                        videoId={item.link}
+                                        opts={playerOptions}
+                                        onReady={onPlayerReady}
+                                    />
+                                }
+                            </div>
+                        ))
+                    }
 
+                </div>
             </div>
-        </div>
+        </Element>
     )
 };
 
