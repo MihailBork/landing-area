@@ -1,9 +1,9 @@
 const router = require('express').Router();
-const emailController = require('../../controllers/email.controller');
+const kotelnikovoController = require('../../controllers/kotelnikovo.controller');
+const crypto = require('crypto');
+const path = require('path');
 
-const multer = require('multer');
-const upload = multer({ dest: 'uploads/' });
-
-router.post('/upload', upload.single(`work`), emailController.register);
+router.post('/add', kotelnikovoController.uploadWork);
+router.get('/getWorks', kotelnikovoController.getWorks);
 
 module.exports = router;

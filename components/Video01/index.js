@@ -105,8 +105,8 @@ const Video01 = () => {
         if (!isWaitAnimation) {
             afterAnimation();
             return;
-        }
-        ;
+        };
+
         const timer = setTimeout(() => {
             setWaitAnimationState(false);
         }, ANIMATION_DURATION);
@@ -157,6 +157,7 @@ const Video01 = () => {
                                         videoId={item.link}
                                         opts={playerOptions}
                                         onReady={onPlayerReady}
+                                        crossorigin
                                     />
                                 }
                             </div>

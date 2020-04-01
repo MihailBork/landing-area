@@ -24,7 +24,7 @@ const social = {
 
 export const b = b_.lock(`Footer01`);
 
-const Footer01 = () => {
+const Footer01 = ({ onButtonClick }) => {
     return (
         <div className={b()}>
             <div className={b(`logo`)}>
@@ -55,7 +55,7 @@ const Footer01 = () => {
                 </div>
             </div>
             <div className={b(`publish`)}>
-                <div className={b(`publish-button`)}>Разместить работу</div>
+                <div className={b(`publish-button`)} onClick={onButtonClick}>Разместить работу</div>
             </div>
         </div>
     )

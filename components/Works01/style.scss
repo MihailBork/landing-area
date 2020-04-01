@@ -86,6 +86,7 @@ $pdfControlsHeight: 40px;
     align-items: center;
     justify-content: center;
     background-color: #00000080;
+    z-index: 6;
     &-content {
       position: relative;
       width: auto;

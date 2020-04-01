@@ -5,30 +5,11 @@ import {Document, Page} from 'react-pdf';
 
 import './style.scss';
 
+const filePrefix = `uploads/`;
+
 export const b = b_.lock(`Works01`);
 
-const works = [
-    {
-        photo: `photo.jpg`,
-        about: `Имя участника 1`,
-        description: `Краткое описание работы 1`,
-        file: `123.pdf`,
-    },
-    {
-        photo: `photo.jpg`,
-        about: `Имя участника 2`,
-        description: `Краткое описание работы 2`,
-        file: `123.pdf`,
-    },
-    {
-        photo: `photo.jpg`,
-        about: `Имя участника 3`,
-        description: `Краткое описание работы 3`,
-        file: `123.pdf`,
-    }
-];
-
-const Works01 = () => {
+const Works01 = ({ works }) => {
     const [selectedWork, setSelectedWork] = useState(null);
     const isSelectedWork = typeof selectedWork === `number`;
 
@@ -60,31 +41,31 @@ const Works01 = () => {
             <div className={b(`title`)}>Работы участников</div>
             <div className={b(`works`)}>
                 {
-                    works.map((item, index) => (
+                    works && works.map((item, index) => (
                         <div key={index} className={b(`works-row`)}>
                             <div
                                 className={b(`works-row-photo`)}
                             >
                                 <div
                                     className={b(`works-row-photo-image`)}
-                                    style={{'backgroundImage': `url('/images/Works01/${item.photo}')`}}
+                                    style={{'backgroundImage': `url('${filePrefix}${item.photo}')`}}
                                 />
                             </div>
                             <div className={b(`works-row-about`)}>
                                 <span>
-                                    {item.about}
+                                    {item.name}
                                 </span>
                             </div>
                             <div className={b(`works-row-description`)}>
                                 <span>
-                                    {item.description}
+                                    {item.about}
                                 </span>
                             </div>
                             <div className={b(`works-row-open`)}>
                                 <span onClick={() => setSelectedWork(index)}>Смотреть</span>
                             </div>
                             <div className={b(`works-row-download`)}>
-                                <a href={`files/Works01/${item.file}`} target={`_blank`}>
+                                <a href={`${filePrefix}${item.work}`} target={`_blank`}>
                                     Скачать
                                 </a>
                             </div>
@@ -114,7 +95,7 @@ const Works01 = () => {
                         </div>
                         <div className={b(`workPopup-content-pdf`)}>
                             <Document
-                                file={`/files/Works01/${works[selectedWork].file}`}
+                                file={`${filePrefix}${works[selectedWork].work}`}
                                 onLoadSuccess={onDocumentLoadSuccess}
                             >
                                 <Page pageNumber={pageNumber}/>
