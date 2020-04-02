@@ -11,8 +11,8 @@ const handle = app.getRequestHandler();
 
 app.prepare().then(() => {
     const server = express();
-    server.use('/api', createProxyMiddleware({ target: dev ? 'http://localhost:3001' : 'http://thebork.ru:3001', changeOrigin: true }));
-    server.use('/uploads', createProxyMiddleware({ target: dev ? 'http://localhost:3001' : 'http://thebork.ru:3001', changeOrigin: true }));
+    server.use('/api', createProxyMiddleware({ target: dev ? 'http://localhost:3001' : 'http://api.thebork.ru', changeOrigin: true }));
+    server.use('/uploads', createProxyMiddleware({ target: dev ? 'http://localhost:3001' : 'http://api.thebork.ru', changeOrigin: true }));
 
     server.get("*", (req, res) => {
         return handle(req, res);

@@ -148,6 +148,7 @@ module.exports = {
                 })
             })
             .catch(error => {
+                console.log(error);
                 res.status(400).json({
                     ok: false,
                     message: _.get(error, `response`, `Uncaught error`),
