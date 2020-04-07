@@ -4,22 +4,22 @@ import { parseCookies } from 'nookies';
 import _ from 'lodash';
 
 const Auth = () => (
-    <div className="container">
-        <Head>
-            <title>Authorization page</title>
-            <link rel="icon" href="/favicon.ico" />
-        </Head>
+  <div className="container">
+    <Head>
+      <title>Authorization page</title>
+      <link rel="icon" href="/favicon.ico" />
+    </Head>
 
-        <main>
-            <h1 className="title">
-                Need to authorize here
-            </h1>
+    <main>
+      <h1 className="title">
+        Need to authorize here
+      </h1>
 
-            <p className="description">
-                This is public route
-            </p>
-        </main>
-    </div>
+      <p className="description">
+        This is public route
+      </p>
+    </main>
+  </div>
 );
 
-export default Auth
+export default Auth;

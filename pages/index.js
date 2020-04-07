@@ -1,13 +1,11 @@
-import React from "react";
+import React from 'react';
 
 import './style.scss';
 
-const Home = () => {
-    return (
-        <div>
-            Placeholder
-        </div>
-    )
-};
+const Home = () => (
+  <div>
+    Placeholder
+  </div>
+);
 
-export default Home
+export default Home;

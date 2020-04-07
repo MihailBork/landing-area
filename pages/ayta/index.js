@@ -1,61 +1,61 @@
-import React, {useState, useEffect} from "react";
+import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
-import Title01 from "../../components/completed/titles/Title01";
-import List01 from "../../components/completed/List01";
-import Features01 from "../../components/completed/Features01";
-import Features02 from "../../components/completed/Features02";
-import Person01 from "../../components/completed/Person01";
-import Columns01 from "../../components/completed/Columns01";
-import About01 from "../../components/completed/About01";
-import Form01 from "../../components/completed/Form01";
-import Copyright01 from "../../components/completed/Copyright01";
-import Menu01 from "../../components/completed/Menu01";
-import Clients01 from "../../components/completed/Clients01";
+import Title01 from '../../components/completed/titles/Title01';
+import List01 from '../../components/completed/List01';
+import Features01 from '../../components/completed/Features01';
+import Features02 from '../../components/completed/Features02';
+import Person01 from '../../components/completed/Person01';
+import Columns01 from '../../components/completed/Columns01';
+import About01 from '../../components/completed/About01';
+import Form01 from '../../components/completed/Form01';
+import Copyright01 from '../../components/completed/Copyright01';
+import Menu01 from '../../components/completed/Menu01';
+import Clients01 from '../../components/completed/Clients01';
 
 import '../style.scss';
 
 const Home = () => {
-    const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
-    const [isScrolled, setScrolledState] = useState(false);
-    const handleScroll = () => {
-        if (!process.browser) return;
-        let _isScrolled = !!window.scrollY;
-        if (isScrolled !== _isScrolled) {
-            setScrolledState(_isScrolled);
-        }
+  const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
+  const [isScrolled, setScrolledState] = useState(false);
+  const handleScroll = () => {
+    if (!process.browser) return;
+    const _isScrolled = !!window.scrollY;
+    if (isScrolled !== _isScrolled) {
+      setScrolledState(_isScrolled);
+    }
+  };
+
+  useEffect(() => {
+    if (firstTimeLoading) {
+      setFirstTimeLoadingState(false);
+      handleScroll();
+    }
+    window.addEventListener('scroll', handleScroll);
+
+    return () => {
+      window.removeEventListener('scroll', handleScroll);
     };
+  });
 
-    useEffect(() => {
-        if (firstTimeLoading) {
-            setFirstTimeLoadingState(false);
-            handleScroll()
-        }
-        window.addEventListener('scroll', handleScroll);
-
-        return () => {
-            window.removeEventListener('scroll', handleScroll);
-        };
-    });
-
-    return (
-        <div className="container">
-            <Head>
-                <title>Курсы по Digital от Айты Лузгиной (Интериум)</title>
-                <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-            </Head>
-            <Menu01 isScrolled={isScrolled}/>
-            <Title01 isScrolled={isScrolled}/>
-            <Features02/>
-            <Person01/>
-            <About01/>
-            <Clients01/>
-            <Features01/>
-            <Columns01/>
-            <List01/>
-            <Form01/>
-            <Copyright01/>
-        </div>
-    )
+  return (
+    <div className="container">
+      <Head>
+        <title>Курсы по Digital от Айты Лузгиной (Интериум)</title>
+        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+      </Head>
+      <Menu01 isScrolled={isScrolled} />
+      <Title01 isScrolled={isScrolled} />
+      <Features02 />
+      <Person01 />
+      <About01 />
+      <Clients01 />
+      <Features01 />
+      <Columns01 />
+      <List01 />
+      <Form01 />
+      <Copyright01 />
+    </div>
+  );
 };
 
-export default Home
+export default Home;
