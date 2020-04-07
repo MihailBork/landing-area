@@ -1,0 +1,96 @@
+@import '../../../public/styles/kotelnikovo/colors';
+
+$borderRadius: 5px;
+
+.Menu02 {
+  position: fixed;
+  width: 100%;
+  height: 50px;
+  box-sizing: border-box;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  top: 0;
+  left: 0;
+  background: $blackColor;
+  z-index: 5;
+  box-shadow: 0 0 10px $blackColor;
+
+  &__title {
+    color: $whiteColor;
+    text-transform: uppercase;
+  }
+
+  &__menu {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    &-main {
+      display: flex;
+      flex-direction: row;
+      align-items: center;
+      justify-content: center;
+      color: $whiteColor;
+      font-family: Monitorca-Bold;
+      &-item {
+        padding: 10px;
+        text-transform: uppercase;
+        cursor: pointer;
+      }
+    }
+
+    &-dropdown {
+      font-family: Monitorca-Bold;
+      &-button {
+        height: 20px;
+        line-height: 20px;
+        margin-left: 10px;
+        padding: 10px;
+        background-color: $primaryColor;
+        color: $blackColor;
+        text-transform: uppercase;
+        border-radius: $borderRadius;
+        cursor: pointer;
+        transition: all 0.5s ease;
+        box-shadow: 0 0 2px $blackColor;
+
+        .opened & {
+          border-radius: $borderRadius $borderRadius 0 0;
+        }
+      }
+      &-list {
+        width: auto;
+        position: absolute;
+        right: 25px;
+        top: 45px;
+        background-color: $primaryColor;
+        color: $blackColor;
+        border-radius: $borderRadius 0 $borderRadius $borderRadius;
+        visibility: hidden;
+        opacity: 0;
+        padding: 10px;
+        transition: all 0.5s ease;
+        box-shadow: 0 2px 2px $blackColor;
+
+        &-item {
+          display: block;
+          width: auto;
+          padding: 10px 10px 0 10px;
+          cursor: pointer;
+          &:last-child {
+            padding: 10px;
+          }
+          &:hover {
+            color: $whiteColor
+          }
+        }
+
+        .opened & {
+          visibility: visible;
+          opacity: 1;
+        }
+      }
+    }
+  }
+}

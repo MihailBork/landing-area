@@ -1,0 +1,41 @@
+@import '../../../public/styles/colors';
+
+.About01 {
+  height: auto;
+  background-color: $primaryColor;
+  color: $blackColor;
+
+  &__title {
+    text-align: center;
+    padding-bottom: 2rem;
+
+    h1 {
+      text-transform: uppercase;
+    }
+  }
+
+  &__content {
+    padding: 0 2rem;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    @media (max-width: 600px) {
+      flex-direction: column;
+    }
+
+    &-image {
+      max-width: 25%;
+
+      @media (max-width: 600px) {
+        max-width: 50%;
+      }
+    }
+
+    &-description {
+      padding: 1rem;
+      box-sizing: border-box;
+    }
+  }
+}

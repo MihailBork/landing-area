@@ -1,0 +1,84 @@
+@import '../../../public/styles/colors';
+
+.Menu01 {
+  position: fixed;
+  width: 100%;
+  height: 3rem;
+  top: 0;
+  left: 0;
+  background: linear-gradient(to right, $minorPrimaryColor 0 50%, transparent 50% 100%);
+  background-size: 200% 100%;
+  background-position: 100% 50%;
+  transition: all 0.5s ease 0.5s;
+  z-index: 2;
+
+  &__menu {
+    display: none;
+
+    @media (max-width: 600px) {
+      display: block;
+      visibility: hidden;
+      opacity: 0;
+      position: absolute;
+      right: 0;
+      width: 3rem;
+      height: 3rem;
+      cursor: pointer;
+      background: url('/images/Menu01/menu.svg') center no-repeat;
+      background-size: 70%;
+      z-index: 3;
+      transition: all 0.5s ease;
+
+      .visible & {
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s ease 0.5s;
+      }
+    }
+  }
+
+  &__items {
+    display: flex;
+    height: 100%;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    margin-left: 135px;
+    visibility: hidden;
+    opacity: 0;
+    transition: all 0.5s ease;
+
+    @media (max-width: 600px) {
+      position: absolute;
+      top: 100%;
+      right: 0;
+      flex-direction: column;
+      height: auto;
+      margin-left: 0;
+      align-items: flex-end;
+      background-color: $minorPrimaryColor;
+    }
+
+    li {
+      text-transform: uppercase;
+      padding: 1rem;
+      cursor: pointer;
+    }
+    &.opened {
+      @media (max-width: 600px) {
+        transition: all 0.5s ease;
+      }
+      opacity: 1;
+      visibility: visible;
+      transition: all 0.5s ease 0.5s;
+    }
+  }
+
+  &.visible {
+    background-position: 0% 50%;
+    box-shadow: 0 0 10px $blackColor;
+    transition: all 0.5s ease;
+  }
+
+
+}

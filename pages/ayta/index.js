@@ -1,16 +1,16 @@
 import React, {useState, useEffect} from "react";
 import Head from 'next/head';
-import Title01 from "../../components/Title01";
-import List01 from "../../components/List01";
-import Features01 from "../../components/Features01";
-import Features02 from "../../components/Features02";
-import Person01 from "../../components/Person01";
-import Columns01 from "../../components/Columns01";
-import About01 from "../../components/About01";
-import Form01 from "../../components/Form01";
-import Copyright01 from "../../components/Copyright01";
-import Menu01 from "../../components/Menu01";
-import Clients01 from "../../components/Clients01";
+import Title01 from "../../components/completed/titles/Title01";
+import List01 from "../../components/completed/List01";
+import Features01 from "../../components/completed/Features01";
+import Features02 from "../../components/completed/Features02";
+import Person01 from "../../components/completed/Person01";
+import Columns01 from "../../components/completed/Columns01";
+import About01 from "../../components/completed/About01";
+import Form01 from "../../components/completed/Form01";
+import Copyright01 from "../../components/completed/Copyright01";
+import Menu01 from "../../components/completed/Menu01";
+import Clients01 from "../../components/completed/Clients01";
 
 import '../style.scss';
 

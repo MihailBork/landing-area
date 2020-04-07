@@ -1,0 +1,46 @@
+@import '../../../public/styles/colors';
+
+.Features02 {
+  height: auto;
+  align-items: center;
+  justify-content: flex-start;
+  overflow: hidden;
+  background-color: $primaryFontColor;
+  color: $blackColor;
+
+  &__title {
+    padding-bottom: 2rem;
+  }
+
+  &__paragraphs {
+    &-item {
+      width: 100%;
+      height: auto;
+      position: relative;
+
+      &-gate {
+        position: absolute;
+        width: 3000px;
+        height: 100%;
+        background-color: $primaryFontColor;
+
+        &.left {
+          right: 50%;
+          border-right: 0.2rem solid $primaryColor;
+        }
+
+        &.right {
+          left: 50%;
+          border-left: 0.2rem solid $primaryColor;
+        }
+      }
+
+      p {
+        color: $blackColor;
+        margin: 2rem 0;
+        padding: 2rem;
+        font-size: 1.2rem;
+      }
+    }
+  }
+}

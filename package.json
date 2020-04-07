@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "scripts": {
-    "dev": "next dev",
+    "dev": "concurrently \"npm run server\" \"npm run client\"",
+    "client": "node server.js",
+    "server": "cd server && node app.js",
     "build": "next build",
     "start": "next start"
   },
@@ -33,5 +35,15 @@
     "react-transition-group": "^4.3.0",
     "react-visibility-sensor": "^5.1.1",
     "react-youtube": "^7.9.0"
+  },
+  "devDependencies": {
+    "eslint": "^6.8.0",
+    "eslint-config-airbnb": "^18.1.0",
+    "eslint-loader": "^4.0.0",
+    "eslint-plugin-import": "^2.20.2",
+    "eslint-plugin-jsx-a11y": "^6.2.3",
+    "eslint-plugin-node": "^11.1.0",
+    "eslint-plugin-react": "^7.19.0",
+    "eslint-plugin-react-hooks": "^3.0.0"
   }
 }
