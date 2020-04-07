@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import b_ from 'b_';
 import Count from 'react-countup';
 
@@ -16,28 +16,28 @@ const Number = ({ b, item }) => {
 
   return (
     <VisibilitySensor onChange={onChangeVisibility}>
-      <div className={b('item')}>
+      <div className={b(`item`)}>
         {
-                    item.prefix && <div className={b('item-prefix')}>{item.prefix}</div>
+                    item.prefix && <div className={b(`item-prefix`)}>{item.prefix}</div>
                 }
         {
                     isVisible
                     && (
-                    <div className={b('item-number')}>
+                    <div className={b(`item-number`)}>
                       <Count start end={item.number} />
                     </div>
                     )
                 }
         {
-                    item.suffix && <div className={b('item-suffix')}>{item.suffix}</div>
+                    item.suffix && <div className={b(`item-suffix`)}>{item.suffix}</div>
                 }
-        <div className={b('item-description')}>{item.description}</div>
+        <div className={b(`item-description`)}>{item.description}</div>
       </div>
     </VisibilitySensor>
   );
 };
 
-const Numbers01 = ({ items, className = 'Numbers01' }) => {
+const Numbers01 = ({ items, className = `Numbers01` }) => {
   const b = b_.lock(className);
   return (
     <div className={b()}>

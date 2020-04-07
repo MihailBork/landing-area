@@ -16,36 +16,37 @@ const ANIMATION_DURATION = 500; // ms
 
 const videos = [
   {
-    link: 'D7s8FAJapvo',
+    link: `D7s8FAJapvo`,
   },
   {
-    link: 'QAJXqZKYT-g',
+    link: `QAJXqZKYT-g`,
   },
   {
-    link: 'a0m6DH2J27Q',
+    link: `a0m6DH2J27Q`,
   },
   {
-    link: 'ZA3tTAzGy5w',
+    link: `ZA3tTAzGy5w`,
   },
   {
-    link: '2jxf17kFXSg',
+    link: `2jxf17kFXSg`,
   },
 ];
 
-export const b = b_.lock('Video01');
+export const b = b_.lock(`Video01`);
 
 const Video01 = () => {
-    useEffect(() => {
-    if (!process.browser) return;
-    setScreenWidth(window.innerWidth);
-  });
-
   const [screenWidth, setScreenWidth] = useState(0);
   const [selectedItem, setSelectedItem] = useState(0);
   const [isVideoPlayed, setVideoPlayedState] = useState(false);
   const [isWaitAnimation, setWaitAnimationState] = useState(false);
   const [player, setPlayer] = useState(null);
-  const isSelectedItem = typeof selectedItem === 'number';
+
+  useEffect(() => {
+    if (!process.browser) return;
+    setScreenWidth(window.innerWidth);
+  });
+
+  const isSelectedItem = typeof selectedItem === `number`;
   const listWidth = (PREVIEW_WIDTH + (X_MARGIN - 1)) * (isSelectedItem ? (videos.length - 1) : videos.length);
   const isListWide = listWidth > screenWidth;
   const listOffset = isListWide ? 0 : ((screenWidth - listWidth) / 2);
@@ -63,12 +64,14 @@ const Video01 = () => {
       leftOffset = selectedItem > index || !isSelectedItem
         ? (PREVIEW_WIDTH + X_MARGIN) * index
         : (PREVIEW_WIDTH + X_MARGIN) * (index - 1);
-      leftOffset = leftOffset + listOffset;
+      leftOffset += listOffset;
     }
 
     const topOffset = isActiveItem ? 0 : ACTIVE_HEIGHT + Y_MARGIN;
 
-    return { left: leftOffset, top: topOffset, width: itemWidth, height: itemHeight };
+    return {
+      left: leftOffset, top: topOffset, width: itemWidth, height: itemHeight,
+    };
   };
 
   const playerOptions = {
@@ -104,7 +107,7 @@ const Video01 = () => {
     if (!isWaitAnimation) {
       afterAnimation();
       return;
-    };
+    }
 
     const timer = setTimeout(() => {
       setWaitAnimationState(false);
@@ -115,58 +118,62 @@ const Video01 = () => {
   }, [isWaitAnimation]);
 
   return (
-      <Element name="video">
-          <div className={b()}>
-              <div className={b('title')}>Видеогалерея</div>
-              <div
-                  className={b('list')}
-                  style={{ height: ACTIVE_HEIGHT + Y_MARGIN + PREVIEW_HEIGHT }}
-                >
-                  <div className={cn(b('list-controls'), { hidden: !isListWide })}>
-                      <div className={b('list-controls-scrollLeft')}>
-                          <div className={b('list-controls-scrollLeft-icon')} />
-                        </div>
-                      <div className={b('list-controls-scrollRight')}>
-                          <div className={b('list-controls-scrollRight-icon')} />
-                        </div>
-                    </div>
-                  {
-                        videos.map((item, index) => (
-                          <div
-                              key={index}
-                              className={cn(b('list-item'), {
-                                  active: selectedItem === index,
-                                  played: selectedItem === index && isVideoPlayed,
-                                })}
-                              style={itemStyle(index)}
-                              onClick={() => {
-                                  selectItem(index);
-                                }}
-                            >
-                              <img
-                                  className={
-                                        cn(
-                                          b('list-item-preview'),
-                                          { hidden: selectedItem === index && !isWaitAnimation && player && isVideoPlayed },
-                                        )
-}
-                                  src={`https://img.youtube.com/vi/${item.link}/mqdefault.jpg`} />
-                              {
-                                    selectedItem === index
-                                    && <YouTube
-                                      videoId={item.link}
-                                      opts={playerOptions}
-                                      onReady={onPlayerReady}
-                                      crossorigin
-                                    />
-                                }
-                            </div>
-                        ))
-                    }
-
-                </div>
+    <Element name="video">
+      <div className={b()}>
+        <div className={b(`title`)}>Видеогалерея</div>
+        <div
+          className={b(`list`)}
+          style={{ height: ACTIVE_HEIGHT + Y_MARGIN + PREVIEW_HEIGHT }}
+        >
+          <div className={cn(b(`list-controls`), { hidden: !isListWide })}>
+            <div className={b(`list-controls-scrollLeft`)}>
+              <div className={b(`list-controls-scrollLeft-icon`)} />
             </div>
-        </Element>
+            <div className={b(`list-controls-scrollRight`)}>
+              <div className={b(`list-controls-scrollRight-icon`)} />
+            </div>
+          </div>
+          {
+            videos.map((item, index) => (
+              <div
+                key={index}
+                className={cn(b(`list-item`), {
+                  active: selectedItem === index,
+                  played: selectedItem === index && isVideoPlayed,
+                })}
+                style={itemStyle(index)}
+                onClick={() => {
+                  selectItem(index);
+                }}
+              >
+                <img
+                  alt="Video"
+                  className={
+                    cn(
+                      b(`list-item-preview`),
+                      { hidden: selectedItem === index && !isWaitAnimation && player && isVideoPlayed },
+                    )
+                  }
+                  src={`https://img.youtube.com/vi/${item.link}/mqdefault.jpg`}
+                />
+                {
+                  selectedItem === index
+                  && (
+                    <YouTube
+                      videoId={item.link}
+                      opts={playerOptions}
+                      onReady={onPlayerReady}
+                      crossorigin
+                    />
+                  )
+                }
+              </div>
+            ))
+          }
+
+        </div>
+      </div>
+    </Element>
   );
 };
 

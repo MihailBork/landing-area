@@ -1,21 +1,23 @@
 import React, { useState, useEffect } from 'react';
 import b_ from 'b_';
+import _ from 'lodash';
 import cn from 'classnames';
-import InputFile01 from '../../partitial/InputFile01';
-import InputTextShort01 from '../../partitial/InputTextShort01';
-import InputTextLong01 from '../../partitial/InputTextLong01';
-import { api } from '../../../api';
+import api from 'api';
+
+import InputFile01 from 'components/partitial/InputFile01';
+import InputTextShort01 from 'components/partitial/InputTextShort01';
+import InputTextLong01 from 'components/partitial/InputTextLong01';
 
 import './style.scss';
 
 const ANIMATION_DURATION = 500; // ms
 
-export const b = b_.lock('Form02');
+export const b = b_.lock(`Form02`);
 
 const Form02 = ({ closing, onClose }) => {
   const [photo, setPhoto] = useState(null);
-  const [name, setName] = useState('');
-  const [about, setAbout] = useState('');
+  const [name, setName] = useState(``);
+  const [about, setAbout] = useState(``);
   const [work, setWork] = useState(null);
   const [activeStep, setActiveStep] = useState(0);
 
@@ -36,7 +38,7 @@ const Form02 = ({ closing, onClose }) => {
   }, [isWaitAnimation]);
 
   useEffect(() => {
-    if (typeof secondsToClose !== 'number') return;
+    if (typeof secondsToClose !== `number`) return;
     if (secondsToClose === 0) {
       onClose();
       return;
@@ -58,7 +60,6 @@ const Form02 = ({ closing, onClose }) => {
   const onWorkChange = (e) => setWork(e.target.files[0]);
   const onRemoveWork = () => setWork(null);
 
-  const selectStep = (index) => setActiveStep(index);
   const previousStep = () => setActiveStep(activeStep - 1);
   const nextStep = () => setActiveStep(activeStep + 1);
 
@@ -67,27 +68,27 @@ const Form02 = ({ closing, onClose }) => {
     setFormSentState(true);
 
     const data = new FormData();
-    data.set('name', name);
-    data.set('about', about);
-    data.append('photo', photo);
-    data.append('work', work);
+    data.set(`name`, name);
+    data.set(`about`, about);
+    data.append(`photo`, photo);
+    data.append(`work`, work);
     api({
-      method: 'post',
-      url: 'kotelnikovo/add',
+      method: `post`,
+      url: `kotelnikovo/add`,
       headers: {
-        'Content-Type': 'multipart/form-data',
+        'Content-Type': `multipart/form-data`,
       },
       data,
     })
-      .then((res) => {
+      .then(() => {
         setResponseStatus(true);
-        setResponseMessage('Работа успешно добавлена');
+        setResponseMessage(`Работа успешно добавлена`);
       })
       .catch((error) => {
-        const data = _.get(_.get(error, 'response'), 'data');
-        setResponseMessage(_.get(data, 'message', 'Непредвиденная ошибка'));
+        const errorData = _.get(_.get(error, `response`), `data`);
+        setResponseMessage(_.get(errorData, `message`, `Непредвиденная ошибка`));
       })
-      .then((res) => {
+      .then(() => {
         setSecondsToClose(5);
         setWaitResponseState(false);
       });
@@ -100,37 +101,37 @@ const Form02 = ({ closing, onClose }) => {
     if (index === activeStep) translateValue = 0;
     return {
       transform: `translateX(${translateValue}px)`,
-      visibility: index === activeStep ? 'visible' : 'hidden',
+      visibility: index === activeStep ? `visible` : `hidden`,
       opacity: index === activeStep ? 1 : 0,
     };
   };
 
   return (
     <div className={cn(b(), { closing })}>
-      <div className={b('overlay')} />
-      <div className={b('content')}>
-        <div className={b('content-close')} onClick={onClose}>
-          <div className={b('content-close-icon')} />
+      <div className={b(`overlay`)} />
+      <div className={b(`content`)}>
+        <div className={b(`content-close`)} onClick={onClose}>
+          <div className={b(`content-close-icon`)} />
         </div>
-        <div className={cn(b('content-form'), { hidden: isFormSent && !isWaitResponse })}>
-          <ul className={b('content-form-list')}>
-            <li className={cn(b('content-form-list-row'), { active: activeStep === 0 })}>1</li>
-            <li className={cn(b('content-form-list-row'), { active: activeStep === 1 })}>2</li>
-            <li className={cn(b('content-form-list-row'), { active: activeStep === 2 })}>3</li>
-            <li className={cn(b('content-form-list-row'), { active: activeStep === 3 })}>4</li>
+        <div className={cn(b(`content-form`), { hidden: isFormSent && !isWaitResponse })}>
+          <ul className={b(`content-form-list`)}>
+            <li className={cn(b(`content-form-list-row`), { active: activeStep === 0 })}>1</li>
+            <li className={cn(b(`content-form-list-row`), { active: activeStep === 1 })}>2</li>
+            <li className={cn(b(`content-form-list-row`), { active: activeStep === 2 })}>3</li>
+            <li className={cn(b(`content-form-list-row`), { active: activeStep === 3 })}>4</li>
           </ul>
-          <div className={b('content-form-screen')} style={getItemStyle(0)}>
+          <div className={b(`content-form-screen`)} style={getItemStyle(0)}>
             <InputFile01
               id="photo"
               file={photo}
               title="Загрузите фотографию"
-              extensions={['jpg', 'png']}
+              extensions={[`jpg`, `png`]}
               onChange={onPhotoChange}
               onNextClick={nextStep}
               onRemove={onRemovePhoto}
             />
           </div>
-          <div className={b('content-form-screen')} style={getItemStyle(1)}>
+          <div className={b(`content-form-screen`)} style={getItemStyle(1)}>
             <InputTextShort01
               id="name"
               element={name}
@@ -140,7 +141,7 @@ const Form02 = ({ closing, onClose }) => {
               onNextClick={nextStep}
             />
           </div>
-          <div className={b('content-form-screen')} style={getItemStyle(2)}>
+          <div className={b(`content-form-screen`)} style={getItemStyle(2)}>
             <InputTextLong01
               id="about"
               element={about}
@@ -150,12 +151,12 @@ const Form02 = ({ closing, onClose }) => {
               onNextClick={nextStep}
             />
           </div>
-          <div className={b('content-form-screen')} style={getItemStyle(3)}>
+          <div className={b(`content-form-screen`)} style={getItemStyle(3)}>
             <InputFile01
               id="work"
               file={work}
               title="Загрузите работу"
-              extensions={['pdf']}
+              extensions={[`pdf`]}
               onChange={onWorkChange}
               onPreviousClick={previousStep}
               onComplete={sendForm}
@@ -163,12 +164,12 @@ const Form02 = ({ closing, onClose }) => {
             />
           </div>
         </div>
-        <div className={cn(b('content-status'), { visible: isFormSent && !isWaitResponse })}>
-          <div className={b('content-status-icon')}>
-            <img src={`/icons/${responseStatus ? 'check' : 'close'}.svg`} />
+        <div className={cn(b(`content-status`), { visible: isFormSent && !isWaitResponse })}>
+          <div className={b(`content-status-icon`)}>
+            <img alt="Icon" src={`/icons/${responseStatus ? `check` : `close`}.svg`} />
           </div>
-          <div className={b('content-status-text')}>{responseMessage}</div>
-          <div className={b('content-status-buttonClose')} onClick={onClose}>{`Закрыть (${secondsToClose})`}</div>
+          <div className={b(`content-status-text`)}>{responseMessage}</div>
+          <div className={b(`content-status-buttonClose`)} onClick={onClose}>{`Закрыть (${secondsToClose})`}</div>
         </div>
       </div>
     </div>

@@ -6,9 +6,10 @@ import { Element } from 'react-scroll';
 import './style.scss';
 import { getRefWidth } from '../../helper';
 
-const b = b_.lock('Gallery02');
+const b = b_.lock(`Gallery02`);
 
-const photos = ['0001.jpg', '0002.jpg', '0003.jpg', '0004.jpg', '0005.jpg', '0006.jpg', '0007.jpg', '0008.jpg', '0009.jpg'];
+const photos = [`0001.jpg`, `0002.jpg`, `0003.jpg`, `0004.jpg`, `0005.jpg`, `0006.jpg`, `0007.jpg`, `0008.jpg`,
+  `0009.jpg`];
 
 const ACTIVE_WIDTH = 70; // percents
 const MARGIN = 2; // percents
@@ -40,12 +41,12 @@ const Photo = ({
   };
 
   const getItemType = () => {
-    if (index === selectedItem) return 'active';
-    if (isSmallLeft()) return 'smallLeft';
-    if (isSmallRight()) return 'smallRight';
-    if (isHiddenLeft()) return 'hiddenLeft';
-    if (isHiddenRight()) return 'hiddenRight';
-    return 'disabled';
+    if (index === selectedItem) return `active`;
+    if (isSmallLeft()) return `smallLeft`;
+    if (isSmallRight()) return `smallRight`;
+    if (isHiddenLeft()) return `hiddenLeft`;
+    if (isHiddenRight()) return `hiddenRight`;
+    return `disabled`;
   };
 
   const itemType = getItemType();
@@ -58,21 +59,21 @@ const Photo = ({
     const activeHeightPx = activeWidthPx / 16 * 9;
     const marginPx = onePercentPx * MARGIN;
     const freePercents = 100 - ACTIVE_WIDTH - (MARGIN * 2);
-    if (itemType === 'active') {
+    if (itemType === `active`) {
       itemWidth = activeWidthPx;
       itemHeight = activeHeightPx;
       leftOffset = (galleryWidth - itemWidth) / 2;
       topOffset = 0;
     }
-    if (itemType !== 'active') {
+    if (itemType !== `active`) {
       itemWidth = (galleryWidth / 100 * freePercents) / 2;
       itemHeight = itemWidth / 16 * 9;
-      if (itemType === 'smallLeft' || itemType === 'smallRight') {
-        leftOffset = itemType === 'smallRight'
+      if (itemType === `smallLeft` || itemType === `smallRight`) {
+        leftOffset = itemType === `smallRight`
           ? (itemWidth + marginPx + activeWidthPx + marginPx)
           : 0;
       } else {
-        leftOffset = itemType === 'hiddenRight' ? (galleryWidth + 100) : (0 - itemWidth - 100);
+        leftOffset = itemType === `hiddenRight` ? (galleryWidth + 100) : (0 - itemWidth - 100);
       }
       topOffset = (activeHeightPx - itemHeight) / 2;
     }
@@ -83,23 +84,23 @@ const Photo = ({
       left: leftOffset,
       top: topOffset,
       background: `url('/images/${project}/Gallery02/${item}') center no-repeat`,
-      backgroundSize: 'cover',
+      backgroundSize: `cover`,
     };
   };
 
   const onClickFunction = () => {
-    if (itemType === 'smallLeft') return prevPhoto;
-    if (itemType === 'smallRight') return nextPhoto;
+    if (itemType === `smallLeft`) return prevPhoto;
+    if (itemType === `smallRight`) return nextPhoto;
     return _.noop;
   };
 
   return (
     <>
       {
-                itemType !== 'disabled'
+                itemType !== `disabled`
                 && (
                 <div
-                  className={b('gallery-item')}
+                  className={b(`gallery-item`)}
                   style={getItemStyle()}
                   onClick={onClickFunction(index)}
                 />
@@ -136,11 +137,11 @@ const Gallery02 = ({ globalPadding, innerWidth, project }) => {
   return (
     <Element name="photo">
       <div className={b()} ref={blockRef}>
-        <div className={b('title')}>
+        <div className={b(`title`)}>
           Фотографии
         </div>
         <div
-          className={b('gallery')}
+          className={b(`gallery`)}
           style={{
             width: galleryWidth,
             height: (innerWidth / 100 * ACTIVE_WIDTH) / 16 * 9,

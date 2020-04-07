@@ -8,12 +8,12 @@ import VisibilitySensor from 'react-visibility-sensor';
 import './style.scss';
 
 const list = [
-  'Практические знания по работе с репутацией в интернете, а также анализу рынка и созданию результативных стратегий в 2020 году',
-  'Диплом гособразца от РЭУ им. Плеханова',
-  'Полезные контакты и знакомства во время курса',
+  `Практические знания по работе с репутацией в интернете, а также анализу рынка и созданию результативных стратегий в 2020 году`,
+  `Диплом гособразца от РЭУ им. Плеханова`,
+  `Полезные контакты и знакомства во время курса`,
 ];
 
-export const b = b_.lock('List01');
+export const b = b_.lock(`List01`);
 
 const Checked = () => {
   const variants = {
@@ -34,7 +34,7 @@ const Checked = () => {
       initial="hidden"
       animate="visible"
       variants={variants}
-      className={b('items-row-mark-checked')}
+      className={b(`items-row-mark-checked`)}
     />
   );
 };
@@ -61,7 +61,7 @@ const Mark = ({ position }) => {
 
   return (
     <VisibilitySensor onChange={onChange}>
-      <div className={cn(b('items-row-mark'), { showed })}>
+      <div className={cn(b(`items-row-mark`), { showed })}>
         {showed && <Checked />}
       </div>
     </VisibilitySensor>
@@ -69,18 +69,18 @@ const Mark = ({ position }) => {
 };
 
 const List01 = () => (
-  <div className={cn(b(), 'ComponentWrapper')}>
-    <div className={b('title')}>
+  <div className={cn(b(), `ComponentWrapper`)}>
+    <div className={b(`title`)}>
       <h1>Что вы получите после курсов?</h1>
     </div>
-    <div className={b('items')}>
+    <div className={b(`items`)}>
       {
                     list.map((item, index) => (
-                      <div key={index} className={b('items-row')}>
+                      <div key={index} className={b(`items-row`)}>
                         <Mark
                           position={index}
                         />
-                        <div className={b('items-row-text')}>{item}</div>
+                        <div className={b(`items-row-text`)}>{item}</div>
                       </div>
                     ))
                 }

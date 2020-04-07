@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import b_ from 'b_';
 import cn from 'classnames';
 
@@ -12,28 +12,28 @@ const InputFile01 = (
     onPreviousClick,
     onNextClick,
     onComplete,
-    className = 'InputTextShort01'
+    className = `InputTextShort01`,
   },
 ) => {
   const b = b_.lock(className);
 
   return (
-      <div className={b()}>
-          <div className={b('title')}>{title}</div>
-          <input type="text" onChange={onChange} value={element} className={b('box')} />
-          <div className={b('controls')}>
-              {
-                    onPreviousClick
-                    && <div className={b('controls-previous')} onClick={onPreviousClick}>Назад</div>
-                }
+    <div className={b()}>
+      <div className={b(`title`)}>{title}</div>
+      <input type="text" onChange={onChange} value={element} className={b(`box`)} />
+      <div className={b(`controls`)}>
+        {
+          onPreviousClick
+          && <div className={b(`controls-previous`)} onClick={onPreviousClick}>Назад</div>
+        }
 
-              {
-                    onComplete
-                      ? <div className={cn(b('controls-complete'), { disabled: !element })} onClick={onComplete}>Готово</div>
-                      : <div className={cn(b('controls-next'), { disabled: !element })} onClick={onNextClick}>Далее</div>
-                }
-            </div>
-        </div>
+        {
+          onComplete
+            ? <div className={cn(b(`controls-complete`), { disabled: !element })} onClick={onComplete}>Готово</div>
+            : <div className={cn(b(`controls-next`), { disabled: !element })} onClick={onNextClick}>Далее</div>
+        }
+      </div>
+    </div>
   );
 };
 

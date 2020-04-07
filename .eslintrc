@@ -8,28 +8,41 @@
       "modules": true
     }
   },
-  "env": {
-    "browser": true,
-    "es6": true
-  },
-  "extends": "airbnb",
-  "plugins": [
-    "react"
-  ],
-  "rules": {
-    "linebreak-style": [
-      "off"
+    "env": {
+      "browser": true,
+      "es6": true
+    },
+    "extends": "airbnb",
+    "plugins": [
+      "react"
     ],
-    "react/prop-types": [
-      "off"
-    ],
-    "react/jsx-filename-extension": [
-      "error",
-      {
-        "extensions": [
-          ".js"
-        ]
-      }
-    ]
-  }
+    "rules": {
+      "consistent-return"                              : ["off"],
+      "default-case"                                   : ["off"],
+      "import/no-unresolved"                           : ["off"],
+      "quotes"                                         : ["error", "backtick"],
+      "linebreak-style"                                : ["off"],
+      "max-len"                                        : ["error", { "code": 120 }],
+      "no-mixed-operators"                             : ["error", {
+                                                         "groups": [
+                                                           ["+", "-", "*", "/", "%", "**"],
+                                                           ["&", "|", "^", "~", "<<", ">>", ">>>"],
+                                                           ["==", "!=", "===", "!==", ">", ">=", "<", "<="],
+                                                           ["&&", "||"],
+                                                            ["in", "instanceof"]
+                                                         ],
+                                                         "allowSamePrecedence": true
+      }],
+      "jsx-a11y/click-events-have-key-events"          : ["off"],
+      "jsx-a11y/label-has-for"                         : ["off"],
+      "jsx-a11y/mouse-events-have-key-events"          : ["off"],
+      "jsx-a11y/no-noninteractive-element-interactions": ["off"],
+      "jsx-a11y/no-static-element-interactions"        : ["off"],
+      "no-underscore-dangle"                           : ["off"],
+      "react/no-array-index-key"                       : ["off"],
+      "react/prop-types"                               : ["off"],
+      "react/jsx-filename-extension"                   : ["error", { "extensions": [".js"] }],
+      "react/jsx-props-no-spreading"                   : ["off"],
+      "react/jsx-no-target-blank"                      : ["error", {"enforceDynamicLinks": "never"}]
+    }
 }

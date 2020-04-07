@@ -9,12 +9,12 @@ import VisibilitySensor from 'react-visibility-sensor';
 import './style.scss';
 
 const paragraphs = [
-  'Приглашаем студентов и всех, кому интересен digital-PR на первую бесплатную лекцию, которая состоится 27 февраля в 18.30 по адресу: Малый Трехсвятительский пер. 8/2, стр.1, аудитория 103',
-  'Два параллельных курса, которые стартуют в мае 2020 года, разработаны лучшими специалистами-практиками агентства «Интериум» в сотрудничестве с преподавательским составом факультета коммуникаций, медиа и дизайна НИУ «Высшая школа экономики».',
-  'Во время курсов вы познакомитесь с такими важными и интересными направлениями, как репутация в сети и разработка стратегии для построения успешного бренда в интернете.',
+  `Приглашаем студентов и всех, кому интересен digital-PR на первую бесплатную лекцию, которая состоится 27 февраля в 18.30 по адресу: Малый Трехсвятительский пер. 8/2, стр.1, аудитория 103`,
+  `Два параллельных курса, которые стартуют в мае 2020 года, разработаны лучшими специалистами-практиками агентства «Интериум» в сотрудничестве с преподавательским составом факультета коммуникаций, медиа и дизайна НИУ «Высшая школа экономики».`,
+  `Во время курсов вы познакомитесь с такими важными и интересными направлениями, как репутация в сети и разработка стратегии для построения успешного бренда в интернете.`,
 ];
 
-export const b = b_.lock('Features02');
+export const b = b_.lock(`Features02`);
 
 const Paragraph = ({ item, pageMoveValue }) => {
   const [isShowed, setShowState] = useState(false);
@@ -24,7 +24,7 @@ const Paragraph = ({ item, pageMoveValue }) => {
   };
   return (
     <VisibilitySensor onChange={onVisibilityChange} partialVisibility>
-      <div className={b('paragraphs-item')}>
+      <div className={b(`paragraphs-item`)}>
         <motion.div
           animate={{
             x: isShowed ? pageMoveValue : 0,
@@ -32,7 +32,7 @@ const Paragraph = ({ item, pageMoveValue }) => {
               duration: 2,
             },
           }}
-          className={cn(b('paragraphs-item-gate'), 'left')}
+          className={cn(b(`paragraphs-item-gate`), `left`)}
         />
         <motion.div
           animate={{
@@ -41,7 +41,7 @@ const Paragraph = ({ item, pageMoveValue }) => {
               duration: 2,
             },
           }}
-          className={cn(b('paragraphs-item-gate'), 'right')}
+          className={cn(b(`paragraphs-item-gate`), `right`)}
         />
         <p>
           {item}
@@ -58,18 +58,18 @@ const Features02 = () => {
       if (!process.browser) return;
       setWidth(window.innerWidth);
     };
-    window.addEventListener('resize', updateSize);
+    window.addEventListener(`resize`, updateSize);
     updateSize();
-    return () => window.removeEventListener('resize', updateSize);
+    return () => window.removeEventListener(`resize`, updateSize);
   }, []);
   const pageMoveValue = -(width / 2) + (width > 800 ? 30 : 20);
   return (
     <Element name="about">
-      <div className={cn(b(), 'ComponentWrapper')}>
-        <div className={b('title')}>
+      <div className={cn(b(), `ComponentWrapper`)}>
+        <div className={b(`title`)}>
           <h1>О курсах</h1>
         </div>
-        <div className={b('paragraphs')}>
+        <div className={b(`paragraphs`)}>
           {
                         paragraphs.map((item, index) => (
                           <Paragraph key={index} item={item} pageMoveValue={pageMoveValue} />

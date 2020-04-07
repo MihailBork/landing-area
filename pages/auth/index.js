@@ -1,7 +1,5 @@
+import React from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
-import { parseCookies } from 'nookies';
-import _ from 'lodash';
 
 const Auth = () => (
   <div className="container">

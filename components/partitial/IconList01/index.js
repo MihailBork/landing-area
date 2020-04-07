@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import b_ from 'b_';
 import _ from 'lodash';
 
@@ -28,12 +28,12 @@ const Item = ({ b, item, project }) => {
       break;
   }
   return (
-    <div className={b('item')}>
-      <div className={b('item-icon')}>
-        <img src={`/images/${project}/Features03/${item.icon}`} />
+    <div className={b(`item`)}>
+      <div className={b(`item-icon`)}>
+        <img alt={item.description} src={`/images/${project}/Features03/${item.icon}`} />
       </div>
       <div
-        className={b('item-description')}
+        className={b(`item-description`)}
         style={{ fontSize: `${fontSize}rem` }}
       >
         {item.description}
@@ -42,7 +42,7 @@ const Item = ({ b, item, project }) => {
   );
 };
 
-const IconList01 = ({ items, className = 'IconList01', project }) => {
+const IconList01 = ({ items, className = `IconList01`, project }) => {
   const b = b_.lock(className);
   return (
     <div className={b()}>

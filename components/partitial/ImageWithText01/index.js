@@ -1,17 +1,17 @@
-import React, { useState, useEffect } from 'react';
+import React from 'react';
 import b_ from 'b_';
 
 import './style.scss';
 
 
-const ImageWithText01 = ({ item, className = 'ImageWithText01' }) => {
+const ImageWithText01 = ({ item, className = `ImageWithText01`, project }) => {
   const b = b_.lock(className);
   return (
     <div className={b()}>
-      <div className={b('image')}>
-        <img src={`/images/kotelnikovo/${item.image}`} />
+      <div className={b(`image`)}>
+        <img alt="Icon" src={`/images/${project}/${item.image}`} />
       </div>
-      <div className={b('text')}>
+      <div className={b(`text`)}>
         {item.text}
       </div>
     </div>

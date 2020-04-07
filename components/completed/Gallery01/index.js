@@ -4,22 +4,22 @@ import cn from 'classnames';
 
 import './style.scss';
 
-export const b = b_.lock('Gallery01');
+export const b = b_.lock(`Gallery01`);
 
-const imagePrefix = '/images/Gallery01/';
+const imagePrefix = `/images/Gallery01/`;
 
 const albums = [
   {
-    name: 'Фотогалерея №1',
-    photos: ['001.jpg', '002.jpg', '003.jpg', '004.jpg', '005.jpg', '006.jpg', '007.jpg', '008.jpg', '009.jpg'],
+    name: `Фотогалерея №1`,
+    photos: [`001.jpg`, `002.jpg`, `003.jpg`, `004.jpg`, `005.jpg`, `006.jpg`, `007.jpg`, `008.jpg`, `009.jpg`],
   },
   {
-    name: 'Фотогалерея №2',
-    photos: ['003.jpg', '004.jpg', '005.jpg', '006.jpg', '007.jpg', '008.jpg', '009.jpg'],
+    name: `Фотогалерея №2`,
+    photos: [`003.jpg`, `004.jpg`, `005.jpg`, `006.jpg`, `007.jpg`, `008.jpg`, `009.jpg`],
   },
   {
-    name: 'Фотогалерея №3',
-    photos: ['005.jpg', '006.jpg', '007.jpg', '008.jpg', '009.jpg'],
+    name: `Фотогалерея №3`,
+    photos: [`005.jpg`, `006.jpg`, `007.jpg`, `008.jpg`, `009.jpg`],
   },
 ];
 
@@ -37,21 +37,21 @@ const Album = ({ item, albumId, isReverse }) => {
     setOpenedPhoto(null);
   };
 
-  const isPhotoSelected = typeof openedPhoto === 'number';
+  const isPhotoSelected = typeof openedPhoto === `number`;
   return (
     <>
-      <div className={cn(b('album'), { reverse: isReverse })}>
-        <div className={b('album-title')}>
-          <div className={b('album-title-text')}>
+      <div className={cn(b(`album`), { reverse: isReverse })}>
+        <div className={b(`album-title`)}>
+          <div className={b(`album-title-text`)}>
             {item.name}
           </div>
         </div>
-        <div className={b('album-slider')}>
+        <div className={b(`album-slider`)}>
           {
                         item.photos.map((item, index) => (
                           <div
                             key={index}
-                            className={b('album-slider-item')}
+                            className={b(`album-slider-item`)}
                             onClick={() => setOpenedPhoto(index)}
                           >
                             <img src={`${imagePrefix}${item}`} />
@@ -63,15 +63,15 @@ const Album = ({ item, albumId, isReverse }) => {
       {
                 isPhotoSelected
                 && (
-                <div className={b('imagePopup')}>
-                  <div className={b('imagePopup-background')} onClick={closePhoto} />
-                  <div className={b('imagePopup-content')}>
-                    <div className={b('imagePopup-content-iconClose')} onClick={closePhoto} />
-                    <div className={b('imagePopup-content-previous')} onClick={previousPhoto}>
-                      <div className={b('imagePopup-content-previous-icon')} />
+                <div className={b(`imagePopup`)}>
+                  <div className={b(`imagePopup-background`)} onClick={closePhoto} />
+                  <div className={b(`imagePopup-content`)}>
+                    <div className={b(`imagePopup-content-iconClose`)} onClick={closePhoto} />
+                    <div className={b(`imagePopup-content-previous`)} onClick={previousPhoto}>
+                      <div className={b(`imagePopup-content-previous-icon`)} />
                     </div>
-                    <div className={b('imagePopup-content-next')} onClick={nextPhoto}>
-                      <div className={b('imagePopup-content-next-icon')} />
+                    <div className={b(`imagePopup-content-next`)} onClick={nextPhoto}>
+                      <div className={b(`imagePopup-content-next-icon`)} />
                     </div>
                     <img src={`${imagePrefix}${albums[albumId].photos[openedPhoto]}`} />
                   </div>
@@ -83,8 +83,8 @@ const Album = ({ item, albumId, isReverse }) => {
 };
 
 const Gallery01 = () => (
-  <div className={cn(b(), 'ComponentWrapper')}>
-    <div className={b('title')}>
+  <div className={cn(b(), `ComponentWrapper`)}>
+    <div className={b(`title`)}>
       ФОТОГРАФИИ
     </div>
     {

@@ -19,7 +19,7 @@ const InputFile01 = (
     onPreviousClick,
     onNextClick,
     onComplete,
-    className = 'InputFile01'
+    className = `InputFile01`,
   },
 ) => {
   const b = b_.lock(className);
@@ -45,8 +45,8 @@ const InputFile01 = (
   }, [isErrorAnimation]);
 
   const onInputChange = (e) => {
-    const file = e.target.files[0];
-    const fileExtension = path.extname(_.get(file, 'name', '.')).substr(1);
+    const inputFile = e.target.files[0];
+    const fileExtension = path.extname(_.get(inputFile, `name`, `.`)).substr(1);
 
     if (!_.includes(extensions, fileExtension)) {
       setErrorAnimationState(true);
@@ -57,51 +57,61 @@ const InputFile01 = (
   };
 
   return (
-      <div className={b()}>
-          <div className={b('title')}>
-              <div className={b('title-text')}>{title}</div>
-              {
+    <div className={b()}>
+      <div className={b(`title`)}>
+        <div className={b(`title-text`)}>{title}</div>
+        {
                     extensions
-                    && <div className={cn(b('title-comment'), { error: isErrorAnimation })}>
-                        {`доступные форматы: ${_.split(extensions, ', ')}`}
+                    && (
+                    <div className={cn(b(`title-comment`), { error: isErrorAnimation })}>
+                      {`доступные форматы: ${_.split(extensions, `, `)}`}
                     </div>
+                    )
                 }
+      </div>
+      <div className={cn(b(`box`), { uploaded: !!file })}>
+        <label htmlFor={id}>
+          <div className={cn(b(`box-wrapper`), `Title`)}>
+            <input id={id} className={b(`input`)} type="file" name={id} onChange={onInputChange} />
+            <div className={cn(b(`box-wrapper-title`))}>Выбрать файл</div>
+          </div>
+        </label>
+        <div className={cn(b(`box-wrapper`), `File`)}>
+          <div className={cn(b(`box-wrapper-file`))}>
+            <div className={cn(b(`box-wrapper-file-name`))}>{file ? file.name : ``}</div>
+            <div className={cn(b(`box-wrapper-file-close`))} onClick={onRemove}>
+              <div className={cn(b(`box-wrapper-file-close-icon`))} />
             </div>
-          <div className={cn(b('box'), { uploaded: !!file })}>
-              <label htmlFor={id}>
-                  <div className={cn(b('box-wrapper'), 'Title')}>
-                      <input id={id} className={b('input')} type="file" name={id} onChange={onInputChange} />
-                      <div className={cn(b('box-wrapper-title'))}>Выбрать файл</div>
-                    </div>
-                </label>
-              <div className={cn(b('box-wrapper'), 'File')}>
-                  <div className={cn(b('box-wrapper-file'))}>
-                      <div className={cn(b('box-wrapper-file-name'))}>{file ? file.name : ''}</div>
-                      <div className={cn(b('box-wrapper-file-close'))} onClick={onRemove}>
-                          <div className={cn(b('box-wrapper-file-close-icon'))} />
-                        </div>
-                    </div>
-                </div>
-            </div>
-          <div className={b('controls')}>
-              {
+          </div>
+        </div>
+      </div>
+      <div className={b(`controls`)}>
+        {
                     onPreviousClick
-                    && <div className={b('controls-previous')} onClick={onPreviousClick}>Назад</div>
+                    && <div className={b(`controls-previous`)} onClick={onPreviousClick}>Назад</div>
                 }
 
-              {
+        {
                     onComplete
                       ? (
-<div className={cn(b(`controls-complete`), {disabled: !file})}
-                               onClick={file ? onComplete : null}>Готово</div>
-)
+                        <div
+                          className={cn(b(`controls-complete`), { disabled: !file })}
+                          onClick={file ? onComplete : null}
+                        >
+                          Готово
+                        </div>
+                      )
                       : (
-<div className={cn(b(`controls-next`), {disabled: !file})}
-                               onClick={file ? onNextClick : null}>Далее</div>
-)
+                        <div
+                          className={cn(b(`controls-next`), { disabled: !file })}
+                          onClick={file ? onNextClick : null}
+                        >
+                          Далее
+                        </div>
+                      )
                 }
-            </div>
-        </div>
+      </div>
+    </div>
   );
 };
 

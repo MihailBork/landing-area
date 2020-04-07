@@ -2,21 +2,21 @@ import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import _ from 'lodash';
 
-import { api } from '../../api';
+import api from 'api';
 
-import Menu02 from '../../components/completed/Menu02';
-import Title04 from '../../components/completed/titles/Title04';
-import Gallery02 from '../../components/completed/Gallery02';
-import List02 from '../../components/completed/List02';
-import Form02 from '../../components/completed/Form02';
-import Footer01 from '../../components/completed/Footer01';
-import Works01 from '../../components/completed/Works01';
-import Video01 from '../../components/completed/Video01';
-import Features03 from '../../components/completed/Features03';
+import Menu02 from 'components/completed/Menu02';
+import Title04 from 'components/completed/titles/Title04';
+import Gallery02 from 'components/completed/Gallery02';
+import List02 from 'components/completed/List02';
+import Form02 from 'components/completed/Form02';
+import Footer01 from 'components/completed/Footer01';
+import Works01 from 'components/completed/Works01';
+import Video01 from 'components/completed/Video01';
+import Features03 from 'components/completed/Features03';
 
 import './style.scss';
 
-const project = 'kotelnikovo';
+const project = `kotelnikovo`;
 const globalPadding = 50; // px
 
 const Home = ({ works }) => {
@@ -42,12 +42,12 @@ const Home = ({ works }) => {
       handleScroll();
       handleResize();
     }
-    window.addEventListener('resize', handleResize);
-    window.addEventListener('scroll', handleScroll);
+    window.addEventListener(`resize`, handleResize);
+    window.addEventListener(`scroll`, handleScroll);
 
     return () => {
-      window.removeEventListener('resize', handleResize);
-      window.removeEventListener('scroll', handleScroll);
+      window.removeEventListener(`resize`, handleResize);
+      window.removeEventListener(`scroll`, handleScroll);
     };
   });
 
@@ -75,22 +75,22 @@ const Home = ({ works }) => {
       {
         isFormOpened || isFormCloseAnimation
           ? <Form02 closing={isFormCloseAnimation} onClose={formClose} />
-          : ''
+          : ``
       }
       <Gallery02 globalPadding={globalPadding} innerWidth={innerWidth} project={project} />
       <Video01 />
       <List02 />
       <Works01 works={works} />
-      <Footer01 onButtonClick={formOpen} />
+      <Footer01 globalPadding={globalPadding} onButtonClick={formOpen} />
     </div>
   );
 };
 
-Home.getInitialProps = async (ctx) => {
-  const response = await api.get('kotelnikovo/getWorks');
+Home.getInitialProps = async () => {
+  const response = await api.get(`kotelnikovo/getWorks`);
 
-  const responseData = _.get(response, 'data', []);
-  const works = _.get(responseData, 'data', []);
+  const responseData = _.get(response, `data`, []);
+  const works = _.get(responseData, `data`, []);
 
   return {
     works,

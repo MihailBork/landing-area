@@ -10,64 +10,64 @@ const features = [
     description: [
       {
         number: 1,
-        text: 'месяц обучения',
+        text: `месяц обучения`,
       },
     ],
-    icon: 'calendar',
+    icon: `calendar`,
   },
   {
     description: [
       {
         number: 30000,
-        text: 'рублей',
+        text: `рублей`,
       },
     ],
-    icon: 'ruble',
+    icon: `ruble`,
   },
   {
     description: [
       {
         number: 50,
-        text: 'часов практики',
+        text: `часов практики`,
       },
     ],
-    icon: 'clock',
+    icon: `clock`,
   },
 ];
 
-export const b = b_.lock('Features01');
+export const b = b_.lock(`Features01`);
 
 const Features01 = () => (
   <Element name="plan">
-    <div className={cn(b(), 'ComponentWrapper')}>
-      <div className={b('title')}>
+    <div className={cn(b(), `ComponentWrapper`)}>
+      <div className={b(`title`)}>
         <h1>Обучающая программа</h1>
       </div>
-      <div className={b('items')}>
+      <div className={b(`items`)}>
         {
                         features.map((item, index) => (
-                          <div key={index} className={b('items-column')}>
-                            <div className={b('items-column-icon')}>
+                          <div key={index} className={b(`items-column`)}>
+                            <div className={b(`items-column-icon`)}>
                               <img
-                                className={b('items-column-icon-image')}
+                                className={b(`items-column-icon-image`)}
                                 src={`/images/Features01/${item.icon}.svg`}
                               />
                               <img
-                                className={cn(b('items-column-icon-border'), `item-${index}`)}
+                                className={cn(b(`items-column-icon-border`), `item-${index}`)}
                                 src="/images/Features01/round-black.png"
                               />
                             </div>
-                            <div className={b('items-column-description')}>
+                            <div className={b(`items-column-description`)}>
                               {
                                         item.description.map((point, i) => (
-                                          <div key={i} className={b('items-column-description-row')}>
+                                          <div key={i} className={b(`items-column-description-row`)}>
                                             <div
-                                              className={b('items-column-description-row-number')}
+                                              className={b(`items-column-description-row-number`)}
                                             >
                                               {point.number}
                                             </div>
                                             <div
-                                              className={b('items-column-description-row-text')}
+                                              className={b(`items-column-description-row-text`)}
                                             >
                                               {point.text}
                                             </div>

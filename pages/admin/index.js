@@ -1,5 +1,5 @@
+import React from 'react';
 import Head from 'next/head';
-import Router from 'next/router';
 import { parseCookies } from 'nookies';
 import _ from 'lodash';
 
@@ -24,9 +24,9 @@ const Admin = () => (
 
 Admin.getInitialProps = async (ctx) => {
   const cookies = parseCookies(ctx);
-  if (!_.get(cookies, 'profile')) {
+  if (!_.get(cookies, `profile`)) {
     ctx.res.writeHead(302, {
-      Location: '/auth',
+      Location: `/auth`,
     });
     ctx.res.end();
   }

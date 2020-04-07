@@ -8,28 +8,28 @@ import './style.scss';
 import cn from 'classnames';
 
 const titles = {
-  left: ['18 февраля', 'Айта Лузгина', 'Курс'],
-  right: ['РЭУ им. Плеханова', 'Проектный директор агенства Интериум', 'Стратегия ведения соцсетей'],
+  left: [`18 февраля`, `Айта Лузгина`, `Курс`],
+  right: [`РЭУ им. Плеханова`, `Проектный директор агенства Интериум`, `Стратегия ведения соцсетей`],
 };
 
 const elements = [
   {
-    title: '18 февраля',
-    description: 'РЭУ им. Плеханова',
+    title: `18 февраля`,
+    description: `РЭУ им. Плеханова`,
   },
   {
-    title: 'Айта Лузгина',
-    description: 'Интериум',
+    title: `Айта Лузгина`,
+    description: `Интериум`,
   },
   {
-    title: 'Курс',
-    description: 'Стратегия ведения соцсетей',
+    title: `Курс`,
+    description: `Стратегия ведения соцсетей`,
   },
 ];
 
 const MOVE_VALUE = 20;
 
-export const b = b_.lock('Title01');
+export const b = b_.lock(`Title01`);
 
 const Title01 = ({ isScrolled }) => {
   const [count, setCount] = useState(0);
@@ -51,10 +51,10 @@ const Title01 = ({ isScrolled }) => {
   }, [isWaitAnimation]);
   const leftText = elements[count].title;
   const rightText = elements[count].description;
-  const axis = isPortrait ? 'x' : 'y';
+  const axis = isPortrait ? `x` : `y`;
 
-  const motionInitial = (side = 'left') => {
-    const translateValue = side === 'left' ? MOVE_VALUE : -MOVE_VALUE;
+  const motionInitial = (side = `left`) => {
+    const translateValue = side === `left` ? MOVE_VALUE : -MOVE_VALUE;
     const translateProps = {
       opacity: 0,
     };
@@ -62,14 +62,14 @@ const Title01 = ({ isScrolled }) => {
     return translateProps;
   };
 
-  const motionAnimate = (side = 'left') => {
-    const translateValue = side === 'left' ? MOVE_VALUE : -MOVE_VALUE;
+  const motionAnimate = (side = `left`) => {
+    const translateValue = side === `left` ? MOVE_VALUE : -MOVE_VALUE;
 
     const translateProps = {
       opacity: isWaitAnimation ? 0 : 1,
       transition: {
         duration: 1,
-        ease: 'easeOut',
+        ease: `easeOut`,
       },
     };
     translateProps[axis] = isWaitAnimation ? translateValue : 0;
@@ -77,37 +77,37 @@ const Title01 = ({ isScrolled }) => {
   };
 
   return (
-    <div className={cn(b(), 'ComponentWrapper')}>
-      <div className={b('title')}>
+    <div className={cn(b(), `ComponentWrapper`)}>
+      <div className={b(`title`)}>
         <h1>Курсы по Digital</h1>
         <h2>С дипломом государственного образца</h2>
       </div>
       <Link to="about" spy smooth duration={1000}>
-        <div className={cn(b('about'), { scrolled: isScrolled })}>Подробнее</div>
+        <div className={cn(b(`about`), { scrolled: isScrolled })}>Подробнее</div>
       </Link>
       <Link to="register" spy smooth duration={1000}>
-        <div className={cn(b('register'), { scrolled: isScrolled })}>Регистрация</div>
+        <div className={cn(b(`register`), { scrolled: isScrolled })}>Регистрация</div>
       </Link>
-      <div className={cn(b('text-slider'), { portrait: isPortrait })}>
-        <div className={b('text-slider-left')}>
-          <div className={b('text-slider-left-container')}>
+      <div className={cn(b(`text-slider`), { portrait: isPortrait })}>
+        <div className={b(`text-slider-left`)}>
+          <div className={b(`text-slider-left-container`)}>
             <motion.div
-              initial={motionInitial('left')}
-              animate={motionAnimate('left')}
-              className={b('text-slider-left-container-row')}
+              initial={motionInitial(`left`)}
+              animate={motionAnimate(`left`)}
+              className={b(`text-slider-left-container-row`)}
             >
-              <span className={b('text-slider-left-container-row-content')}>{leftText}</span>
+              <span className={b(`text-slider-left-container-row-content`)}>{leftText}</span>
             </motion.div>
           </div>
         </div>
-        <div className={b('text-slider-right')}>
-          <div className={b('text-slider-right-container')}>
+        <div className={b(`text-slider-right`)}>
+          <div className={b(`text-slider-right-container`)}>
             <motion.div
-              initial={motionInitial('right')}
-              animate={motionAnimate('right')}
-              className={b('text-slider-right-container-row')}
+              initial={motionInitial(`right`)}
+              animate={motionAnimate(`right`)}
+              className={b(`text-slider-right-container-row`)}
             >
-              <span className={b('text-slider-right-container-row-content')}>{rightText}</span>
+              <span className={b(`text-slider-right-container-row-content`)}>{rightText}</span>
             </motion.div>
           </div>
         </div>

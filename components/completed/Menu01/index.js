@@ -6,7 +6,7 @@ import { Link } from 'react-scroll';
 import './style.scss';
 
 
-export const b = b_.lock('Menu01');
+export const b = b_.lock(`Menu01`);
 
 const Menu01 = ({ isScrolled }) => {
   const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
@@ -34,20 +34,20 @@ const Menu01 = ({ isScrolled }) => {
   }
 
   useEffect(() => {
-    window.addEventListener('resize', updateSize);
-    return () => window.removeEventListener('resize', updateSize);
+    window.addEventListener(`resize`, updateSize);
+    return () => window.removeEventListener(`resize`, updateSize);
   }, []);
 
   useEffect(() => {
-    window.addEventListener('scroll', closeMenu);
-    return () => window.removeEventListener('scroll', closeMenu);
+    window.addEventListener(`scroll`, closeMenu);
+    return () => window.removeEventListener(`scroll`, closeMenu);
   }, []);
 
 
   return (
     <div className={cn(b(), { visible: isScrolled })}>
-      <div className={b('menu')} onClick={handleClick} />
-      <ul className={cn(b('items'), { opened: isScrolled && !isMobile || isOpened })}>
+      <div className={b(`menu`)} onClick={handleClick} />
+      <ul className={cn(b(`items`), { opened: isScrolled && !isMobile || isOpened })}>
         <Link to="speaker" spy smooth duration={1000}>
           <li>О спикере</li>
         </Link>
