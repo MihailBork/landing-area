@@ -1,4 +1,4 @@
-const { addWork, getChildWorks, getArchitectWorks } = require(`../db/kotelnikovo/works.model`);
+const { addWork, getWorks } = require(`../db/kotelnikovo/works.model`);
 const _ = require(`lodash`);
 const fs = require(`fs`);
 const path = require(`path`);
@@ -129,8 +129,8 @@ module.exports = {
         });
     });
   },
-  getChildWorks: (req, res) => {
-    getChildWorks()
+  getWorks: (req, res) => {
+    getWorks()
       .then((response) => {
         res.status(200)
           .json({
@@ -140,25 +140,13 @@ module.exports = {
           });
       })
       .catch((error) => {
-        // eslint-disable-next-line no-console
         console.log(error);
-        errorResponse(res, _.get(error, `response`, `Uncaught error`));
-      });
-  },
-  getArchitectWorks: (req, res) => {
-    getArchitectWorks()
-      .then((response) => {
-        res.status(200)
+        res.status(400)
           .json({
-            ok: true,
-            message: `Success`,
-            data: response,
+            ok: false,
+            message: _.get(error, `response`, `Uncaught error`),
+            data: [],
           });
-      })
-      .catch((error) => {
-        // eslint-disable-next-line no-console
-        console.log(error);
-        errorResponse(res, _.get(error, `response`, `Uncaught error`));
       });
   },
 };
