@@ -1,4 +1,4 @@
-@import '../../../public/styles/kotelnikovo/colors';
+@import 'public/styles/kotelnikovo/colors';
 
 $borderRadius: 5px;
 
@@ -14,7 +14,7 @@ $borderRadius: 5px;
   left: 0;
   background: $blackColor;
   z-index: 5;
-  box-shadow: 0 0 10px $blackColor;
+  box-shadow: 0 0 10px $deepBlackColor;
 
   &__title {
     color: $whiteColor;

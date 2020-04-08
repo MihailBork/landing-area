@@ -16,6 +16,7 @@ import Menu01 from '../../components/completed/Menu01';
 import Clients01 from '../../components/completed/Clients01';
 
 import '../style.scss';
+import _ from "lodash";
 
 const Home = () => {
   const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
@@ -40,10 +41,12 @@ const Home = () => {
     };
   });
 
+  const headerInfo = _.get(data, `head`, {});
+
   return (
     <div className="container">
       <Head>
-        <title>{data.title}</title>
+        <title>{headerInfo.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Menu01 isScrolled={isScrolled} />

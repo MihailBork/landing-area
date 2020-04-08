@@ -138,7 +138,7 @@ const Gallery02 = ({ globalPadding, innerWidth, project }) => {
     <Element name="photo">
       <div className={b()} ref={blockRef}>
         <div className={b(`title`)}>
-          Фотографии
+          <h1>Фотографии</h1>
         </div>
         <div
           className={b(`gallery`)}

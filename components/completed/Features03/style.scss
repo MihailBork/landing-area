@@ -5,9 +5,7 @@
   align-items: center;
   justify-content: flex-start;
   overflow: hidden;
-  background-color: $primaryColor;
-  background: url('/images/Features03/goldback.jpg') fixed no-repeat;
-  background-size: cover;
+  background-color: $whiteColor;
   color: $blackColor;
 
   &__title {

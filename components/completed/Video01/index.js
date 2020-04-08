@@ -120,7 +120,7 @@ const Video01 = () => {
   return (
     <Element name="video">
       <div className={b()}>
-        <div className={b(`title`)}>Видеогалерея</div>
+        <h1>Видеогалерея</h1>
         <div
           className={b(`list`)}
           style={{ height: ACTIVE_HEIGHT + Y_MARGIN + PREVIEW_HEIGHT }}

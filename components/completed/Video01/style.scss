@@ -1,19 +1,13 @@
-@import '../../../public/styles/colors';
+@import 'public/styles/kotelnikovo/colors';
+@import 'public/styles/kotelnikovo/variables';
 
 .Video01 {
   width: 100%;
   height: auto;
   overflow: hidden;
-  margin: 50px auto;
-
-  &__title {
-    width: 100%;
-    font-size: 3rem;
-    font-family: Monitorca-Bold;
-    text-transform: uppercase;
-    text-align: center;
-    margin: 50px 0 20px 0;
-  }
+  padding-bottom: $blockMarginX;
+  background-color: $blackColor;
+  color: $whiteColor;
 
   &__list {
     position: relative;

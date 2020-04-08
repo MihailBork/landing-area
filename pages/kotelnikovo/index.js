@@ -66,14 +66,16 @@ const Home = ({ works }) => {
     }, 500);
   };
 
+  const headerInfo = _.get(data, `head`, {});
+
   return (
     <div className="container">
       <Head>
-        <title>{data.title}</title>
+        <title>{headerInfo.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} />
-      <Title04 />
+      <Title04 data={data.titleBlock} />
       <Features03 globalPadding={globalPadding} project={projectName} />
       {
         isFormOpened || isFormCloseAnimation

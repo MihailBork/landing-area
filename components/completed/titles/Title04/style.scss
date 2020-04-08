@@ -8,22 +8,23 @@
   height: 100vh;
   padding-top: 50px;
   box-sizing: border-box;
-  background-color: $deepBlackColor;
+  background-color: $primaryColor;
+  background: url('/images/kotelnikovo/goldback.jpg') fixed no-repeat;
+  background-size: cover;
 
   &__text, &__logo {
     width: 50%;
     height: auto;
     flex-shrink: 0;
+    color: $blackColor;
   }
 
   &__text {
-    color: $whiteColor;
     text-transform: uppercase;
     font-size: 2rem;
     text-align: center;
     font-family: Monitorca-Bold;
     span {
-      color: $primaryColor;
       display: block;
       font-size: 3rem;
     }
