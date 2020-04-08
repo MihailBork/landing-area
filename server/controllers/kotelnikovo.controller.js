@@ -1,4 +1,9 @@
-const { addWork, getWorks } = require(`../db/kotelnikovo/works.model`);
+const {
+  addWork,
+  getWorks,
+  getChildWorks,
+  getArchitectWorks,
+} = require(`../db/kotelnikovo/works.model`);
 const _ = require(`lodash`);
 const fs = require(`fs`);
 const path = require(`path`);
@@ -38,7 +43,11 @@ const checkFileLimits = ({ file, maxSize, availableTypes }) => {
   return null;
 };
 
-const errorResponse = (res, message) => res.status(400).json({ ok: false, message });
+const errorResponse = (res, message) => res.status(400)
+  .json({
+    ok: false,
+    message,
+  });
 
 const uploadFile = (file) => {
   const buffer = _.get(file, `buffer`);
@@ -56,7 +65,7 @@ module.exports = {
         return;
       }
 
-      const { name, about } = req.body;
+      const { name, about, competition } = req.body;
       if (!name || !about) {
         errorResponse(res, `Не заполнены обязательные поля`);
         return;
@@ -98,6 +107,7 @@ module.exports = {
       addWork({
         name,
         about,
+        competition,
         photo: photoFileName,
         work: workFileName,
       })
@@ -123,14 +133,26 @@ module.exports = {
             });
         })
         .catch((error) => {
-          // eslint-disable-next-line no-console
-          console.log(error);
-          errorResponse(res, `Ошибка во время сохранения работы`);
+          errorResponse(res, _.get(error, `response`, `Ошибка во время сохранения работы`));
         });
     });
   },
   getWorks: (req, res) => {
-    getWorks()
+    const { competition } = req.query;
+    let getResults;
+
+    switch (competition) {
+      case `child`:
+        getResults = getChildWorks;
+        break;
+      case `architect`:
+        getResults = getArchitectWorks;
+        break;
+      default:
+        getResults = getWorks;
+    }
+
+    getResults()
       .then((response) => {
         res.status(200)
           .json({
@@ -140,13 +162,7 @@ module.exports = {
           });
       })
       .catch((error) => {
-        console.log(error);
-        res.status(400)
-          .json({
-            ok: false,
-            message: _.get(error, `response`, `Uncaught error`),
-            data: [],
-          });
+        errorResponse(res, _.get(error, `response`, `Uncaught error`));
       });
   },
 };
