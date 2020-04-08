@@ -6,9 +6,7 @@
 }
 
 html {
-  color: $blackColor;
   font-size: 18px;
-  font-family: Arial, serif;
 }
 
 ul, li {
@@ -16,13 +14,6 @@ ul, li {
   padding: 0;
   text-indent: 0;
   list-style-type: none;
-}
-
-.ComponentWrapper {
-  padding: 4rem 0;
-  width: 100%;
-  display: flex;
-  flex-direction: column;
 }
 
 @media (max-width: 300px) {
