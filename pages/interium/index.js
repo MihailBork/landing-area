@@ -1,5 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+
+import data from 'data/interium/data.json';
+
 import Title01 from '../../components/completed/titles/Title01';
 import List01 from '../../components/completed/List01';
 import Features01 from '../../components/completed/Features01';
@@ -44,14 +47,14 @@ const Home = () => {
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Menu01 isScrolled={isScrolled} />
-      <Title01 isScrolled={isScrolled} />
-      <Features02 />
-      <Person01 />
-      <About01 />
-      <Clients01 />
-      <Features01 />
-      <Columns01 />
-      <List01 />
+      <Title01 data={data.titleInfo} isScrolled={isScrolled} />
+      <Features02 data={data.features02} />
+      <Person01 data={data.person} />
+      <About01 data={data.about} />
+      <Clients01 data={data.clients} />
+      <Features01 data={data.features01} />
+      <Columns01 data={data.courses} />
+      <List01 data={data.skills} />
       <Form01 />
       <Copyright01 />
     </div>

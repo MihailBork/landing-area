@@ -1,19 +1,11 @@
-@import '../../../public/styles/colors';
+@import 'public/styles/kotelnikovo/colors';
 
 $pdfControlsHeight: 40px;
 
 .Works01 {
   height: auto;
-  background: url('/images/Works01/paper.jpg');
-
-  &__title {
-    line-height: 60px;
-    font-size: 50px;
-    font-weight: 700;
-    font-style: italic;
-    text-align: center;
-    padding: 30px 0;
-  }
+  background-color: $blackColor;
+  color: $whiteColor;
 
   &__works {
     &-row {
@@ -22,6 +14,7 @@ $pdfControlsHeight: 40px;
       width: 100%;
       height: 140px;
       align-items: center;
+      justify-content: space-between;
       padding-bottom: 40px;
 
       &-photo, &-about, &-description, &-open, &-download {
@@ -30,13 +23,14 @@ $pdfControlsHeight: 40px;
       }
 
       &-photo {
-        width: 20%;
-        height: 100%;
+        width: 100px;
+        height: auto;
         display: flex;
         align-items: center;
         justify-content: center;
+
         &-image {
-          border: 10px solid #261105;
+          border: 5px solid $primaryColor;
           box-sizing: border-box;
           width: 100px;
           height: 140px;
@@ -47,31 +41,40 @@ $pdfControlsHeight: 40px;
       }
 
       &-about {
-        width: 20%;
+        width: auto;
+        max-width: 20%;
         height: auto;
         text-align: center;
       }
 
       &-description {
-        width: 40%;
+        width: auto;
+        max-width: 40%;
         height: auto;
         text-align: center;
       }
 
-      &-open span, &-download a {
-        text-decoration: underline;
-        color: #000;
-        cursor: pointer;
-      }
-
-      &-open {
-        width: 10%;
+      &-controls {
+        width: auto;
         height: auto;
-      }
+        text-align: center;
+        display: flex;
+        flex-direction: row;
+        align-items: center;
 
-      &-download {
-        width: 10%;
-        height: auto;
+        &-open, &-download, &-vote {
+          padding: 10px;
+        }
+
+        &-open span, &-download a, &-vote span {
+          text-decoration: underline;
+          color: $whiteColor;
+          cursor: pointer;
+        }
+
+        &-vote {
+          padding-right: 0;
+        }
       }
     }
   }

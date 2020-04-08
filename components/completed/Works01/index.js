@@ -3,13 +3,15 @@ import b_ from 'b_';
 import cn from 'classnames';
 import { Document, Page } from 'react-pdf';
 
+import { getGlobalPadding } from 'components/helper';
+
 import './style.scss';
 
 const filePrefix = `uploads/`;
 
 export const b = b_.lock(`Works01`);
 
-const Works01 = ({ works }) => {
+const Works01 = ({ globalPadding, works }) => {
   const [selectedWork, setSelectedWork] = useState(null);
   const isSelectedWork = typeof selectedWork === `number`;
 
@@ -37,8 +39,8 @@ const Works01 = ({ works }) => {
   };
 
   return (
-    <div className={b()}>
-      <div className={b(`title`)}>Работы участников</div>
+    <div className={b()} style={getGlobalPadding(globalPadding)}>
+      <div className={b(`title`)}><h2>Работы участников</h2></div>
       <div className={b(`works`)}>
         {
           works && works.map((item, index) => (
@@ -61,13 +63,18 @@ const Works01 = ({ works }) => {
                   {item.about}
                 </span>
               </div>
-              <div className={b(`works-row-open`)}>
-                <span onClick={() => setSelectedWork(index)}>Смотреть</span>
-              </div>
-              <div className={b(`works-row-download`)}>
-                <a target="_blank" rel="noopener noreferer" href={`${filePrefix}${item.work}`}>
-                  Скачать
-                </a>
+              <div className={b(`works-row-controls`)}>
+                <div className={b(`works-row-controls-open`)}>
+                  <span onClick={() => setSelectedWork(index)}>Смотреть</span>
+                </div>
+                <div className={b(`works-row-controls-download`)}>
+                  <a target="_blank" rel="noopener noreferer" href={`${filePrefix}${item.work}`}>
+                    Скачать
+                  </a>
+                </div>
+                <div className={b(`works-row-controls-vote`)}>
+                  <span onClick={() => setSelectedWork(index)}>Голосовать</span>
+                </div>
               </div>
             </div>
           ))

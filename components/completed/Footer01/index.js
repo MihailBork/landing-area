@@ -2,6 +2,8 @@ import React from 'react';
 import b_ from 'b_';
 import cn from 'classnames';
 
+import { getGlobalPadding } from "components/helper";
+
 import './style.scss';
 
 const logo = {
@@ -24,8 +26,8 @@ const social = {
 
 export const b = b_.lock(`Footer01`);
 
-const Footer01 = ({ onButtonClick }) => (
-  <div className={b()}>
+const Footer01 = ({ globalPadding, onButtonClick }) => (
+  <div className={b()} style={getGlobalPadding(globalPadding)}>
     <div className={b(`logo`)}>
       <img alt={logo.description} className={b(`logo-image`)} src={`/images/Title03/${logo.image}`} />
       <div className={b(`logo-description`)}>{logo.description}</div>

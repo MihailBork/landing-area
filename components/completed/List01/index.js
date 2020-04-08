@@ -7,12 +7,6 @@ import VisibilitySensor from 'react-visibility-sensor';
 
 import './style.scss';
 
-const list = [
-  `Практические знания по работе с репутацией в интернете, а также анализу рынка и созданию результативных стратегий в 2020 году`,
-  `Диплом гособразца от РЭУ им. Плеханова`,
-  `Полезные контакты и знакомства во время курса`,
-];
-
 export const b = b_.lock(`List01`);
 
 const Checked = () => {
@@ -68,14 +62,14 @@ const Mark = ({ position }) => {
   );
 };
 
-const List01 = () => (
+const List01 = ({ data }) => (
   <div className={cn(b(), `ComponentWrapper`)}>
     <div className={b(`title`)}>
       <h1>Что вы получите после курсов?</h1>
     </div>
     <div className={b(`items`)}>
       {
-                    list.map((item, index) => (
+                    data.map((item, index) => (
                       <div key={index} className={b(`items-row`)}>
                         <Mark
                           position={index}

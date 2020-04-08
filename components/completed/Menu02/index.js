@@ -38,26 +38,26 @@ const Menu02 = ({ globalPadding, innerWidth }) => {
       <div className={b(`title`)}>Котельниково - земля героев</div>
       <div className={b(`menu`)}>
         <ul className={b(`menu-main`)}>
-          <Link to="about" spy smooth duration={1000}>
+          <Link to="about" spy smooth duration={1000} offset={-50}>
             <li className={b(`menu-main-item`)}>О проекте</li>
           </Link>
-          <Link to="photo" spy smooth duration={1000}>
+          <Link to="photo" spy smooth duration={1000} offset={-50}>
             <li className={b(`menu-main-item`)}>Фото</li>
           </Link>
-          <Link to="video" spy smooth duration={1000}>
+          <Link to="video" spy smooth duration={1000} offset={-50}>
             <li className={b(`menu-main-item`)}>Видео</li>
           </Link>
-          <Link to="contacts" spy smooth duration={1000}>
+          <Link to="contacts" spy smooth duration={1000} offset={-50}>
             <li className={b(`menu-main-item`)}>Контакты</li>
           </Link>
         </ul>
         <div className={cn(b(`menu-dropdown`), { opened: isOpened })}>
           <div className={b(`menu-dropdown-button`)} onClick={handleClick}>Конкурсы</div>
           <ul className={b(`menu-dropdown-list`)}>
-            <Link to="list1" spy smooth duration={1000}>
+            <Link to="competition01" spy smooth duration={1000} offset={-50}>
               <li className={b(`menu-dropdown-list-item`)}>Конкурс детских сочинений</li>
             </Link>
-            <Link to="list2" spy smooth duration={1000}>
+            <Link to="competition02" spy smooth duration={1000} offset={-50}>
               <li className={b(`menu-dropdown-list-item`)}>Конкурс архитектурных проектов</li>
             </Link>
           </ul>

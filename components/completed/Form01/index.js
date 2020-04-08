@@ -3,7 +3,7 @@ import b_ from 'b_';
 import cn from 'classnames';
 import { Button, TextField } from '@material-ui/core';
 import { Element } from 'react-scroll';
-import { api } from '../../../api';
+import api from 'api';
 
 import './style.scss';
 
@@ -42,7 +42,7 @@ const Form01 = () => {
       email,
       phone,
     })
-      .then((response) => {
+      .then(() => {
         setSuccessState(true);
       })
       .catch(() => {
@@ -71,6 +71,7 @@ const Form01 = () => {
             </div>
             <div className={cn(b(`form-overlay-message`), { visible: isClicked && isDone })}>
               <img
+                alt="Icon"
                 className={b(`form-overlay-message-icon`)}
                 src={`/images/Form01/${isSuccess ? `right` : `close`}.svg`}
               />

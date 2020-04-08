@@ -1,13 +1,16 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import _ from 'lodash';
+import { Element } from 'react-scroll';
+
+import data from 'data/kotelnikovo/data.json';
 
 import api from 'api';
 
 import Menu02 from 'components/completed/Menu02';
 import Title04 from 'components/completed/titles/Title04';
 import Gallery02 from 'components/completed/Gallery02';
-import List02 from 'components/completed/List02';
+import About03 from 'components/completed/About03';
 import Form02 from 'components/completed/Form02';
 import Footer01 from 'components/completed/Footer01';
 import Works01 from 'components/completed/Works01';
@@ -16,7 +19,7 @@ import Features03 from 'components/completed/Features03';
 
 import './style.scss';
 
-const project = `kotelnikovo`;
+const projectName = `kotelnikovo`;
 const globalPadding = 50; // px
 
 const Home = ({ works }) => {
@@ -71,17 +74,25 @@ const Home = ({ works }) => {
       </Head>
       <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} />
       <Title04 />
-      <Features03 globalPadding={globalPadding} project={project} />
+      <Features03 globalPadding={globalPadding} project={projectName} />
       {
         isFormOpened || isFormCloseAnimation
           ? <Form02 closing={isFormCloseAnimation} onClose={formClose} />
           : ``
       }
-      <Gallery02 globalPadding={globalPadding} innerWidth={innerWidth} project={project} />
+      <Gallery02 globalPadding={globalPadding} innerWidth={innerWidth} project={projectName} />
       <Video01 />
-      <List02 />
-      <Works01 works={works} />
-      <Footer01 globalPadding={globalPadding} onButtonClick={formOpen} />
+      <Element name="competition01">
+        <About03 globalPadding={globalPadding} data={data.competition01} />
+        <Works01 globalPadding={globalPadding} works={works} />
+      </Element>
+      <Element name="competition02">
+        <About03 globalPadding={globalPadding} data={data.competition02} />
+        <Works01 globalPadding={globalPadding} works={works} />
+      </Element>
+      <Element name="contacts">
+        <Footer01 globalPadding={globalPadding} onButtonClick={formOpen} />
+      </Element>
     </div>
   );
 };

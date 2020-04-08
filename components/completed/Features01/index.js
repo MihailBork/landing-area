@@ -5,39 +5,9 @@ import { Element } from 'react-scroll';
 
 import './style.scss';
 
-const features = [
-  {
-    description: [
-      {
-        number: 1,
-        text: `месяц обучения`,
-      },
-    ],
-    icon: `calendar`,
-  },
-  {
-    description: [
-      {
-        number: 30000,
-        text: `рублей`,
-      },
-    ],
-    icon: `ruble`,
-  },
-  {
-    description: [
-      {
-        number: 50,
-        text: `часов практики`,
-      },
-    ],
-    icon: `clock`,
-  },
-];
-
 export const b = b_.lock(`Features01`);
 
-const Features01 = () => (
+const Features01 = ({ data }) => (
   <Element name="plan">
     <div className={cn(b(), `ComponentWrapper`)}>
       <div className={b(`title`)}>
@@ -45,14 +15,16 @@ const Features01 = () => (
       </div>
       <div className={b(`items`)}>
         {
-                        features.map((item, index) => (
+                        data.map((item, index) => (
                           <div key={index} className={b(`items-column`)}>
                             <div className={b(`items-column-icon`)}>
                               <img
+                                alt="Icon"
                                 className={b(`items-column-icon-image`)}
                                 src={`/images/Features01/${item.icon}.svg`}
                               />
                               <img
+                                alt="Border"
                                 className={cn(b(`items-column-icon-border`), `item-${index}`)}
                                 src="/images/Features01/round-black.png"
                               />

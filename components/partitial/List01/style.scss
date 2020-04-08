@@ -1,0 +1,22 @@
+@import 'public/styles/kotelnikovo/colors';
+
+.List01 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+
+  &__items {
+    width: auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+
+    &-row {
+      &:before {
+        content: '- ';
+      }
+      font-size: 1.2rem;
+    }
+  }
+}

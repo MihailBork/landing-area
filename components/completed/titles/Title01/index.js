@@ -7,31 +7,11 @@ import { motion } from 'framer-motion';
 import './style.scss';
 import cn from 'classnames';
 
-const titles = {
-  left: [`18 февраля`, `Айта Лузгина`, `Курс`],
-  right: [`РЭУ им. Плеханова`, `Проектный директор агенства Интериум`, `Стратегия ведения соцсетей`],
-};
-
-const elements = [
-  {
-    title: `18 февраля`,
-    description: `РЭУ им. Плеханова`,
-  },
-  {
-    title: `Айта Лузгина`,
-    description: `Интериум`,
-  },
-  {
-    title: `Курс`,
-    description: `Стратегия ведения соцсетей`,
-  },
-];
-
 const MOVE_VALUE = 20;
 
 export const b = b_.lock(`Title01`);
 
-const Title01 = ({ isScrolled }) => {
+const Title01 = ({ data, isScrolled }) => {
   const [count, setCount] = useState(0);
   const [isWaitAnimation, setIsWaitAnimation] = useState(false);
   const isPortrait = process.browser ? window.innerWidth < window.innerHeight : false;
@@ -44,13 +24,13 @@ const Title01 = ({ isScrolled }) => {
   useEffect(() => {
     if (!isWaitAnimation) return;
     const timer = setTimeout(() => {
-      setCount(_.size(elements) > count + 1 ? count + 1 : 0);
+      setCount(_.size(data) > count + 1 ? count + 1 : 0);
       setIsWaitAnimation(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, [isWaitAnimation]);
-  const leftText = elements[count].title;
-  const rightText = elements[count].description;
+  const leftText = data[count].title;
+  const rightText = data[count].description;
   const axis = isPortrait ? `x` : `y`;
 
   const motionInitial = (side = `left`) => {

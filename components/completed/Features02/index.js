@@ -8,12 +8,6 @@ import VisibilitySensor from 'react-visibility-sensor';
 
 import './style.scss';
 
-const paragraphs = [
-  `Приглашаем студентов и всех, кому интересен digital-PR на первую бесплатную лекцию, которая состоится 27 февраля в 18.30 по адресу: Малый Трехсвятительский пер. 8/2, стр.1, аудитория 103`,
-  `Два параллельных курса, которые стартуют в мае 2020 года, разработаны лучшими специалистами-практиками агентства «Интериум» в сотрудничестве с преподавательским составом факультета коммуникаций, медиа и дизайна НИУ «Высшая школа экономики».`,
-  `Во время курсов вы познакомитесь с такими важными и интересными направлениями, как репутация в сети и разработка стратегии для построения успешного бренда в интернете.`,
-];
-
 export const b = b_.lock(`Features02`);
 
 const Paragraph = ({ item, pageMoveValue }) => {
@@ -51,7 +45,7 @@ const Paragraph = ({ item, pageMoveValue }) => {
   );
 };
 
-const Features02 = () => {
+const Features02 = ({ data }) => {
   const [width, setWidth] = useState(0);
   useEffect(() => {
     const updateSize = () => {
@@ -71,7 +65,7 @@ const Features02 = () => {
         </div>
         <div className={b(`paragraphs`)}>
           {
-                        paragraphs.map((item, index) => (
+                        data.map((item, index) => (
                           <Paragraph key={index} item={item} pageMoveValue={pageMoveValue} />
                         ))
                     }

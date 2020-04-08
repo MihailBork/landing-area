@@ -47,7 +47,7 @@ const Menu01 = ({ isScrolled }) => {
   return (
     <div className={cn(b(), { visible: isScrolled })}>
       <div className={b(`menu`)} onClick={handleClick} />
-      <ul className={cn(b(`items`), { opened: isScrolled && !isMobile || isOpened })}>
+      <ul className={cn(b(`items`), { opened: (isScrolled && !isMobile) || isOpened })}>
         <Link to="speaker" spy smooth duration={1000}>
           <li>О спикере</li>
         </Link>

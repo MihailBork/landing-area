@@ -1,4 +1,4 @@
-@import '../../../public/styles/colors';
+@import 'public/styles/kotelnikovo/colors';
 
 .Footer01 {
   width: 100%;
@@ -8,7 +8,7 @@
   justify-content: space-between;
   flex-wrap: nowrap;
   padding: 20px 0;
-  background-color: #c4c4c4;
+  background-color: $primaryColor;
 
   &__logo, &__contacts, &__social, &__publish {
     display: flex;
@@ -32,8 +32,11 @@
   }
 
   &__contacts {
-
     align-items: flex-start;
+
+    a {
+      color: $blackColor;
+    }
   }
 
   &__social {
