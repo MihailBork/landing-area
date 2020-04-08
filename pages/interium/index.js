@@ -43,7 +43,7 @@ const Home = () => {
   return (
     <div className="container">
       <Head>
-        <title>Курсы по Digital от Айты Лузгиной (Интериум)</title>
+        <title>{data.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Menu01 isScrolled={isScrolled} />

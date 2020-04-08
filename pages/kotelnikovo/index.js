@@ -69,7 +69,7 @@ const Home = ({ works }) => {
   return (
     <div className="container">
       <Head>
-        <title>Котельниково - земля героев</title>
+        <title>{data.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
       <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} />
