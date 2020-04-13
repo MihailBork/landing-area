@@ -1,6 +1,6 @@
 const {
-  addWork,
-  getWorks,
+  addChildWork,
+  addArchitectWork,
   getChildWorks,
   getArchitectWorks,
 } = require(`../db/kotelnikovo/works.model`);
@@ -10,7 +10,19 @@ const path = require(`path`);
 
 const multer = require(`multer`);
 
-const upload = multer({
+const uploadChild = multer({
+  storage: multer.memoryStorage(),
+  limits: {
+    fieldNameSize: 255,
+    fileSize: 1 * 1024 * 1024, // 1Mb
+  },
+})
+  .fields([{
+    name: `work`,
+    maxCount: 1,
+  }]);
+
+const uploadArchitect = multer({
   storage: multer.memoryStorage(),
   limits: {
     fieldNameSize: 255,
@@ -58,15 +70,85 @@ const uploadFile = (file) => {
 };
 
 module.exports = {
-  uploadWork: (req, res) => {
-    upload(req, res, (err) => {
+  uploadChildWork: (req, res) => {
+    uploadChild(req, res, (err) => {
       if (err) {
         errorResponse(res, `Ошибка загрузки файлов: ${_.get(err, `message`, `неопознанная ошибка`)}`);
         return;
       }
 
-      const { name, about, competition } = req.body;
-      if (!name || !about) {
+      const {
+        name,
+        age,
+        studyPlace,
+        aboutWork: workAbout,
+      } = req.body;
+      if (!name || !age || !studyPlace || !workAbout) {
+        errorResponse(res, `Не заполнены обязательные поля`);
+        return;
+      }
+
+      const workFile = getFile(_.get(req, `files`), `work`);
+
+      if (!workFile) {
+        errorResponse(res, `Отсутствует один или несколько файлов`);
+        return;
+      }
+
+      const workFileErrors = checkFileLimits({
+        file: workFile,
+        maxSize: 1 * 1024 * 1024,
+        availableTypes: [`application/pdf`],
+      });
+
+      if (workFileErrors) {
+        errorResponse(res, workFileErrors);
+        return;
+      }
+
+      const workFileName = uploadFile(workFile);
+
+      addChildWork({
+        name,
+        age,
+        studyPlace,
+        workAbout,
+        work: workFileName,
+      })
+        .then(() => {
+          res.status(200)
+            .json({
+              ok: true,
+              message: `Upload successful`,
+              data: {
+                name,
+                age,
+                studyPlace,
+                workAbout,
+                files: [{ type: `work`, filename: workFileName }],
+              },
+            });
+        })
+        .catch((error) => {
+          console.log(error);
+          errorResponse(res, _.get(error, `response`, `Ошибка во время сохранения работы`));
+        });
+    });
+  },
+  uploadArchitectWork: (req, res) => {
+    uploadArchitect(req, res, (err) => {
+      if (err) {
+        errorResponse(res, `Ошибка загрузки файлов: ${_.get(err, `message`, `неопознанная ошибка`)}`);
+        return;
+      }
+
+      const {
+        name,
+        age,
+        studyPlace,
+        aboutWork: workAbout,
+      } = req.body;
+      if (!name || !age || !studyPlace || !workAbout) {
         errorResponse(res, `Не заполнены обязательные поля`);
         return;
       }
@@ -104,10 +186,11 @@ module.exports = {
       const photoFileName = uploadFile(photoFile);
       const workFileName = uploadFile(workFile);
 
-      addWork({
+      addArchitectWork({
         name,
-        about,
-        competition,
+        age,
+        studyPlace,
+        workAbout,
         photo: photoFileName,
         work: workFileName,
       })
@@ -118,41 +201,24 @@ module.exports = {
               message: `Upload successful`,
               data: {
                 name,
-                about,
+                age,
+                studyPlace,
+                workAbout,
                 files: [
-                  {
-                    type: `photo`,
-                    filename: photoFileName,
-                  },
-                  {
-                    type: `work`,
-                    filename: workFileName,
-                  },
+                  { type: `photo`, filename: photoFileName },
+                  { type: `work`, filename: workFileName },
                 ],
               },
             });
         })
         .catch((error) => {
+          console.log(error);
           errorResponse(res, _.get(error, `response`, `Ошибка во время сохранения работы`));
         });
     });
   },
-  getWorks: (req, res) => {
-    const { competition } = req.query;
-    let getResults;
-
-    switch (competition) {
-      case `child`:
-        getResults = getChildWorks;
-        break;
-      case `architect`:
-        getResults = getArchitectWorks;
-        break;
-      default:
-        getResults = getWorks;
-    }
-
-    getResults()
+  getChildWorks: (req, res) => {
+    getChildWorks()
       .then((response) => {
         res.status(200)
           .json({
@@ -162,6 +228,21 @@ module.exports = {
           });
       })
       .catch((error) => {
+        errorResponse(res, _.get(error, `response`, `Uncaught error`));
+      });
+  },
+  getArchitectWorks: (req, res) => {
+    getArchitectWorks()
+      .then((response) => {
+        res.status(200)
+          .json({
+            ok: true,
+            message: `Success`,
+            data: response,
+          });
+      })
+      .catch((error) => {
+        console.log(error);
         errorResponse(res, _.get(error, `response`, `Uncaught error`));
       });
   },

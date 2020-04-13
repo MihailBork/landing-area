@@ -1,0 +1,104 @@
+@import 'public/styles/kotelnikovo/colors';
+$borderRadius: 5px;
+
+.Dropdown01 {
+  font-family: Monitorca-Bold;
+  position: relative;
+  &__button {
+    position: relative;
+    height: 20px;
+    line-height: 20px;
+    padding: 10px;
+    background-color: $primaryColor;
+    color: $blackColor;
+    text-transform: uppercase;
+    border-radius: $borderRadius;
+    cursor: pointer;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 2px $blackColor;
+    z-index: 2;
+
+    .opened.leftBottom & {
+      border-radius: $borderRadius $borderRadius 0 0;
+      box-shadow: 0 -1px 1px $blackColor;
+    }
+
+    .opened.rightBottom & {
+      border-radius: $borderRadius $borderRadius 0 0;
+      box-shadow: 0 -1px 1px $blackColor;
+    }
+
+    .opened.leftTop & {
+      border-radius: 0 0 $borderRadius $borderRadius;
+      box-shadow: 0 1px 1px $blackColor;
+    }
+
+    .opened.rightTop & {
+      border-radius: 0 0 $borderRadius $borderRadius;
+      box-shadow: 0 1px 1px $blackColor;
+    }
+  }
+  &__list {
+    width: auto;
+    position: absolute;
+    background-color: $primaryColor;
+    color: $blackColor;
+    visibility: hidden;
+    opacity: 0;
+    padding: 10px;
+    transition: all 0.5s ease;
+    box-shadow: 0 0 2px $blackColor;
+    z-index: 1;
+
+    .leftBottom & {
+      left: unset;
+      right: 0;
+      top: 100%;
+      bottom: unset;
+      border-radius: $borderRadius 0 $borderRadius $borderRadius;
+    }
+
+    .rightBottom & {
+      left: 0;
+      right: unset;
+      top: 100%;
+      bottom: unset;
+      border-radius: 0 $borderRadius $borderRadius $borderRadius;
+    }
+
+    .leftTop & {
+      left: unset;
+      right: 0;
+      top: 0;
+      bottom: unset;
+      border-radius: $borderRadius $borderRadius 0 $borderRadius;
+    }
+
+    .rightTop & {
+      left: 0;
+      right: unset;
+      top: 0;
+      bottom: unset;
+      border-radius: $borderRadius $borderRadius $borderRadius 0;
+    }
+
+    &-item {
+      white-space: nowrap;
+      display: block;
+      width: auto;
+      padding: 10px 10px 0 10px;
+      cursor: pointer;
+      &:last-child {
+        padding: 10px;
+      }
+      &:hover {
+        color: $whiteColor
+      }
+    }
+
+    .opened & {
+      visibility: visible;
+      opacity: 1;
+    }
+  }
+}

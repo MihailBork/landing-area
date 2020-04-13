@@ -1,7 +1,7 @@
 @import '../../../public/styles/kotelnikovo/colors';
 @import '../../../public/styles/kotelnikovo/variables';
 
-.About02 {
+.About03 {
   height: auto;
   background-color: $primaryColor;
   color: $blackColor;
@@ -17,6 +17,7 @@
     flex-direction: column;
     align-items: center;
     justify-content: center;
+    background-color: inherit;
 
     @media (max-width: 600px) {
       flex-direction: column;

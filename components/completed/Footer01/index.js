@@ -4,6 +4,8 @@ import cn from 'classnames';
 
 import { getGlobalPadding } from "components/helper";
 
+import Dropdown01 from "components/partitial/Dropdown01";
+
 import './style.scss';
 
 const logo = {
@@ -26,7 +28,7 @@ const social = {
 
 export const b = b_.lock(`Footer01`);
 
-const Footer01 = ({ globalPadding, onButtonClick }) => (
+const Footer01 = ({ globalPadding, dropdownItems }) => (
   <div className={b()} style={getGlobalPadding(globalPadding)}>
     <div className={b(`logo`)}>
       <img alt={logo.description} className={b(`logo-image`)} src={`/images/Title03/${logo.image}`} />
@@ -70,7 +72,12 @@ const Footer01 = ({ globalPadding, onButtonClick }) => (
       </div>
     </div>
     <div className={b(`publish`)}>
-      <div className={b(`publish-button`)} onClick={onButtonClick}>Разместить работу</div>
+      <Dropdown01
+        name="Разместить работу"
+        items={dropdownItems}
+        xPosition="left"
+        yPosition="top"
+      />
     </div>
   </div>
 );

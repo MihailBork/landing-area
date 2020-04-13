@@ -1,11 +1,9 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
 import _ from 'lodash';
-import { Element } from 'react-scroll';
+import { Link, Element } from 'react-scroll';
 
 import data from 'data/kotelnikovo/data.json';
-
-import api from 'api';
 
 import Menu02 from 'components/completed/Menu02';
 import Title04 from 'components/completed/titles/Title04';
@@ -22,10 +20,11 @@ import './style.scss';
 const projectName = `kotelnikovo`;
 const globalPadding = 50; // px
 
-const Home = ({ works }) => {
+const Home = () => {
   const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
   const [isScrolled, setScrolledState] = useState(false);
   const [innerWidth, setInnerWidth] = useState(0);
+
   const handleScroll = () => {
     if (!process.browser) return;
     const _isScrolled = !!window.scrollY;
@@ -54,13 +53,15 @@ const Home = ({ works }) => {
     };
   });
 
-  const [isFormOpened, setFormOpenedState] = useState(false);
+  const [selectedCompetition, setSelectedCompetition] = useState(null);
   const [isFormCloseAnimation, setFormCloseAnimationState] = useState(false);
 
-  const formOpen = () => setFormOpenedState(true);
+  const formOpen = (value) => {
+    setSelectedCompetition(value);
+  };
   const formClose = () => {
     setFormCloseAnimationState(true);
-    setFormOpenedState(false);
+    setSelectedCompetition(null);
     setTimeout(() => {
       setFormCloseAnimationState(false);
     }, 500);
@@ -68,47 +69,55 @@ const Home = ({ works }) => {
 
   const headerInfo = _.get(data, `head`, {});
 
+  const competitions = _.get(data, `competitions`);
+  const competitionsMenuDropdown = _.map(competitions, (item) => ({
+    Component: Link,
+    props: {
+      to: item.slug,
+      spy: true,
+      smooth: true,
+      duration: 1000,
+      offset: -50,
+    },
+    title: item.title,
+  }));
+  const competitionsFooterDropdown = _.map(competitions, (item, index) => ({
+    title: item.title,
+    slug: item.slug,
+    func: () => formOpen(index),
+  }));
+
+  const isCompetitionSelected = typeof selectedCompetition === `number`;
+  const competitionForm = isCompetitionSelected && _.get(data.competitions[selectedCompetition], `form`);
   return (
     <div className="container">
       <Head>
         <title>{headerInfo.title}</title>
         <meta name="viewport" content="initial-scale=1.0, width=device-width" />
       </Head>
-      <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} />
+      <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} dropdownItems={competitionsMenuDropdown} />
       <Title04 data={data.titleBlock} />
-      <Features03 globalPadding={globalPadding} project={projectName} />
+      <Features03 data={_.get(data, `features`, {})} globalPadding={globalPadding} project={projectName} />
       {
-        isFormOpened || isFormCloseAnimation
-          ? <Form02 closing={isFormCloseAnimation} onClose={formClose} />
+        isCompetitionSelected || isFormCloseAnimation
+          ? <Form02 data={competitionForm} closing={isFormCloseAnimation} project={projectName} onClose={formClose} />
           : ``
       }
       <Gallery02 globalPadding={globalPadding} innerWidth={innerWidth} project={projectName} />
       <Video01 />
-      <Element name="competition01">
-        <About03 globalPadding={globalPadding} data={data.competition01} />
-        <Works01 globalPadding={globalPadding} works={works} />
-      </Element>
-      <Element name="competition02">
-        <About03 globalPadding={globalPadding} data={data.competition02} />
-        <Works01 globalPadding={globalPadding} works={works} />
-      </Element>
+      {
+        data.competitions.map((item, index) => (
+          <Element key={index} name={item.slug}>
+            <About03 globalPadding={globalPadding} data={item} />
+            <Works01 competition={item.slug} globalPadding={globalPadding} />
+          </Element>
+        ))
+      }
       <Element name="contacts">
-        <Footer01 globalPadding={globalPadding} onButtonClick={formOpen} />
+        <Footer01 globalPadding={globalPadding} dropdownItems={competitionsFooterDropdown} />
       </Element>
     </div>
   );
 };
-
-Home.getInitialProps = async () => {
-  const response = await api.get(`kotelnikovo/getWorks`);
-
-  const responseData = _.get(response, `data`, []);
-  const works = _.get(responseData, `data`, []);
-
-  return {
-    works,
-  };
-};
-
 
 export default Home;

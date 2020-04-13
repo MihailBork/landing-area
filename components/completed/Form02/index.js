@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useReducer } from 'react';
 import b_ from 'b_';
 import _ from 'lodash';
 import cn from 'classnames';
@@ -14,11 +14,54 @@ const ANIMATION_DURATION = 500; // ms
 
 export const b = b_.lock(`Form02`);
 
-const Form02 = ({ closing, onClose }) => {
-  const [photo, setPhoto] = useState(null);
-  const [name, setName] = useState(``);
-  const [about, setAbout] = useState(``);
-  const [work, setWork] = useState(null);
+const types = {
+  text: InputTextShort01,
+  textarea: InputTextLong01,
+  file: InputFile01,
+};
+
+function reducer(state, action) {
+  const { type, payload } = action;
+  switch (type) {
+    case `update`:
+      return {
+        ...state,
+        [payload[0]]: payload[1],
+      };
+    default:
+      return state;
+  }
+}
+
+const Screen = ({
+  id,
+  type,
+  setValueToSet: setValue,
+  ...props
+}) => {
+  const Component = _.get(types, type);
+  return (
+    <Component id={id} setValue={setValue} {...props} />
+  );
+};
+
+const Form02 = ({
+  data,
+  closing,
+  project,
+  onClose,
+}) => {
+  const fields = _.get(data, `fields`, []);
+  const initialState = {};
+  fields.map((item) => {
+    initialState[item.id] = item.type === `file` ? null : ``;
+    return null;
+  });
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+
+  const [valueToSet, setValueToSet] = useState(null);
+
   const [activeStep, setActiveStep] = useState(0);
 
   const [isFormSent, setFormSentState] = useState(false);
@@ -50,15 +93,13 @@ const Form02 = ({ closing, onClose }) => {
     return () => clearTimeout(timer);
   }, [secondsToClose]);
 
-  const onPhotoChange = (e) => setPhoto(e.target.files[0]);
-  const onRemovePhoto = () => setPhoto(null);
-
-  const onNameChange = (e) => setName(e.target.value);
-
-  const onAboutChange = (e) => setAbout(e.target.value);
-
-  const onWorkChange = (e) => setWork(e.target.files[0]);
-  const onRemoveWork = () => setWork(null);
+  useEffect(() => {
+    if (!valueToSet) return;
+    dispatch({
+      type: `update`,
+      payload: valueToSet,
+    });
+  }, [valueToSet]);
 
   const previousStep = () => setActiveStep(activeStep - 1);
   const nextStep = () => setActiveStep(activeStep + 1);
@@ -67,18 +108,24 @@ const Form02 = ({ closing, onClose }) => {
     setWaitResponseState(true);
     setFormSentState(true);
 
-    const data = new FormData();
-    data.set(`name`, name);
-    data.set(`about`, about);
-    data.append(`photo`, photo);
-    data.append(`work`, work);
+    const formData = new FormData();
+
+    _.map(Object.entries(state), (item) => {
+      const [key, value] = item;
+      if (typeof value === `object`) {
+        formData.append(key, value);
+      } else {
+        formData.set(key, value);
+      }
+    });
+
     api({
-      method: `post`,
-      url: `kotelnikovo/add`,
+      method: data.method,
+      url: `${project}/${data.endpoint}`,
       headers: {
         'Content-Type': `multipart/form-data`,
       },
-      data,
+      data: formData,
     })
       .then(() => {
         setResponseStatus(true);
@@ -115,54 +162,29 @@ const Form02 = ({ closing, onClose }) => {
         </div>
         <div className={cn(b(`content-form`), { hidden: isFormSent && !isWaitResponse })}>
           <ul className={b(`content-form-list`)}>
-            <li className={cn(b(`content-form-list-row`), { active: activeStep === 0 })}>1</li>
-            <li className={cn(b(`content-form-list-row`), { active: activeStep === 1 })}>2</li>
-            <li className={cn(b(`content-form-list-row`), { active: activeStep === 2 })}>3</li>
-            <li className={cn(b(`content-form-list-row`), { active: activeStep === 3 })}>4</li>
+            {
+              fields.map((item, index) => (
+                <li key={index} className={cn(b(`content-form-list-row`), { active: activeStep === index })}>
+                  {index + 1}
+                </li>
+              ))
+            }
           </ul>
-          <div className={b(`content-form-screen`)} style={getItemStyle(0)}>
-            <InputFile01
-              id="photo"
-              file={photo}
-              title="Загрузите фотографию"
-              extensions={[`jpg`, `png`]}
-              onChange={onPhotoChange}
-              onNextClick={nextStep}
-              onRemove={onRemovePhoto}
-            />
-          </div>
-          <div className={b(`content-form-screen`)} style={getItemStyle(1)}>
-            <InputTextShort01
-              id="name"
-              element={name}
-              title="Введите имя"
-              onChange={onNameChange}
-              onPreviousClick={previousStep}
-              onNextClick={nextStep}
-            />
-          </div>
-          <div className={b(`content-form-screen`)} style={getItemStyle(2)}>
-            <InputTextLong01
-              id="about"
-              element={about}
-              title="Введите описание работы"
-              onChange={onAboutChange}
-              onPreviousClick={previousStep}
-              onNextClick={nextStep}
-            />
-          </div>
-          <div className={b(`content-form-screen`)} style={getItemStyle(3)}>
-            <InputFile01
-              id="work"
-              file={work}
-              title="Загрузите работу"
-              extensions={[`pdf`]}
-              onChange={onWorkChange}
-              onPreviousClick={previousStep}
-              onComplete={sendForm}
-              onRemove={onRemoveWork}
-            />
-          </div>
+          {
+            fields.map((item, index) => (
+              <div key={index} className={b(`content-form-screen`)} style={getItemStyle(index)}>
+                <Screen
+                  key={index}
+                  element={state[item.id]}
+                  setValue={setValueToSet}
+                  onPreviousClick={index !== 0 ? previousStep : null}
+                  onNextClick={index !== (fields.length - 1) ? nextStep : null}
+                  onComplete={index === (fields.length - 1) ? sendForm : null}
+                  {...item}
+                />
+              </div>
+            ))
+          }
         </div>
         <div className={cn(b(`content-status`), { visible: isFormSent && !isWaitResponse })}>
           <div className={b(`content-status-icon`)}>

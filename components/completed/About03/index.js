@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import b_ from 'b_';
 import _ from 'lodash';
 
@@ -8,7 +8,7 @@ import Paragraph01 from "components/partitial/Paragraph01";
 
 import './style.scss';
 
-export const b = b_.lock(`About02`);
+export const b = b_.lock(`About03`);
 
 // Data structure:
 // {
@@ -30,6 +30,8 @@ const About03 = ({ data, globalPadding }) => {
   const description = _.get(data, `description`);
   const paragraphs = _.get(data, `paragraphs`, []);
 
+  const [selectedItem, setSeletedItem] = useState(0);
+
   return (
     <div className={b()} style={getGlobalPadding(globalPadding)}>
       <div className={b(`title`)}><h1>{data.title}</h1></div>
@@ -37,7 +39,12 @@ const About03 = ({ data, globalPadding }) => {
         { description && <h1>{description}</h1> }
         {
           paragraphs.map((item, index) => (
-            <Paragraph01 key={index} item={item} />
+            <Paragraph01
+              key={index}
+              item={item}
+              isOpened={index === selectedItem}
+              setOpenedState={() => setSeletedItem(index)}
+            />
           ))
         }
       </div>

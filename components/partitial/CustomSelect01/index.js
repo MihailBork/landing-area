@@ -1,39 +1,33 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React from 'react';
 import b_ from 'b_';
 import cn from 'classnames';
 
 import './style.scss';
 
-const InputFile01 = (
+const CustomSelect01 = (
   {
-    id,
     element,
+    items,
     title,
-    setValue,
+    onChange,
     onPreviousClick,
     onNextClick,
     onComplete,
-    className = `InputTextShort01`,
+    className = `CustomSelect01`,
   },
 ) => {
   const b = b_.lock(className);
-  const inputRef = useRef(null);
-  const [cursor, setCursor] = useState(0);
-
-  const onChange = (e) => {
-    setCursor(e.target.selectionStart);
-    setValue([id, e.target.value]);
-  };
-
-  useEffect(() => {
-    inputRef.current.selectionStart = cursor;
-    inputRef.current.selectionEnd = cursor;
-  });
 
   return (
     <div className={b()}>
       <div className={b(`title`)}>{title}</div>
-      <input ref={inputRef} type="text" onChange={onChange} value={element} className={b(`box`)} />
+      <div className={b(`list`)}>
+        {
+          items.map((item, index) => (
+            <div key={index} className={b(`list-item`)} onClick={onChange(item.value)}>{item.name}</div>
+          ))
+        }
+      </div>
       <div className={b(`controls`)}>
         {
           onPreviousClick
@@ -50,4 +44,4 @@ const InputFile01 = (
   );
 };
 
-export default InputFile01;
+export default CustomSelect01;

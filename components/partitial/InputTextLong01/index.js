@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect, useRef, useState } from 'react';
 import b_ from 'b_';
 import cn from 'classnames';
 
@@ -6,9 +6,10 @@ import './style.scss';
 
 const InputFile01 = (
   {
+    id,
     element,
     title,
-    onChange,
+    setValue,
     onPreviousClick,
     onNextClick,
     onComplete,
@@ -17,10 +18,23 @@ const InputFile01 = (
 ) => {
   const b = b_.lock(className);
 
+  const inputRef = useRef(null);
+  const [cursor, setCursor] = useState(0);
+
+  const onChange = (e) => {
+    setCursor(e.target.selectionStart);
+    setValue([id, e.target.value]);
+  };
+
+  useEffect(() => {
+    inputRef.current.selectionStart = cursor;
+    inputRef.current.selectionEnd = cursor;
+  });
+
   return (
     <div className={b()}>
       <div className={b(`title`)}>{title}</div>
-      <textarea onChange={onChange} value={element} className={b(`box`)} />
+      <textarea ref={inputRef} onChange={onChange} value={element} className={b(`box`)} />
       <div className={b(`controls`)}>
         {
           onPreviousClick

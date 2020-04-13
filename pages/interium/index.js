@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import Head from 'next/head';
+import _ from 'lodash';
 
 import data from 'data/interium/data.json';
 
@@ -16,7 +17,6 @@ import Menu01 from '../../components/completed/Menu01';
 import Clients01 from '../../components/completed/Clients01';
 
 import '../style.scss';
-import _ from "lodash";
 
 const Home = () => {
   const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);

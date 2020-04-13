@@ -1,0 +1,24 @@
+@import '../../../public/styles/kotelnikovo/colors';
+
+.Controls01 {
+  width: auto;
+  height: auto;
+  text-align: center;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+
+  &__open, &__download, &__vote {
+    padding: 10px;
+  }
+
+  &__open span, &__download a, &__vote span {
+    text-decoration: underline;
+    color: $whiteColor;
+    cursor: pointer;
+  }
+
+  &__vote {
+    padding-right: 0;
+  }
+}

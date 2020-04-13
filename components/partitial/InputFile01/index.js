@@ -11,11 +11,10 @@ const ANIMATION_DURATION = 500; // ms
 const InputFile01 = (
   {
     id,
-    file,
+    element,
     title,
     extensions,
-    onChange,
-    onRemove,
+    setValue,
     onPreviousClick,
     onNextClick,
     onComplete,
@@ -46,30 +45,33 @@ const InputFile01 = (
 
   const onInputChange = (e) => {
     const inputFile = e.target.files[0];
-    const fileExtension = path.extname(_.get(inputFile, `name`, `.`)).substr(1);
+    const fileExtension = path.extname(_.get(inputFile, `name`, `.`))
+      .substr(1);
 
     if (!_.includes(extensions, fileExtension)) {
       setErrorAnimationState(true);
       return;
     }
 
-    onChange(e);
+    setValue([id, inputFile]);
   };
+
+  const onRemove = () => setValue([id, null]);
 
   return (
     <div className={b()}>
       <div className={b(`title`)}>
         <div className={b(`title-text`)}>{title}</div>
         {
-                    extensions
-                    && (
-                    <div className={cn(b(`title-comment`), { error: isErrorAnimation })}>
-                      {`доступные форматы: ${_.split(extensions, `, `)}`}
-                    </div>
-                    )
-                }
+          extensions
+          && (
+            <div className={cn(b(`title-comment`), { error: isErrorAnimation })}>
+              {`доступные форматы: ${_.split(extensions, `, `)}`}
+            </div>
+          )
+        }
       </div>
-      <div className={cn(b(`box`), { uploaded: !!file })}>
+      <div className={cn(b(`box`), { uploaded: !!element })}>
         <label htmlFor={id}>
           <div className={cn(b(`box-wrapper`), `Title`)}>
             <input id={id} className={b(`input`)} type="file" name={id} onChange={onInputChange} />
@@ -78,7 +80,7 @@ const InputFile01 = (
         </label>
         <div className={cn(b(`box-wrapper`), `File`)}>
           <div className={cn(b(`box-wrapper-file`))}>
-            <div className={cn(b(`box-wrapper-file-name`))}>{file ? file.name : ``}</div>
+            <div className={cn(b(`box-wrapper-file-name`))}>{element ? element.name : ``}</div>
             <div className={cn(b(`box-wrapper-file-close`))} onClick={onRemove}>
               <div className={cn(b(`box-wrapper-file-close-icon`))} />
             </div>
@@ -87,29 +89,29 @@ const InputFile01 = (
       </div>
       <div className={b(`controls`)}>
         {
-                    onPreviousClick
-                    && <div className={b(`controls-previous`)} onClick={onPreviousClick}>Назад</div>
-                }
+          onPreviousClick
+          && <div className={b(`controls-previous`)} onClick={onPreviousClick}>Назад</div>
+        }
 
         {
-                    onComplete
-                      ? (
-                        <div
-                          className={cn(b(`controls-complete`), { disabled: !file })}
-                          onClick={file ? onComplete : null}
-                        >
-                          Готово
-                        </div>
-                      )
-                      : (
-                        <div
-                          className={cn(b(`controls-next`), { disabled: !file })}
-                          onClick={file ? onNextClick : null}
-                        >
-                          Далее
-                        </div>
-                      )
-                }
+          onComplete
+            ? (
+              <div
+                className={cn(b(`controls-complete`), { disabled: !element })}
+                onClick={element ? onComplete : null}
+              >
+                Готово
+              </div>
+            )
+            : (
+              <div
+                className={cn(b(`controls-next`), { disabled: !element })}
+                onClick={element ? onNextClick : null}
+              >
+                Далее
+              </div>
+            )
+        }
       </div>
     </div>
   );
