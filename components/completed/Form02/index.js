@@ -1,49 +1,16 @@
-import React, { useState, useEffect, useReducer } from 'react';
+import React, { useState, useEffect } from 'react';
 import b_ from 'b_';
 import _ from 'lodash';
 import cn from 'classnames';
 import api from 'api';
 
-import InputFile01 from 'components/partitial/InputFile01';
-import InputTextShort01 from 'components/partitial/InputTextShort01';
-import InputTextLong01 from 'components/partitial/InputTextLong01';
+import Screen from "./Screen";
 
 import './style.scss';
 
 const ANIMATION_DURATION = 500; // ms
 
 export const b = b_.lock(`Form02`);
-
-const types = {
-  text: InputTextShort01,
-  textarea: InputTextLong01,
-  file: InputFile01,
-};
-
-function reducer(state, action) {
-  const { type, payload } = action;
-  switch (type) {
-    case `update`:
-      return {
-        ...state,
-        [payload[0]]: payload[1],
-      };
-    default:
-      return state;
-  }
-}
-
-const Screen = ({
-  id,
-  type,
-  setValueToSet: setValue,
-  ...props
-}) => {
-  const Component = _.get(types, type);
-  return (
-    <Component id={id} setValue={setValue} {...props} />
-  );
-};
 
 const Form02 = ({
   data,
@@ -52,15 +19,13 @@ const Form02 = ({
   onClose,
 }) => {
   const fields = _.get(data, `fields`, []);
-  const initialState = {};
-  fields.map((item) => {
-    initialState[item.id] = item.type === `file` ? null : ``;
-    return null;
-  });
+  const initialState = fields.reduce((accumulator, currentValue) => {
+    accumulator[currentValue.id] = currentValue.type === `file` ? null : ``;
+    return accumulator;
+  }, {});
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-
-  const [valueToSet, setValueToSet] = useState(null);
+  const [form, setForm] = useState(initialState);
+  const [valueFromInput, setValueFromInput] = useState(null);
 
   const [activeStep, setActiveStep] = useState(0);
 
@@ -82,6 +47,7 @@ const Form02 = ({
 
   useEffect(() => {
     if (typeof secondsToClose !== `number`) return;
+
     if (secondsToClose === 0) {
       onClose();
       return;
@@ -94,12 +60,13 @@ const Form02 = ({
   }, [secondsToClose]);
 
   useEffect(() => {
-    if (!valueToSet) return;
-    dispatch({
-      type: `update`,
-      payload: valueToSet,
+    if (!valueFromInput) return;
+    const [key, value] = valueFromInput;
+    setForm({
+      ...form,
+      [key]: value,
     });
-  }, [valueToSet]);
+  }, [valueFromInput]);
 
   const previousStep = () => setActiveStep(activeStep - 1);
   const nextStep = () => setActiveStep(activeStep + 1);
@@ -110,7 +77,7 @@ const Form02 = ({
 
     const formData = new FormData();
 
-    _.map(Object.entries(state), (item) => {
+    _.map(Object.entries(form), (item) => {
       const [key, value] = item;
       if (typeof value === `object`) {
         formData.append(key, value);
@@ -175,8 +142,8 @@ const Form02 = ({
               <div key={index} className={b(`content-form-screen`)} style={getItemStyle(index)}>
                 <Screen
                   key={index}
-                  element={state[item.id]}
-                  setValue={setValueToSet}
+                  element={form[item.id]}
+                  setValue={setValueFromInput}
                   onPreviousClick={index !== 0 ? previousStep : null}
                   onNextClick={index !== (fields.length - 1) ? nextStep : null}
                   onComplete={index === (fields.length - 1) ? sendForm : null}

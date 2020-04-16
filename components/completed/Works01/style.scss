@@ -1,16 +1,18 @@
 @import 'public/styles/kotelnikovo/colors';
 @import 'public/styles/kotelnikovo/variables';
 
-$pdfControlsHeight: 40px;
-
 .Works01 {
   height: auto;
+  transition: all 1s ease;
   background-color: $blackColor;
   color: $whiteColor;
 
   &__works {
+    height: auto;
+    transition: all 1s ease;
     &-error, &-loading, &-empty {
       width: 100%;
+      height: 100px;
       text-align: center;
       padding-bottom: $blockMarginX / 4;
     }
@@ -35,55 +37,6 @@ $pdfControlsHeight: 40px;
       font-size: 1rem;
       &:last-child {
         border: none;
-      }
-    }
-  }
-
-  &__workPopup {
-    position: fixed;
-    width: 100%;
-    height: 100%;
-    left: 0;
-    top: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background-color: #00000080;
-    z-index: 6;
-    &-content {
-      position: relative;
-      width: auto;
-      height: 90%;
-      overflow: hidden;
-      &-controls {
-        width: 100%;
-        height: $pdfControlsHeight;
-        background-color: #c4c4c4;
-        display: flex;
-        flex-direction: row;
-        align-items: center;
-        justify-content: center;
-
-        &-previous, &-next {
-          &.disabled {
-            color: #999999;
-            cursor: unset;
-          }
-        }
-
-        &-previous, &-next, &-close {
-          padding: 10px;
-          cursor: pointer;
-        }
-        &-close {
-          position: absolute;
-          right: 0;
-        }
-      }
-      &-pdf {
-        width: auto;
-        height: 100%;
-        overflow-y: scroll;
       }
     }
   }

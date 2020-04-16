@@ -4,11 +4,13 @@ import _ from 'lodash';
 import cn from 'classnames';
 import path from 'path';
 
+import Controls from "../Controls";
+
 import './style.scss';
 
 const ANIMATION_DURATION = 500; // ms
 
-const InputFile01 = (
+const InputFile = (
   {
     id,
     element,
@@ -18,10 +20,9 @@ const InputFile01 = (
     onPreviousClick,
     onNextClick,
     onComplete,
-    className = `InputFile01`,
   },
 ) => {
-  const b = b_.lock(className);
+  const b = b_.lock(`InputFile`);
 
   const [isWaitAnimation, setAnimationState] = useState(false);
 
@@ -87,34 +88,14 @@ const InputFile01 = (
           </div>
         </div>
       </div>
-      <div className={b(`controls`)}>
-        {
-          onPreviousClick
-          && <div className={b(`controls-previous`)} onClick={onPreviousClick}>Назад</div>
-        }
-
-        {
-          onComplete
-            ? (
-              <div
-                className={cn(b(`controls-complete`), { disabled: !element })}
-                onClick={element ? onComplete : null}
-              >
-                Готово
-              </div>
-            )
-            : (
-              <div
-                className={cn(b(`controls-next`), { disabled: !element })}
-                onClick={element ? onNextClick : null}
-              >
-                Далее
-              </div>
-            )
-        }
-      </div>
+      <Controls
+        isDisabled={!element}
+        onPreviousClick={onPreviousClick}
+        onNextClick={onNextClick}
+        onComplete={onComplete}
+      />
     </div>
   );
 };
 
-export default InputFile01;
+export default InputFile;

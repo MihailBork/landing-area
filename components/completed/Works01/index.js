@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import b_ from 'b_';
-import cn from 'classnames';
-import { Document, Page } from 'react-pdf';
-import { getChildWorks, getArchitectWorks } from 'models/kotelnikovo/api';
+import _ from 'lodash';
+
+import {
+  getWorksCount,
+  getWorksPage,
+} from 'models/kotelnikovo/api';
 
 import {
   getGlobalPadding,
@@ -14,8 +17,10 @@ import {
 import CompetitionRow01 from "components/custom/CompetitionRow01";
 import CompetitionRow02 from "components/custom/CompetitionRow02";
 import Controls01 from "components/custom/Controls01";
+import Paginator01 from "components/partitial/Paginator01";
 
 import './style.scss';
+import PdfPopup01 from "../PdfPopup01";
 
 const filePrefix = `uploads/`;
 
@@ -27,27 +32,42 @@ const Works01 = ({ competition, globalPadding }) => {
   const [isError, setErrorState] = useState(false);
   const [shouldLoadingData, setShouldLoadingData] = useState(true);
 
+  const [selectedWork, setSelectedWork] = useState(null);
+  const isSelectedWork = typeof selectedWork === `number`;
+
+  const [pagesAmount, setPagesAmount] = useState(1);
+  const [pageNumber, setPageNumber] = useState(1);
+
+  const changePageNumber = (page) => {
+    setPageNumber(page);
+    setShouldLoadingData(true);
+  };
+
   let RowComponent;
-  let getData;
   let normalizeData;
 
   if (competition === `child`) {
     RowComponent = CompetitionRow01;
-    getData = getChildWorks;
     normalizeData = normalizeChildWorks;
   } else {
     RowComponent = CompetitionRow02;
-    getData = getArchitectWorks;
     normalizeData = normalizeArchitectWorks;
   }
-  const fetchData = async () => {
+  const fetchData = async (page) => {
     setLoadingState(true);
     setErrorState(false);
     try {
+      const count = parseResponse({
+        response: await getWorksCount({ competition }),
+      });
+      const _pagesAmount = _.get(count, `pagesAmount`);
+
+      const fetchPage = _pagesAmount < page ? _pagesAmount : page;
       const response = parseResponse({
-        response: await getData(),
+        response: await getWorksPage({ competition, page: fetchPage }),
         normalize: normalizeData,
       });
+      setPagesAmount(_pagesAmount);
       setWorks(response);
     } catch {
       setErrorState(true);
@@ -58,46 +78,19 @@ const Works01 = ({ competition, globalPadding }) => {
   useEffect(() => {
     if (!shouldLoadingData) return;
     setShouldLoadingData(false);
-    fetchData();
+    fetchData(pageNumber);
   }, [shouldLoadingData]);
-
-  const [selectedWork, setSelectedWork] = useState(null);
-  const isSelectedWork = typeof selectedWork === `number`;
-
-  const [numPages, setNumPages] = useState(null);
-  const [pageNumber, setPageNumber] = useState(1);
-
-  const previousPage = () => {
-    const newIndex = pageNumber > 1 ? pageNumber - 1 : pageNumber;
-    setPageNumber(newIndex);
-  };
-
-  const nextPage = () => {
-    const newIndex = pageNumber < numPages ? pageNumber + 1 : pageNumber;
-    setPageNumber(newIndex);
-  };
 
   const closeWork = () => {
     setSelectedWork(null);
-    setNumPages(null);
-    setPageNumber(1);
   };
 
-  const onDocumentLoadSuccess = ({ pages }) => {
-    setNumPages(pages);
-  };
+  const isWorksExist = works && works.length;
 
   return (
     <div className={b()} style={getGlobalPadding(globalPadding)}>
       <div className={b(`title`)}><h2>Работы участников</h2></div>
       <div className={b(`works`)}>
-        {
-          isLoading && (
-            <div className={b(`works-loading`)}>
-              <div className={b(`works-loading-comment`)}>Загрузка...</div>
-            </div>
-          )
-        }
         {
           !isLoading && isError && (
             <div className={b(`works-error`)}>
@@ -109,52 +102,47 @@ const Works01 = ({ competition, globalPadding }) => {
           )
         }
         {
-          !isLoading && !isError && works && !works.length && (
+          !isLoading && !isError && !isWorksExist && (
             <div className={b(`works-empty`)}>
-              <div className={b(`works-emtpy-comment`)}>Нет работ.</div>
+              <div className={b(`works-empty-comment`)}>Нет работ.</div>
             </div>
           )
         }
         {
-          !isLoading && !isError && works && works.map((item, index) => (
+          isWorksExist && (
+            <div className={b(`works-controls`)}>
+              <Paginator01
+                activePage={pageNumber}
+                pagesAmount={pagesAmount}
+                setPage={changePageNumber}
+              />
+            </div>
+          )
+        }
+        {
+          isWorksExist && works.map((item, index) => (
             <div key={index} className={b(`works-row`)}>
               <RowComponent item={item} />
-              <Controls01 watchAction={() => setSelectedWork(index)} downloadLink={filePrefix + item.work} />
+              <Controls01
+                rating={item.rating}
+                watchAction={() => setSelectedWork(index)}
+                downloadLink={filePrefix + item.work}
+              />
             </div>
           ))
+        }
+        {
+          isLoading && (
+            <div className={b(`works-loading`)}>
+              <div className={b(`works-loading-comment`)}>Загрузка...</div>
+            </div>
+          )
         }
       </div>
       {
         isSelectedWork
         && (
-          <div className={b(`workPopup`)}>
-            <div className={b(`workPopup-content`)}>
-              <div className={b(`workPopup-content-controls`)}>
-                <div
-                  className={cn(b(`workPopup-content-controls-previous`), { disabled: pageNumber === 1 })}
-                  onClick={previousPage}
-                >
-                  {`<`}
-                </div>
-                <div className={b(`workPopup-content-controls-current`)}>{`Страница ${pageNumber}`}</div>
-                <div
-                  className={cn(b(`workPopup-content-controls-next`), { disabled: pageNumber >= numPages })}
-                  onClick={nextPage}
-                >
-                  {`>`}
-                </div>
-                <div className={b(`workPopup-content-controls-close`)} onClick={closeWork}>закрыть</div>
-              </div>
-              <div className={b(`workPopup-content-pdf`)}>
-                <Document
-                  file={`${filePrefix}${works[selectedWork].work}`}
-                  onLoadSuccess={onDocumentLoadSuccess}
-                >
-                  <Page pageNumber={pageNumber} />
-                </Document>
-              </div>
-            </div>
-          </div>
+          <PdfPopup01 link={`${filePrefix}${works[selectedWork].work}`} onClose={closeWork} />
         )
       }
     </div>

@@ -1,0 +1,22 @@
+@import '../../../../public/styles/kotelnikovo/colors';
+.Controls {
+  width: 100%;
+  height: auto;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &__previous, &__next, &__complete {
+    padding: 10px;
+    margin: 0 10px;
+    text-transform: uppercase;
+    cursor: pointer;
+    background-color: $whiteColor;
+
+    &.disabled {
+      background-color: $grayColor;
+      cursor: auto;
+    }
+  }
+}

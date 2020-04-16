@@ -8,17 +8,20 @@
   flex-direction: row;
   align-items: center;
 
-  &__open, &__download, &__vote {
-    padding: 10px;
-  }
+  &__column {
+    padding: 0 10px;
+    &-open, &-download, &-rating, &-vote {
+      padding: 5px 0;
+    }
 
-  &__open span, &__download a, &__vote span {
-    text-decoration: underline;
-    color: $whiteColor;
-    cursor: pointer;
-  }
+    &-open span, &-download a, &-vote span {
+      text-decoration: underline;
+      color: $whiteColor;
+      cursor: pointer;
+    }
 
-  &__vote {
-    padding-right: 0;
+    &-vote {
+      padding-right: 0;
+    }
   }
 }

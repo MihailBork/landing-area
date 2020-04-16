@@ -2,5 +2,7 @@ import api from 'api';
 
 const projectName = `kotelnikovo`;
 
-export const getChildWorks = () => api.get(`/${projectName}/getChildWorks`);
-export const getArchitectWorks = () => api.get(`/${projectName}/getArchitectWorks`);
+export const getWorksCount = ({ competition }) => api.get(`/${projectName}/getWorksCount?competition=${competition}`);
+export const getWorksPage = ({ competition, page }) => api.get(
+  `/${projectName}/getWorksPage?competition=${competition}&page=${page}`,
+);

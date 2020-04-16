@@ -1,0 +1,49 @@
+@import 'public/styles/kotelnikovo/colors';
+
+.Paginator01 {
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: center;
+
+  &__navigation {
+    width: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &-back, &-page, &-forward, &-force {
+      padding: 5px;
+      text-decoration: underline;
+      cursor: pointer;
+      user-select: none;
+      -ms-user-select: none;
+      -moz-user-select: none;
+      -webkit-user-select: none;
+    }
+
+    &-force {
+      &.hidden {
+        display: none;
+      }
+    }
+
+    &-back, &-forward {
+      &.disabled {
+        text-decoration: none;
+        cursor: auto;
+      }
+    }
+
+    &-page {
+      &.active {
+        background-color: $whiteColor;
+        border-radius: 5px;
+        color: $blackColor;
+        text-decoration: none;
+        cursor: auto;
+      }
+    }
+  }
+}

@@ -1,0 +1,159 @@
+@import 'public/styles/kotelnikovo/colors';
+
+.InputFile {
+  width: 100%;
+  height: 100%;
+  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+
+  &__title {
+    width: 100%;
+
+    &-text {
+      font-size: 3rem;
+      font-family: Monitorca-Bold;
+      text-transform: uppercase;
+      text-align: center;
+    }
+    &-comment {
+      font-size: 1rem;
+      text-align: center;
+      transform: scale(1);
+      transition: all 1s ease;
+
+      &.error {
+        transform: scale(2);
+      }
+
+      &:before {
+        content: '(';
+      }
+
+      &:after {
+        content: ')';
+      }
+    }
+  }
+
+  &__input {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    pointer-events: none;
+  }
+
+  &__box {
+    position: relative;
+    width: 400px;
+    height: 100px;
+    border-radius: 5px;
+    border: 2px dashed $blackColor;
+
+    &-wrapper {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+      transform: translateY(0);
+      background-color: $grayColor;
+      &.Title {
+        z-index: 2;
+        .uploaded & {
+          z-index: 1;
+        }
+      }
+
+      &.File {
+        z-index: 1;
+        .uploaded & {
+          z-index: 2;
+        }
+      }
+
+      &-title {
+        visibility: visible;
+        opacity: 1;
+        transition: all 0.5s ease;
+
+        .uploaded & {
+          transform: translateY(100px);
+          visibility: hidden;
+          opacity: 0;
+        }
+      }
+
+      &-file {
+        position: relative;
+        width: auto;
+        height: auto;
+        padding: 10px;
+        border-radius: 10px;
+        border: 2px solid $blackColor;
+        transform: translateY(-100px);
+        visibility: hidden;
+        opacity: 0;
+
+        .uploaded & {
+          transform: translateY(0);
+          visibility: visible;
+          opacity: 1;
+        }
+
+        &-close {
+          position: absolute;
+          right: -8px;
+          top: -8px;
+          width: 16px;
+          height: 16px;
+          border-radius: 8px;
+          box-sizing: border-box;
+          border: 2px solid $blackColor;
+          background-color: $grayColor;
+          overflow: hidden;
+          cursor: pointer;
+          &:hover {
+            background-color: #c4c4c4;
+          }
+
+          &-icon {
+            width: 100%;
+            height: 100%;
+            background: url('/icons/close.svg') center no-repeat;
+            background-size: 50%;
+          }
+        }
+
+        transition: all 0.5s ease;
+      }
+    }
+  }
+
+  &__controls {
+    width: 100%;
+    height: auto;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+
+    &-previous, &-next, &-complete {
+      padding: 10px;
+      margin: 0 10px;
+      text-transform: uppercase;
+      cursor: pointer;
+      background-color: $whiteColor;
+
+      &.disabled {
+        background-color: $grayColor;
+        cursor: auto;
+      }
+    }
+  }
+
+}

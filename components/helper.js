@@ -36,6 +36,7 @@ export const normalizeChildWorks = (items) => _.map(items, (item) => ({
   studyPlace: _.get(item, `study_place`),
   aboutWork: _.get(item, `work_about`),
   work: _.get(item, `work_file`),
+  rating: _.get(item, `votes`),
 }));
 
 export const normalizeArchitectWorks = (items) => _.map(items, (item) => ({
@@ -45,4 +46,5 @@ export const normalizeArchitectWorks = (items) => _.map(items, (item) => ({
   studyPlace: _.get(item, `study_place`),
   aboutWork: _.get(item, `work_about`),
   work: _.get(item, `work_file`),
+  rating: _.get(item, `votes`),
 }));
