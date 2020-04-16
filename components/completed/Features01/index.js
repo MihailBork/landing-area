@@ -1,7 +1,6 @@
 import React from 'react';
 import b_ from 'b_';
 import cn from 'classnames';
-import { Element } from 'react-scroll';
 
 import './style.scss';
 

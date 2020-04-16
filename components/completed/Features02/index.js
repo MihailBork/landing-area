@@ -68,7 +68,7 @@ const Features02 = ({ data }) => {
         <div className={b(`paragraphs`)}>
           {
             data.map((item, index) => (
-              <Paragraph key={index} item={item} pageMoveValue={pageMoveValue}/>
+              <Paragraph key={index} item={item} pageMoveValue={pageMoveValue} />
             ))
           }
         </div>

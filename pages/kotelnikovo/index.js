@@ -92,7 +92,7 @@ const Kotelnikovo = () => {
   const competitionForm = isCompetitionSelected && _.get(data.competitions[selectedCompetition], `form`);
   return (
     <ProjectContext.Provider value="kotelnikovo">
-      <div className="container">
+      <div id="kotelnikovo" className="container">
         <Head>
           <title>{headerInfo.title}</title>
           <meta name="viewport" content="initial-scale=1.0, width=device-width" />

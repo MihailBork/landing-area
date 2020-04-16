@@ -51,10 +51,10 @@ export const b = b_.lock(`Features03`);
 const Features03 = ({ data, globalPadding, ...props }) => (
   <Element name="about">
     <div className={b()} style={getGlobalPadding(globalPadding)}>
-      <div className={b(`title`)}>{_.get(data, `title`)}</div>
+      <h1>{_.get(data, `title`)}</h1>
       <Numbers01 items={_.get(data, `items.digitFeatures`, [])} {...props} />
       <ImageWithText01 item={_.get(data, `items.description`, {})} {...props} />
-      <div className={b(`title`)}>Проект позволит</div>
+      <h1>Проект позволит</h1>
       <IconList01 items={_.get(data, `items.iconFeatures`, [])} {...props} />
     </div>
   </Element>
