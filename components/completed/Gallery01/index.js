@@ -23,6 +23,8 @@ const albums = [
   },
 ];
 
+// Gallery in draft mode
+
 const Album = ({ item, albumId, isReverse }) => {
   const [openedPhoto, setOpenedPhoto] = useState(null);
   const previousPhoto = () => {

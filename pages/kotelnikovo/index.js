@@ -11,16 +11,17 @@ import Gallery02 from 'components/completed/Gallery02';
 import About03 from 'components/completed/About03';
 import Form02 from 'components/completed/Form02';
 import Footer01 from 'components/completed/Footer01';
-import Works01 from 'components/completed/Works01';
+import Works01 from 'components/custom/Works01';
 import Video01 from 'components/completed/Video01';
 import Features03 from 'components/completed/Features03';
 
+import { ProjectContext } from "models/contexts";
+
 import './style.scss';
 
-const projectName = `kotelnikovo`;
 const globalPadding = 50; // px
 
-const Home = () => {
+const Kotelnikovo = () => {
   const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
   const [isScrolled, setScrolledState] = useState(false);
   const [innerWidth, setInnerWidth] = useState(0);
@@ -90,34 +91,46 @@ const Home = () => {
   const isCompetitionSelected = typeof selectedCompetition === `number`;
   const competitionForm = isCompetitionSelected && _.get(data.competitions[selectedCompetition], `form`);
   return (
-    <div className="container">
-      <Head>
-        <title>{headerInfo.title}</title>
-        <meta name="viewport" content="initial-scale=1.0, width=device-width" />
-      </Head>
-      <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} dropdownItems={competitionsMenuDropdown} />
-      <Title04 data={data.titleBlock} />
-      <Features03 data={_.get(data, `features`, {})} globalPadding={globalPadding} project={projectName} />
-      {
-        isCompetitionSelected || isFormCloseAnimation
-          ? <Form02 data={competitionForm} closing={isFormCloseAnimation} project={projectName} onClose={formClose} />
-          : ``
-      }
-      <Gallery02 globalPadding={globalPadding} innerWidth={innerWidth} project={projectName} />
-      <Video01 />
-      {
-        data.competitions.map((item, index) => (
-          <Element key={index} name={item.slug}>
-            <About03 globalPadding={globalPadding} data={item} />
-            <Works01 competition={item.slug} globalPadding={globalPadding} />
-          </Element>
-        ))
-      }
-      <Element name="contacts">
-        <Footer01 globalPadding={globalPadding} dropdownItems={competitionsFooterDropdown} />
-      </Element>
-    </div>
+    <ProjectContext.Provider value="kotelnikovo">
+      <div className="container">
+        <Head>
+          <title>{headerInfo.title}</title>
+          <meta name="viewport" content="initial-scale=1.0, width=device-width" />
+        </Head>
+        <Menu02 globalPadding={globalPadding} innerWidth={innerWidth} dropdownItems={competitionsMenuDropdown} />
+        <Title04 data={data.titleBlock} />
+        <Features03 data={_.get(data, `features`, {})} globalPadding={globalPadding} />
+        {
+          isCompetitionSelected || isFormCloseAnimation
+            ? <Form02 data={competitionForm} closing={isFormCloseAnimation} onClose={formClose} />
+            : ``
+        }
+        <Element name="photo">
+          <Gallery02
+            data={_.get(data, `photoGallery`)}
+            globalPadding={globalPadding}
+            innerWidth={innerWidth}
+          />
+        </Element>
+        <Video01 data={_.get(data, `videoGallery`)} />
+        {
+          _.get(data, `competitions`, []).map((item, index) => (
+            <Element key={index} name={item.slug}>
+              <About03 globalPadding={globalPadding} data={item} />
+              <Works01 competition={item.slug} globalPadding={globalPadding} />
+            </Element>
+          ))
+        }
+        <Element name="contacts">
+          <Footer01
+            data={_.get(data, `footer`)}
+            globalPadding={globalPadding}
+            dropdownItems={competitionsFooterDropdown}
+          />
+        </Element>
+      </div>
+    </ProjectContext.Provider>
   );
 };
 
-export default Home;
+export default Kotelnikovo;

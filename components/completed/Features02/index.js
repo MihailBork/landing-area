@@ -10,6 +10,8 @@ import './style.scss';
 
 export const b = b_.lock(`Features02`);
 
+// @TODO Restyle this block w/o motion
+
 const Paragraph = ({ item, pageMoveValue }) => {
   const [isShowed, setShowState] = useState(false);
   const onVisibilityChange = (isVisible) => {
@@ -65,10 +67,10 @@ const Features02 = ({ data }) => {
         </div>
         <div className={b(`paragraphs`)}>
           {
-                        data.map((item, index) => (
-                          <Paragraph key={index} item={item} pageMoveValue={pageMoveValue} />
-                        ))
-                    }
+            data.map((item, index) => (
+              <Paragraph key={index} item={item} pageMoveValue={pageMoveValue}/>
+            ))
+          }
         </div>
       </div>
     </Element>

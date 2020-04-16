@@ -20,7 +20,7 @@ import Controls01 from "components/custom/Controls01";
 import Paginator01 from "components/partitial/Paginator01";
 
 import './style.scss';
-import PdfPopup01 from "../PdfPopup01";
+import PdfPopup01 from "components/completed/PdfPopup01";
 
 const filePrefix = `uploads/`;
 

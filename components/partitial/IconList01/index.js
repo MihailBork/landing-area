@@ -1,10 +1,12 @@
-import React from 'react';
+import React, { useContext } from 'react';
 import b_ from 'b_';
 import _ from 'lodash';
+import { ProjectContext } from "models/contexts";
 
 import './style.scss';
 
-const Item = ({ b, item, project }) => {
+const Item = ({ b, item }) => {
+  const projectName = useContext(ProjectContext);
   let fontSize;
   const descLength = _.size(item.description);
   switch (true) {
@@ -30,7 +32,7 @@ const Item = ({ b, item, project }) => {
   return (
     <div className={b(`item`)}>
       <div className={b(`item-icon`)}>
-        <img alt={item.description} src={`/images/${project}/Features03/${item.icon}`} />
+        <img alt={item.description} src={`/images/${projectName}/Features03/${item.icon}`} />
       </div>
       <div
         className={b(`item-description`)}
@@ -42,13 +44,13 @@ const Item = ({ b, item, project }) => {
   );
 };
 
-const IconList01 = ({ items, className = `IconList01`, project }) => {
+const IconList01 = ({ items, className = `IconList01` }) => {
   const b = b_.lock(className);
   return (
     <div className={b()}>
       {
                 items.map((item, index) => (
-                  <Item key={index} b={b} item={item} project={project} />
+                  <Item key={index} b={b} item={item} />
                 ))
             }
     </div>

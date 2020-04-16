@@ -4,7 +4,11 @@ import cn from 'classnames';
 
 import './style.scss';
 
-export const b = b_.lock(`Clients01`);
+const b = b_.lock(`Clients01`);
+
+/* Data structure
+[`array`, `of`, `items`]
+*/
 
 const Clients01 = ({ data }) => (
   <div className={cn(b(), `ComponentWrapper`)}>

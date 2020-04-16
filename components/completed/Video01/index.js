@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import b_ from 'b_';
+import _ from 'lodash';
 import cn from 'classnames';
 import YouTube from 'react-youtube';
 import { Element } from 'react-scroll';
@@ -14,32 +15,41 @@ const X_MARGIN = 10; // px
 const Y_MARGIN = 20; // px
 const ANIMATION_DURATION = 500; // ms
 
-const videos = [
-  {
-    link: `D7s8FAJapvo`,
-  },
-  {
-    link: `QAJXqZKYT-g`,
-  },
-  {
-    link: `a0m6DH2J27Q`,
-  },
-  {
-    link: `ZA3tTAzGy5w`,
-  },
-  {
-    link: `2jxf17kFXSg`,
-  },
-];
+/* Data structure
+{
+  "title": "Block title",
+  "items": [
+    {
+      link: `D7s8FAJapvo`,
+    },
+    {
+      link: `QAJXqZKYT-g`,
+    },
+    {
+      link: `a0m6DH2J27Q`,
+    },
+    {
+      link: `ZA3tTAzGy5w`,
+    },
+    {
+      link: `2jxf17kFXSg`,
+    },
+  ];
+}
+}
+ */
 
 export const b = b_.lock(`Video01`);
 
-const Video01 = () => {
+const Video01 = ({ data }) => {
   const [screenWidth, setScreenWidth] = useState(0);
   const [selectedItem, setSelectedItem] = useState(0);
   const [isVideoPlayed, setVideoPlayedState] = useState(false);
   const [isWaitAnimation, setWaitAnimationState] = useState(false);
   const [player, setPlayer] = useState(null);
+
+  const videos = _.get(data, `items`);
+  const videosAmount = _.size(videos);
 
   useEffect(() => {
     if (!process.browser) return;
@@ -47,7 +57,7 @@ const Video01 = () => {
   });
 
   const isSelectedItem = typeof selectedItem === `number`;
-  const listWidth = (PREVIEW_WIDTH + (X_MARGIN - 1)) * (isSelectedItem ? (videos.length - 1) : videos.length);
+  const listWidth = (PREVIEW_WIDTH + (X_MARGIN - 1)) * (isSelectedItem ? (videosAmount - 1) : videosAmount);
   const isListWide = listWidth > screenWidth;
   const listOffset = isListWide ? 0 : ((screenWidth - listWidth) / 2);
   const activeItemOffset = (screenWidth - ACTIVE_WIDTH) / 2;
@@ -77,7 +87,7 @@ const Video01 = () => {
   const playerOptions = {
     width: ACTIVE_WIDTH,
     height: ACTIVE_HEIGHT,
-    playerVars: { // https://developers.google.com/youtube/player_parameters
+    playerVars: {
       autoplay: 1,
     },
   };
@@ -120,7 +130,7 @@ const Video01 = () => {
   return (
     <Element name="video">
       <div className={b()}>
-        <h1>Видеогалерея</h1>
+        <h1>{_.get(data, `title`)}</h1>
         <div
           className={b(`list`)}
           style={{ height: ACTIVE_HEIGHT + Y_MARGIN + PREVIEW_HEIGHT }}

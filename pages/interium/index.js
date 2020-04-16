@@ -17,6 +17,7 @@ import Menu01 from '../../components/completed/Menu01';
 import Clients01 from '../../components/completed/Clients01';
 
 import '../style.scss';
+import { Element } from "react-scroll";
 
 const Home = () => {
   const [firstTimeLoading, setFirstTimeLoadingState] = useState(true);
@@ -55,7 +56,9 @@ const Home = () => {
       <Person01 data={data.person} />
       <About01 data={data.about} />
       <Clients01 data={data.clients} />
-      <Features01 data={data.features01} />
+      <Element name="plan">
+        <Features01 data={data.features01} />
+      </Element>
       <Columns01 data={data.courses} />
       <List01 data={data.skills} />
       <Form01 />

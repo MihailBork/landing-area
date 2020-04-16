@@ -1,5 +1,6 @@
 import React from 'react';
 import b_ from 'b_';
+import _ from 'lodash';
 import cn from 'classnames';
 
 import { getGlobalPadding } from "components/helper";
@@ -8,78 +9,89 @@ import Dropdown01 from "components/partitial/Dropdown01";
 
 import './style.scss';
 
-const logo = {
-  image: `logo.png`,
-  description: `Котельниково - земля героев`,
-};
+const b = b_.lock(`Footer01`);
 
-const contacts = {
-  phone: `+71111111111`,
-  phoneText: `+7(111)111-11-11`,
-  address: `г. Котельниково, ул. Ленина, д. 1`,
-};
+/* Data structure
+{
+  "company": {
+    "image": "Logo file",
+    "description": "Company description"
+  },
+  "contacts": {
+    "phone": "+12345678900",
+    "phoneText": "+1 234 567 89 00",
+    "address": "Company address"
+  },
+  "social": {
+    "youtube": "social_id",
+    "instagram": "social_id",
+    "ok": "social_id"
+  }
+}
+ */
 
-const social = {
-  youtube: `UCO413lqNYA0f9kYC_nPjVOw`,
-  instagram: `geroi_kotelnikovo`,
-  ok: `576392963794`,
-};
+const Footer01 = ({ data, globalPadding, dropdownItems }) => {
+  const company = _.get(data, `company`);
+  const contacts = _.get(data, `contacts`);
+  const social = _.get(data, `social`);
 
-
-export const b = b_.lock(`Footer01`);
-
-const Footer01 = ({ globalPadding, dropdownItems }) => (
-  <div className={b()} style={getGlobalPadding(globalPadding)}>
-    <div className={b(`logo`)}>
-      <img alt={logo.description} className={b(`logo-image`)} src={`/images/Title03/${logo.image}`} />
-      <div className={b(`logo-description`)}>{logo.description}</div>
-    </div>
-    <div className={b(`contacts`)}>
-      <div className={b(`contacts-title`)}>Контакты:</div>
-      <a
-        className={b(`contacts-phone`)}
-        href={`tel:${contacts.phone}`}
-        target="_blank"
-      >
-        {contacts.phoneText}
-      </a>
-      <div className={b(`contacts-address`)}>{contacts.address}</div>
-    </div>
-    <div className={b(`social`)}>
-      <div className={b(`social-title`)}>Мы в соцсетях:</div>
-      <div className={b(`social-links`)}>
+  return (
+    <div className={b()} style={getGlobalPadding(globalPadding)}>
+      <div className={b(`logo`)}>
+        <img
+          alt={_.get(company, `description`)}
+          className={b(`logo-image`)}
+          src={`/images/Title03/${_.get(company, `image`)}`}
+        />
+        <div className={b(`logo-description`)}>{_.get(company, `description`)}</div>
+      </div>
+      <div className={b(`contacts`)}>
+        <div className={b(`contacts-title`)}>Контакты:</div>
         <a
-          className={cn(b(`social-links-youtube`), `link`)}
-          href={`https://youtube.com/channel/${social.youtube}`}
+          className={b(`contacts-phone`)}
+          href={`tel:${_.get(contacts, `phone`)}`}
           target="_blank"
         >
-          <span className="text">Youtube</span>
+          {_.get(contacts, `phoneText`)}
         </a>
-        <a
-          className={cn(b(`social-links-instagram`), `link`)}
-          href={`https://instagram.com/${social.instagram}`}
-          target="_blank"
-        >
-          <span className="text">Instagram</span>
-        </a>
-        <a
-          className={cn(b(`social-links-ok`), `link`)}
-          href={`https://ok.ru/profile/${social.ok}`}
-          target="_blank"
-        >
-          <span className="text">Ok</span>
-        </a>
+        <div className={b(`contacts-address`)}>{_.get(contacts, `address`)}</div>
+      </div>
+      <div className={b(`social`)}>
+        <div className={b(`social-title`)}>Мы в соцсетях:</div>
+        <div className={b(`social-links`)}>
+          <a
+            className={cn(b(`social-links-youtube`), `link`)}
+            href={`https://youtube.com/channel/${_.get(social, `youtube`)}`}
+            target="_blank"
+          >
+            <span className="text">Youtube</span>
+          </a>
+          <a
+            className={cn(b(`social-links-instagram`), `link`)}
+            href={`https://instagram.com/${_.get(social, `instagram`)}`}
+            target="_blank"
+          >
+            <span className="text">Instagram</span>
+          </a>
+          <a
+            className={cn(b(`social-links-ok`), `link`)}
+            href={`https://ok.ru/profile/${_.get(social, `ok`)}`}
+            target="_blank"
+          >
+            <span className="text">Ok</span>
+          </a>
+        </div>
+      </div>
+      <div className={b(`publish`)}>
+        <Dropdown01
+          name="Разместить работу"
+          items={dropdownItems}
+          xPosition="left"
+          yPosition="top"
+        />
       </div>
     </div>
-    <div className={b(`publish`)}>
-      <Dropdown01
-        name="Разместить работу"
-        items={dropdownItems}
-        xPosition="left"
-        yPosition="top"
-      />
-    </div>
-  </div>
-);
+  );
+};
 
 export default Footer01;

@@ -6,26 +6,28 @@ import './style.scss';
 
 export const b = b_.lock(`Title03`);
 
-const items = [
+/* Data structure (fixed 4 items)
+[
   {
-    title: `Описание конкурса`,
-    text: `Здесь будет подробная информация по разделу.`,
+    title: `Title 1`,
+    text: `Comment1`,
   },
   {
-    title: `Условия участия`,
-    text: `Здесь будет подробная информация по разделу.`,
+    title: `Title 1`,
+    text: `Comment1`,
   },
   {
-    title: `Сроки и дополнительная инфомрация`,
-    text: `Здесь будет подробная информация по разделу.`,
+    title: `Title 1`,
+    text: `Comment1`,
   },
   {
-    title: `Жюри`,
-    text: `Здесь будет подробная информация по разделу.`,
-  },
+    title: `Title 1`,
+    text: `Comment1`,
+  }
 ];
+ */
 
-const Title03 = () => {
+const Title03 = ({ data }) => {
   const [selectedItem, setSelectedItem] = useState(null);
   const isItemSelected = typeof selectedItem === `number`;
   return (
@@ -34,16 +36,16 @@ const Title03 = () => {
         <div className={b(`content-logo`)} />
         <div className={cn(b(`content-menu`), { selected: isItemSelected })}>
           {
-                            items.map((item, index) => (
-                              <div
-                                key={index}
-                                className={cn(b(`content-menu-row`), { active: selectedItem === index })}
-                                onClick={() => setSelectedItem(index)}
-                              >
-                                <span className={b(`content-menu-row-text`)}>{item.title}</span>
-                              </div>
-                            ))
-                        }
+            data.map((item, index) => (
+              <div
+                key={index}
+                className={cn(b(`content-menu-row`), { active: selectedItem === index })}
+                onClick={() => setSelectedItem(index)}
+              >
+                <span className={b(`content-menu-row-text`)}>{item.title}</span>
+              </div>
+            ))
+          }
         </div>
         <div
           className={b(`content-back`)}
@@ -53,13 +55,13 @@ const Title03 = () => {
         </div>
         <div className={b(`content-properties`)}>
           {
-                        isItemSelected
-                        && (
-                        <div className={b(`content-properties-text`)}>
-                          {items[selectedItem].text}
-                        </div>
-                        )
-                    }
+            isItemSelected
+            && (
+              <div className={b(`content-properties-text`)}>
+                {data[selectedItem].text}
+              </div>
+            )
+          }
         </div>
       </div>
     </div>

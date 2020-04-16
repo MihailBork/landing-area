@@ -10,21 +10,22 @@ import './style.scss';
 
 export const b = b_.lock(`About02`);
 
-// Data structure:
-// {
-//   "title": "Block name",
-//   "description": {
-//     "name": "Description",
-//     "content": "Description text"
-//   },
-//   "goals": {
-//     "name": "Goals title",
-//     "items": [
-//       "Item01",
-//       "Item02"
-//     ]
-//   }
-// }
+/* Data structure:
+{
+  "title": "Block name",
+  "description": {
+    "name": "Description",
+    "content": "Description text"
+  },
+  "goals": {
+    "name": "Goals title",
+    "items": [
+      "Item01",
+      "Item02"
+    ]
+  }
+}
+*/
 
 const About02 = ({ data, globalPadding }) => {
   const descriptionName = _.get(data, `description.name`, `Описание`);

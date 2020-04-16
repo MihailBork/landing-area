@@ -9,6 +9,7 @@ import './style.scss';
 
 export const b = b_.lock(`List01`);
 
+// TODO: Simplify and structure this component
 const Checked = () => {
   const variants = {
     hidden: {
@@ -62,6 +63,10 @@ const Mark = ({ position }) => {
   );
 };
 
+/* Data structure
+[`Array`, `of`, `values`]
+ */
+
 const List01 = ({ data }) => (
   <div className={cn(b(), `ComponentWrapper`)}>
     <div className={b(`title`)}>
@@ -69,15 +74,15 @@ const List01 = ({ data }) => (
     </div>
     <div className={b(`items`)}>
       {
-                    data.map((item, index) => (
-                      <div key={index} className={b(`items-row`)}>
-                        <Mark
-                          position={index}
-                        />
-                        <div className={b(`items-row-text`)}>{item}</div>
-                      </div>
-                    ))
-                }
+        data.map((item, index) => (
+          <div key={index} className={b(`items-row`)}>
+            <Mark
+              position={index}
+            />
+            <div className={b(`items-row-text`)}>{item}</div>
+          </div>
+        ))
+      }
     </div>
   </div>
 );

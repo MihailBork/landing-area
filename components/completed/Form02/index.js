@@ -1,8 +1,10 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useContext } from 'react';
 import b_ from 'b_';
 import _ from 'lodash';
 import cn from 'classnames';
 import api from 'api';
+
+import { ProjectContext } from "models/contexts";
 
 import Screen from "./Screen";
 
@@ -10,14 +12,38 @@ import './style.scss';
 
 const ANIMATION_DURATION = 500; // ms
 
-export const b = b_.lock(`Form02`);
+const b = b_.lock(`Form02`);
+/*
+{
+  "method": "e.g. POST, GET",
+  "endpoint": "your_endpoint",
+  "fields": [
+    {
+      "type": "text",
+      "title": "Title for screen with input",
+      "id": "id_for_request"
+    },
+    {
+      "type": "textarea",
+      "title": "Title for screen with input",
+      "id": "id_for_request"
+    },
+    {
+      "type": "file",
+      "title": "Title for screen with input",
+      "extensions": ["array", "of", "extensions"],
+      "id": "id_for_request"
+    }
+  ]
+}
+ */
 
 const Form02 = ({
   data,
   closing,
-  project,
   onClose,
 }) => {
+  const projectName = useContext(ProjectContext);
   const fields = _.get(data, `fields`, []);
   const initialState = fields.reduce((accumulator, currentValue) => {
     accumulator[currentValue.id] = currentValue.type === `file` ? null : ``;
@@ -88,7 +114,7 @@ const Form02 = ({
 
     api({
       method: data.method,
-      url: `${project}/${data.endpoint}`,
+      url: `${projectName}/${data.endpoint}`,
       headers: {
         'Content-Type': `multipart/form-data`,
       },

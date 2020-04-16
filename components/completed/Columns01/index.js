@@ -4,7 +4,26 @@ import cn from 'classnames';
 
 import './style.scss';
 
-export const b = b_.lock(`Columns01`);
+const b = b_.lock(`Columns01`);
+
+/* Data structure
+[
+  {
+    "id": "Identifier",
+    "title": "Title",
+    "subTitle": "Subtitle",
+    "description": "Description",
+    "steps": ["Array", "of", "items"]
+  },
+  {
+    "id": "Identifier",
+    "title": "Title",
+    "subTitle": "Subtitle",
+    "description": "Description",
+    "steps": ["Array", "of", "items"]
+  },
+]
+*/
 
 const Columns01 = ({ data }) => (
   <div className={cn(b(), `ComponentWrapper`)}>
@@ -17,10 +36,10 @@ const Columns01 = ({ data }) => (
         <div className={b(`items-row-steps`)}>
           <ul>
             {
-                                data[0].steps.map((item, index) => (
-                                  <li key={index}>{item}</li>
-                                ))
-                            }
+              data[0].steps.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))
+            }
           </ul>
         </div>
       </div>
@@ -32,10 +51,10 @@ const Columns01 = ({ data }) => (
         <div className={b(`items-row-steps`)}>
           <ul>
             {
-                                data[1].steps.map((item, index) => (
-                                  <li key={index}>{item}</li>
-                                ))
-                            }
+              data[1].steps.map((item, index) => (
+                <li key={index}>{item}</li>
+              ))
+            }
           </ul>
         </div>
       </div>

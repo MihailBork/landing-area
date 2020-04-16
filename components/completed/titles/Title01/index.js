@@ -9,28 +9,53 @@ import cn from 'classnames';
 
 const MOVE_VALUE = 20;
 
-export const b = b_.lock(`Title01`);
+const b = b_.lock(`Title01`);
+
+// TODO: Add local event listener and simplify animation
+
+/* Data structure
+{
+  "title": "Main title",
+  "subTitle": "Subtitle",
+  "items": [
+    {
+      "title": "First part of text",
+      "description": "Second part of text"
+    },
+    {
+      "title": "First part of text",
+      "description": "Second part of text"
+    }
+  ]
+}
+ */
 
 const Title01 = ({ data, isScrolled }) => {
   const [count, setCount] = useState(0);
   const [isWaitAnimation, setIsWaitAnimation] = useState(false);
   const isPortrait = process.browser ? window.innerWidth < window.innerHeight : false;
+
+  const title = _.get(data, `title`);
+  const subTitle = _.get(data, `subTitle`);
+  const information = _.get(data, `items`);
+
   useEffect(() => {
     const timer = setTimeout(() => {
       setIsWaitAnimation(true);
     }, 5000);
     return () => clearTimeout(timer);
   });
+
   useEffect(() => {
     if (!isWaitAnimation) return;
     const timer = setTimeout(() => {
-      setCount(_.size(data) > count + 1 ? count + 1 : 0);
+      setCount(_.size(information) > count + 1 ? count + 1 : 0);
       setIsWaitAnimation(false);
     }, 1000);
     return () => clearTimeout(timer);
   }, [isWaitAnimation]);
-  const leftText = data[count].title;
-  const rightText = data[count].description;
+  const leftText = information[count].title;
+  const rightText = information[count].description;
   const axis = isPortrait ? `x` : `y`;
 
   const motionInitial = (side = `left`) => {
@@ -59,8 +84,8 @@ const Title01 = ({ data, isScrolled }) => {
   return (
     <div className={cn(b(), `ComponentWrapper`)}>
       <div className={b(`title`)}>
-        <h1>Курсы по Digital</h1>
-        <h2>С дипломом государственного образца</h2>
+        <h1>{title}</h1>
+        { subTitle && <h2>{subTitle}</h2> }
       </div>
       <Link to="about" spy smooth duration={1000}>
         <div className={cn(b(`about`), { scrolled: isScrolled })}>Подробнее</div>

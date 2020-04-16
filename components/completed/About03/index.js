@@ -30,7 +30,7 @@ const About03 = ({ data, globalPadding }) => {
   const description = _.get(data, `description`);
   const paragraphs = _.get(data, `paragraphs`, []);
 
-  const [selectedItem, setSeletedItem] = useState(0);
+  const [selectedItem, setSelectedItem] = useState(0);
 
   return (
     <div className={b()} style={getGlobalPadding(globalPadding)}>
@@ -43,7 +43,7 @@ const About03 = ({ data, globalPadding }) => {
               key={index}
               item={item}
               isOpened={index === selectedItem}
-              setOpenedState={() => setSeletedItem(index)}
+              setOpenedState={() => setSelectedItem(index)}
             />
           ))
         }
