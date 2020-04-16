@@ -229,7 +229,7 @@ module.exports = {
       if (!checkValidCompetition(competition)) throw new Error(`Запрашиваемого конкурса не существует`);
       const getCount = competition === `child` ? countChildWorks : countArchitectWorks;
       const resultsAmount = await getCount();
-      const pagesAmount = _.ceil(resultsAmount / RESULTS_ON_PAGE);
+      const pagesAmount = resultsAmount ? _.ceil(resultsAmount / RESULTS_ON_PAGE) : 1;
       res.status(200)
         .json({
           ok: true,
