@@ -1,6 +1,8 @@
 const {
   addChildWork,
   addArchitectWork,
+  countChildWorks,
+  countArchitectWorks,
   getChildWorks,
   getArchitectWorks,
 } = require(`../db/kotelnikovo/works.model`);
@@ -9,6 +11,8 @@ const fs = require(`fs`);
 const path = require(`path`);
 
 const multer = require(`multer`);
+
+const RESULTS_ON_PAGE = 10;
 
 const uploadChild = multer({
   storage: multer.memoryStorage(),
@@ -60,6 +64,8 @@ const errorResponse = (res, message) => res.status(400)
     ok: false,
     message,
   });
+
+const checkValidCompetition = (competition) => !(competition !== `child` && competition !== `architect`);
 
 const uploadFile = (file) => {
   const buffer = _.get(file, `buffer`);
@@ -217,33 +223,42 @@ module.exports = {
         });
     });
   },
-  getChildWorks: (req, res) => {
-    getChildWorks()
-      .then((response) => {
-        res.status(200)
-          .json({
-            ok: true,
-            message: `Success`,
-            data: response,
-          });
-      })
-      .catch((error) => {
-        errorResponse(res, _.get(error, `response`, `Uncaught error`));
-      });
+  getWorksCount: async (req, res) => {
+    const { competition } = req.query;
+    try {
+      if (!checkValidCompetition(competition)) throw new Error(`Запрашиваемого конкурса не существует`);
+      const getCount = competition === `child` ? countChildWorks : countArchitectWorks;
+      const resultsAmount = await getCount();
+      const pagesAmount = _.ceil(resultsAmount / RESULTS_ON_PAGE);
+      res.status(200)
+        .json({
+          ok: true,
+          message: `Success`,
+          data: {
+            resultsAmount,
+            pagesAmount,
+          },
+        });
+    } catch (e) {
+      errorResponse(res, _.get(e, `response`, `Uncaught error`));
+    }
   },
-  getArchitectWorks: (req, res) => {
-    getArchitectWorks()
-      .then((response) => {
-        res.status(200)
-          .json({
-            ok: true,
-            message: `Success`,
-            data: response,
-          });
-      })
-      .catch((error) => {
-        console.log(error);
-        errorResponse(res, _.get(error, `response`, `Uncaught error`));
-      });
+  getWorksPage: async (req, res) => {
+    const { competition, page: currentPage } = req.query;
+
+    const from = RESULTS_ON_PAGE * (currentPage - 1);
+    try {
+      if (!checkValidCompetition(competition)) throw new Error(`Запрашиваемого конкурса не существует`);
+      const getWorks = competition === `child` ? getChildWorks : getArchitectWorks;
+      const response = await getWorks({ from, limit: RESULTS_ON_PAGE });
+      res.status(200)
+        .json({
+          ok: true,
+          message: `Success`,
+          data: response,
+        });
+    } catch (e) {
+      errorResponse(res, _.get(e, `response`, `Uncaught error`));
+    }
   },
 };
