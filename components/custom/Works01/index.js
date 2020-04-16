@@ -109,27 +109,31 @@ const Works01 = ({ competition, globalPadding }) => {
           )
         }
         {
-          isWorksExist && (
-            <div className={b(`works-controls`)}>
-              <Paginator01
-                activePage={pageNumber}
-                pagesAmount={pagesAmount}
-                setPage={changePageNumber}
-              />
-            </div>
-          )
+          isWorksExist
+            ? (
+              <div className={b(`works-controls`)}>
+                <Paginator01
+                  activePage={pageNumber}
+                  pagesAmount={pagesAmount}
+                  setPage={changePageNumber}
+                />
+              </div>
+            )
+            : null
         }
         {
-          isWorksExist && works.map((item, index) => (
-            <div key={index} className={b(`works-row`)}>
-              <RowComponent item={item} />
-              <Controls01
-                rating={item.rating}
-                watchAction={() => setSelectedWork(index)}
-                downloadLink={filePrefix + item.work}
-              />
-            </div>
-          ))
+          isWorksExist
+            ? works.map((item, index) => (
+              <div key={index} className={b(`works-row`)}>
+                <RowComponent item={item} />
+                <Controls01
+                  rating={item.rating}
+                  watchAction={() => setSelectedWork(index)}
+                  downloadLink={filePrefix + item.work}
+                />
+              </div>
+            ))
+            : null
         }
         {
           isLoading && (
